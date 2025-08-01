@@ -1,0 +1,66 @@
+name: surf_flutter_summer_school_2025
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  auto_route: 10.1.0+1
+  cached_network_image: 3.4.1
+  collection: 1.19.1
+  cupertino_icons: 1.0.8
+  dio: 5.8.0+1
+  drift: 2.27.0
+  drift_flutter: 0.2.4
+  elementary: 3.2.1
+  flutter:
+    sdk: flutter
+  flutter_svg: 2.2.0
+  freezed: 3.1.0
+  freezed_annotation: 3.1.0
+  json_annotation: 4.9.0
+  logger: 2.6.1
+  nested: 1.0.0
+  path: 1.9.1
+  path_provider: 2.1.5
+  provider: 6.1.5
+  retrofit: 4.6.0
+  rxdart: 0.28.0
+  shared_preferences: 2.5.3
+  sqlite3_flutter_libs: 0.5.34
+  surf_lint_rules: 4.0.0
+  surf_logger: 2.0.2
+  theme_tailor_annotation: 3.0.2
+
+dev_dependencies:
+  auto_route_generator: 10.2.3
+  build_runner: 2.5.4
+  drift_dev: 2.27.0
+  flutter_lints: 5.0.0
+  flutter_test:
+    sdk: flutter
+  json_serializable: 6.9.5
+  retrofit_generator: 9.6.0
+  theme_tailor: 3.0.3
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icons/
+    - assets/icons/catalog/
+    - assets/images/
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Roboto-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Roboto-Bold.ttf
+          weight: 700
+

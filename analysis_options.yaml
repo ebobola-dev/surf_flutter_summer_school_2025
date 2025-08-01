@@ -1,0 +1,9 @@
+include: package:surf_lint_rules/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - lib/**/*.g.dart
+
+formatter:
+  page_width: 120
+  trailing_commas: preserve
