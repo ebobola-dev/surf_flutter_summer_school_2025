@@ -28,11 +28,7 @@ abstract class AppThemeData {
     ),
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: _lightColorScheme.background,
-      indicatorColor: _lightColorScheme.primary,
-      iconTheme: WidgetStateProperty.fromMap({
-        WidgetState.selected: IconThemeData(color: _lightColorScheme.onPrimary),
-        WidgetState.any: IconThemeData(color: _lightColorScheme.onBackground),
-      }),
+      indicatorColor: Colors.transparent,
     ),
     snackBarTheme: SnackBarThemeData(
       backgroundColor: _lightColorScheme.primary,
@@ -76,11 +72,6 @@ abstract class AppThemeData {
     ),
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: _darkColorScheme.background,
-      indicatorColor: _darkColorScheme.primary,
-      iconTheme: WidgetStateProperty.fromMap({
-        WidgetState.selected: IconThemeData(color: _darkColorScheme.onPrimary),
-        WidgetState.any: IconThemeData(color: _darkColorScheme.onBackground),
-      }),
     ),
     snackBarTheme: SnackBarThemeData(
       backgroundColor: _darkColorScheme.primary,

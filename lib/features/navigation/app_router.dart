@@ -18,7 +18,6 @@ class AppRouter extends RootStackRouter {
       page: TabsRoute.page,
       path: AppRoutePaths.tabs,
       initial: true,
-      children: [],
     ),
   ];
 }
