@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:surf_flutter_summer_school_2025/features/theme_mode/domain/repositories/i_theme_mode_repository.dart';
-import 'package:surf_flutter_summer_school_2025/persistence/theme_mode/i_theme_storage.dart';
+import 'package:surf_flutter_summer_school_2025/persistence/storage/theme_mode/i_theme_storage.dart';
 
 /// {@template theme_repository.class}
 /// Implementation of [IThemeModeRepository].

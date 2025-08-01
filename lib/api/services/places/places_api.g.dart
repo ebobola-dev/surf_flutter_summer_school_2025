@@ -76,18 +76,17 @@ class _PlacesApi implements PlacesApi {
   }
 
   @override
-  Future<SearchResultDto> search(
-    String query,
-    String? limit,
-    String? offset,
-  ) async {
+  Future<SearchResultDto> search({
+    required String query,
+    int offset = 0,
+    int limit = 10,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'q': query,
-      r'limit': limit,
       r'offset': offset,
+      r'limit': limit,
     };
-    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<SearchResultDto>(

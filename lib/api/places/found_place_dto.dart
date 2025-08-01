@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:surf_flutter_summer_school_2025/api/places/place_dto.dart';
 
 part 'found_place_dto.g.dart';
 
@@ -6,7 +7,7 @@ part 'found_place_dto.g.dart';
 class FoundPlaceDto {
   final double relevanceScore;
 
-  final FoundPlaceDto place;
+  final PlaceDto place;
 
   const FoundPlaceDto({
     required this.relevanceScore,

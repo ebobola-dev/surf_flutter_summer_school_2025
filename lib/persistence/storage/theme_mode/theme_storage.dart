@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:surf_flutter_summer_school_2025/persistence/theme_mode/i_theme_storage.dart';
+import 'package:surf_flutter_summer_school_2025/persistence/storage/theme_mode/i_theme_storage.dart';
 
 /// Persistent storage for theme mode.
 ///

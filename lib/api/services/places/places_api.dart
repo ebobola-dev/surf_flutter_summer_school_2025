@@ -16,9 +16,9 @@ abstract class PlacesApi {
   Future<PlaceDto> fetchOne(@Path('id') int placeId);
 
   @GET('/search')
-  Future<SearchResultDto> search(
-    @Query('q') String query,
-    @Query('limit') String? limit,
-    @Query('offset') String? offset,
-  );
+  Future<SearchResultDto> search({
+    @Query('q') required String query,
+    @Query('offset') int offset = 0,
+    @Query('limit') int limit = 10,
+  });
 }

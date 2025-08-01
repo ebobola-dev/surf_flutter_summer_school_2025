@@ -5,7 +5,7 @@ import 'package:surf_flutter_summer_school_2025/common/utils/disposable_object/i
 import 'package:surf_flutter_summer_school_2025/features/app/di/app_scope.dart';
 import 'package:surf_flutter_summer_school_2025/features/theme_mode/data/repositories/theme_mode_repository.dart';
 import 'package:surf_flutter_summer_school_2025/features/theme_mode/domain/repositories/i_theme_mode_repository.dart';
-import 'package:surf_flutter_summer_school_2025/persistence/theme_mode/theme_storage.dart';
+import 'package:surf_flutter_summer_school_2025/persistence/storage/theme_mode/theme_storage.dart';
 
 /// {@template theme_scope.class}
 /// Implementation of [IThemeModeScope].

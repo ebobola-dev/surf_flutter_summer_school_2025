@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:surf_flutter_summer_school_2025/common/widgets/di_scope.dart';
 import 'package:surf_flutter_summer_school_2025/features/app/app.dart';
 import 'package:surf_flutter_summer_school_2025/features/app/di/app_scope.dart';
+import 'package:surf_flutter_summer_school_2025/features/common/di/places_scope.dart';
 import 'package:surf_flutter_summer_school_2025/features/navigation/app_router.dart';
 import 'package:surf_flutter_summer_school_2025/features/theme_mode/presentation/theme_mode_provider.dart';
 
@@ -22,6 +23,7 @@ class AppFlow extends StatelessWidget {
         DiScope<IAppScope>(factory: (_) => appScope),
         ChangeNotifierProvider<AppRouter>(create: (_) => AppRouter()),
         const ThemeModeProvider(),
+        DiScope<IPlacesScope>(factory: PlacesScope.create),
       ],
       child: const App(),
     );

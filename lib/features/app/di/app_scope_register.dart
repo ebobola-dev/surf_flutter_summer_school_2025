@@ -7,6 +7,7 @@ import 'package:surf_flutter_summer_school_2025/common/utils/logger/log_writer.d
 import 'package:surf_flutter_summer_school_2025/common/utils/logger/strategies/debug_log_strategy.dart';
 import 'package:surf_flutter_summer_school_2025/config/app_config.dart';
 import 'package:surf_flutter_summer_school_2025/features/app/di/app_scope.dart';
+import 'package:surf_flutter_summer_school_2025/persistence/databse/persistent_database.dart';
 import 'package:surf_logger/surf_logger.dart' as surf_logger;
 
 /// {@template app_scope_register.class}
@@ -19,6 +20,8 @@ final class AppScopeRegister {
   /// Create scope.
   Future<IAppScope> createScope() async {
     final sharedPreferences = await SharedPreferences.getInstance();
+    final persistentDatabase = PersistentDatabase();
+
     final appConfig = AppConfig(apiUrl: 'http://109.73.206.134:8888/api');
 
     const dioConfigurator = AppDioConfigurator();
@@ -45,6 +48,7 @@ final class AppScopeRegister {
     return AppScope(
       appConfig: appConfig,
       sharedPreferences: sharedPreferences,
+      persistentDatabase: persistentDatabase,
       dio: dio,
       logger: logger,
     );

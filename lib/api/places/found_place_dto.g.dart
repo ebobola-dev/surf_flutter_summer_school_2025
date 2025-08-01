@@ -9,5 +9,5 @@ part of 'found_place_dto.dart';
 FoundPlaceDto _$FoundPlaceDtoFromJson(Map<String, dynamic> json) =>
     FoundPlaceDto(
       relevanceScore: (json['relevanceScore'] as num).toDouble(),
-      place: FoundPlaceDto.fromJson(json['place'] as Map<String, dynamic>),
+      place: PlaceDto.fromJson(json['place'] as Map<String, dynamic>),
     );
