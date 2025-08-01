@@ -1,4 +1,4 @@
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/failure/failure.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/failure/failure.dart';
 
 /// Type for data mapper function.
 typedef DataMapper<R, TData> = R Function(TData value);

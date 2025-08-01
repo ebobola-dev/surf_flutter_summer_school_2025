@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/failure/failure.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/failure/failure.dart';
 
 base class ApiFailure extends Failure<DioException> {
   final int? statusCode;

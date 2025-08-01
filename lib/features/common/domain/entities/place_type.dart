@@ -1,32 +1,35 @@
 /// Типы мест.
 enum PlaceTypeEntity {
   /// Другое.
-  other,
+  other('другое'),
 
   /// Парк.
-  park,
+  park('парк'),
 
   /// Памятник.
-  monument,
+  monument('памятник'),
 
   /// Театр.
-  theatre,
+  theatre('театр'),
 
   /// Музей.
-  museum,
+  museum('музей'),
 
   /// Храм.
-  temple,
+  temple('храм'),
 
   /// Отель.
-  hotel,
+  hotel('отель'),
 
   /// Ресторан.
-  restaurant,
+  restaurant('ресторан'),
 
   /// Кафе.
-  cafe,
+  cafe('кафе'),
 
   /// Магазин.
-  shopping,
+  shopping('магазин');
+
+  final String ruName;
+  const PlaceTypeEntity(this.ruName);
 }

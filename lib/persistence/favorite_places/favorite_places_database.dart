@@ -1,4 +1,4 @@
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/failure/database/not_found.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/failure/database/not_found.dart';
 import 'package:surf_flutter_summer_school_2025/persistence/databse/persistent_database.dart';
 import 'package:surf_flutter_summer_school_2025/persistence/favorite_places/i_favorite_places_database.dart';
 

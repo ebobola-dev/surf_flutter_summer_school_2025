@@ -62,12 +62,12 @@ abstract class SortedMap<TID, TData> with _$SortedMap<TID, TData> {
 
   int get length => data.length;
 
-  TData? operator [](int index) {
+  TData? operator [](TID id) => data[id];
+
+  TData? getByIndex(int index) {
     final id = idOrderedList[index];
     return data[id];
   }
-
-  TData? getById(TID id) => data[id];
 
   bool get isEmpty => data.isEmpty;
 

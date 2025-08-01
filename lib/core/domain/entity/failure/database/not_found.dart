@@ -1,4 +1,4 @@
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/failure/database/database_failure.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/failure/database/database_failure.dart';
 
 final class RecordNotFound extends DatabaseFailure {
   const RecordNotFound({

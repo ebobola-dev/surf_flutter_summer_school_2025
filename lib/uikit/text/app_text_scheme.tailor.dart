@@ -16,6 +16,7 @@ mixin _$AppTextSchemeTailorMixin on ThemeExtension<AppTextScheme> {
   TextStyle get smallBold;
   TextStyle get subtitle;
   TextStyle get superSmall;
+  TextStyle get textMedium;
   TextStyle get text;
   TextStyle get title;
 
@@ -27,6 +28,7 @@ mixin _$AppTextSchemeTailorMixin on ThemeExtension<AppTextScheme> {
     TextStyle? smallBold,
     TextStyle? subtitle,
     TextStyle? superSmall,
+    TextStyle? textMedium,
     TextStyle? text,
     TextStyle? title,
   }) {
@@ -37,6 +39,7 @@ mixin _$AppTextSchemeTailorMixin on ThemeExtension<AppTextScheme> {
       smallBold: smallBold ?? this.smallBold,
       subtitle: subtitle ?? this.subtitle,
       superSmall: superSmall ?? this.superSmall,
+      textMedium: textMedium ?? this.textMedium,
       text: text ?? this.text,
       title: title ?? this.title,
     );
@@ -52,6 +55,7 @@ mixin _$AppTextSchemeTailorMixin on ThemeExtension<AppTextScheme> {
       smallBold: TextStyle.lerp(smallBold, other.smallBold, t)!,
       subtitle: TextStyle.lerp(subtitle, other.subtitle, t)!,
       superSmall: TextStyle.lerp(superSmall, other.superSmall, t)!,
+      textMedium: TextStyle.lerp(textMedium, other.textMedium, t)!,
       text: TextStyle.lerp(text, other.text, t)!,
       title: TextStyle.lerp(title, other.title, t)!,
     );
@@ -74,6 +78,10 @@ mixin _$AppTextSchemeTailorMixin on ThemeExtension<AppTextScheme> {
               superSmall,
               other.superSmall,
             ) &&
+            const DeepCollectionEquality().equals(
+              textMedium,
+              other.textMedium,
+            ) &&
             const DeepCollectionEquality().equals(text, other.text) &&
             const DeepCollectionEquality().equals(title, other.title));
   }
@@ -88,6 +96,7 @@ mixin _$AppTextSchemeTailorMixin on ThemeExtension<AppTextScheme> {
       const DeepCollectionEquality().hash(smallBold),
       const DeepCollectionEquality().hash(subtitle),
       const DeepCollectionEquality().hash(superSmall),
+      const DeepCollectionEquality().hash(textMedium),
       const DeepCollectionEquality().hash(text),
       const DeepCollectionEquality().hash(title),
     );

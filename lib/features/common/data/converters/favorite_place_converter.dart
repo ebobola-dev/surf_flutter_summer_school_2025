@@ -1,6 +1,6 @@
-import 'dart:convert';
+import 'dart:convert' show jsonDecode;
 
-import 'package:surf_flutter_summer_school_2025/core/architecture/data/converter/converter.dart';
+import 'package:surf_flutter_summer_school_2025/core/data/converter/converter.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/data/converters/place_type_converter.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/favorite_place.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/place.dart';

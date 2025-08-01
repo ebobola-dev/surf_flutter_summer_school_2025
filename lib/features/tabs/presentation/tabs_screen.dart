@@ -19,15 +19,19 @@ class TabsScreen extends ElementaryWidget<ITabsWM> {
   Widget build(ITabsWM wm) {
     return Scaffold(
       body: SafeArea(
-        child: PageView(
-          controller: wm.pageController,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            PlacesScreen(),
-            MapScreen(),
-            FavoritePlacesScreen(),
-            SettingsScreen(),
-          ],
+        child: ValueListenableBuilder(
+          valueListenable: wm.currentPage,
+          builder: (_, currentPage, _) {
+            return IndexedStack(
+              index: currentPage,
+              children: [
+                const PlacesScreen(),
+                const MapScreen(),
+                const FavoritePlacesScreen(),
+                const SettingsScreen(),
+              ],
+            );
+          },
         ),
       ),
       bottomNavigationBar: NavBarWidget(wm: wm),

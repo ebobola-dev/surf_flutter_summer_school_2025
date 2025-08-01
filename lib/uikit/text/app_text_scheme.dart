@@ -19,6 +19,8 @@ class AppTextScheme extends ThemeExtension<AppTextScheme> with _$AppTextSchemeTa
   @override
   final TextStyle superSmall;
   @override
+  final TextStyle textMedium;
+  @override
   final TextStyle text;
   @override
   final TextStyle title;
@@ -27,6 +29,7 @@ class AppTextScheme extends ThemeExtension<AppTextScheme> with _$AppTextSchemeTa
     required this.largeTitle,
     required this.title,
     required this.subtitle,
+    required this.textMedium,
     required this.text,
     required this.smallBold,
     required this.small,
@@ -38,6 +41,7 @@ class AppTextScheme extends ThemeExtension<AppTextScheme> with _$AppTextSchemeTa
     : largeTitle = AppTextStyle.largeTitle.value,
       title = AppTextStyle.title.value,
       subtitle = AppTextStyle.subtitle.value,
+      textMedium = AppTextStyle.textMedium.value,
       text = AppTextStyle.text.value,
       smallBold = AppTextStyle.smallBold.value,
       small = AppTextStyle.small.value,

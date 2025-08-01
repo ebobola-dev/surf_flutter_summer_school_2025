@@ -1,4 +1,4 @@
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/request_operation.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/request_operation.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/favorite_place.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/place.dart';
 

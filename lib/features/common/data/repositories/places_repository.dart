@@ -1,8 +1,8 @@
 import 'package:surf_flutter_summer_school_2025/api/services/places/places_api.dart';
-import 'package:surf_flutter_summer_school_2025/core/architecture/data/repository/base_repository.dart';
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/failure/failure.dart';
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/request_operation.dart';
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/result.dart';
+import 'package:surf_flutter_summer_school_2025/core/data/repository/base_repository.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/failure/failure.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/request_operation.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/result.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/data/converters/favorite_place_converter.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/data/converters/place_converter.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/favorite_place.dart';

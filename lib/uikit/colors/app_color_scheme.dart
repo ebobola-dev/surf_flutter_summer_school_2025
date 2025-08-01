@@ -72,7 +72,7 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> with _$AppColorSchem
       onDanger = const Color(0xFFFFFFFF),
       textField = const Color(0xFF171717),
       white = const Color(0xFFFFFFFF),
-      inactiveBlack = Color(0xFFFFFFFF).withAlpha(22),
+      inactiveBlack = Color(0xFF7C7E92).withAlpha(140),
       text = const Color(0xFF252849),
       textSecondary = const Color(0xFF3B335B),
       textTertiary = const Color(0xFF7C7392);
@@ -91,7 +91,7 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> with _$AppColorSchem
       onDanger = const Color(0xFFFFFFFF),
       textField = const Color(0xFFD6D6D6),
       white = const Color(0xFFFFFFFF),
-      inactiveBlack = Color(0xFFFFFFFF).withAlpha(22),
+      inactiveBlack = Color(0xFF7C7E92).withAlpha(140),
       text = const Color(0xFFFFFFFF),
       textSecondary = const Color(0xFFFFFFFF),
       textTertiary = const Color(0xFF7C7392);

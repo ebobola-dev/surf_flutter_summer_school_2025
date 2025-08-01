@@ -9,9 +9,7 @@ part of 'places_api.dart';
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
 
 class _PlacesApi implements PlacesApi {
-  _PlacesApi(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= '/places';
-  }
+  _PlacesApi(this._dio, {this.baseUrl, this.errorLogger});
 
   final Dio _dio;
 
@@ -29,7 +27,7 @@ class _PlacesApi implements PlacesApi {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/',
+            '/places',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -58,7 +56,7 @@ class _PlacesApi implements PlacesApi {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/${placeId}',
+            '/places/${placeId}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -93,7 +91,7 @@ class _PlacesApi implements PlacesApi {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/search',
+            '/places/search',
             queryParameters: queryParameters,
             data: _data,
           )

@@ -1,10 +1,10 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/foundation.dart';
 import 'package:surf_flutter_summer_school_2025/common/utils/logger/i_log_writer.dart';
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/failure/failure.dart';
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/request_call.dart';
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/request_operation.dart';
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/result.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/failure/failure.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/request_call.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/request_operation.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/result.dart';
 
 /// {@template base_model.class}
 /// Base class for all [ElementaryModel]s in the application.

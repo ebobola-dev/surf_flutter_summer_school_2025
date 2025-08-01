@@ -5,17 +5,17 @@ import 'package:surf_flutter_summer_school_2025/api/places/search_result_dto.dar
 
 part 'places_api.g.dart';
 
-@RestApi(baseUrl: '/places')
+@RestApi()
 abstract class PlacesApi {
   factory PlacesApi(Dio dio, {String baseUrl}) = _PlacesApi;
 
-  @GET('/')
+  @GET('/places')
   Future<List<PlaceDto>> fetchAll();
 
-  @GET('/{id}')
+  @GET('/places/{id}')
   Future<PlaceDto> fetchOne(@Path('id') int placeId);
 
-  @GET('/search')
+  @GET('/places/search')
   Future<SearchResultDto> search({
     @Query('q') required String query,
     @Query('offset') int offset = 0,

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:surf_flutter_summer_school_2025/core/architecture/presentation/base_model.dart';
+import 'package:surf_flutter_summer_school_2025/core/presentation/base_model.dart';
 import 'package:surf_flutter_summer_school_2025/features/theme_mode/domain/repositories/i_theme_mode_repository.dart';
 import 'package:surf_flutter_summer_school_2025/features/theme_mode/presentation/theme_mode_widget.dart';
 

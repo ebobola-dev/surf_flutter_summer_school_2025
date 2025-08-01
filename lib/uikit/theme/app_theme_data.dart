@@ -46,6 +46,7 @@ abstract class AppThemeData {
         ),
       ),
     ),
+    dividerTheme: DividerThemeData(color: _lightColorScheme.inactiveBlack),
   );
 
   /// Dark theme configuration.
@@ -89,6 +90,7 @@ abstract class AppThemeData {
         ),
       ),
     ),
+    dividerTheme: DividerThemeData(color: _darkColorScheme.inactiveBlack),
   );
 
   static final _lightColorScheme = AppColorScheme.light();

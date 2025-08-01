@@ -12,6 +12,9 @@ enum AppTextStyle {
   subtitle(
     TextStyle(fontSize: 18, fontWeight: FontWeight.w500, height: 1.33, fontFamily: _fontFamily),
   ),
+  textMedium(
+    TextStyle(fontSize: 16, fontWeight: FontWeight.w500, height: 1.25, fontFamily: _fontFamily),
+  ),
   text(
     TextStyle(fontSize: 16, fontWeight: FontWeight.w400, height: 1.25, fontFamily: _fontFamily),
   ),

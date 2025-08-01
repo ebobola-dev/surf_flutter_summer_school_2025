@@ -15,7 +15,6 @@ TabsWM defaultTabsWMFactory(BuildContext context) {
 const defaultPage = 0;
 
 abstract interface class ITabsWM with ThemeIModelMixin implements IWidgetModel {
-  PageController get pageController;
   ValueListenable<int> get currentPage;
 
   void onTabBarItemTap(int index);
@@ -24,28 +23,16 @@ abstract interface class ITabsWM with ThemeIModelMixin implements IWidgetModel {
 final class TabsWM extends WidgetModel<TabsScreen, TabsModel> with ThemeWMMixin implements ITabsWM {
   TabsWM(super._model);
 
-  @override
-  // ignore: avoid_redundant_argument_values
-  final pageController = PageController(initialPage: defaultPage);
   final _currentPage = ValueNotifier<int>(defaultPage);
 
   @override
   void dispose() {
-    pageController.dispose();
     _currentPage.dispose();
     super.dispose();
   }
 
   @override
-  void onTabBarItemTap(int index) {
-    if (_currentPage.value == index) return;
-    pageController.animateToPage(
-      index,
-      duration: const Duration(milliseconds: 200),
-      curve: Curves.easeIn,
-    );
-    _currentPage.emit(index);
-  }
+  void onTabBarItemTap(int index) => _currentPage.emit(index);
 
   @override
   ValueListenable<int> get currentPage => _currentPage;

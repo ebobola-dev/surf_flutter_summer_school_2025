@@ -1,5 +1,5 @@
 import 'package:surf_flutter_summer_school_2025/common/utils/logger/i_log_writer.dart';
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/failure/failure.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/failure/failure.dart';
 import 'package:surf_logger/surf_logger.dart' as surf_logger;
 
 /// {@template log_writer.class}

@@ -2,10 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:surf_flutter_summer_school_2025/api/services/errors/error_response_dto.dart';
 import 'package:surf_flutter_summer_school_2025/common/utils/logger/i_log_writer.dart';
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/failure/api_failure.dart';
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/failure/failure.dart';
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/request_operation.dart';
-import 'package:surf_flutter_summer_school_2025/core/architecture/domain/entity/result.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/failure/api_failure.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/failure/failure.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/request_operation.dart';
+import 'package:surf_flutter_summer_school_2025/core/domain/entity/result.dart';
 
 typedef RequestOperationCallback<T> = RequestOperation<T> Function();
 
@@ -31,9 +31,9 @@ abstract base class BaseRepository {
     } on DioException catch (e, s) {
       failureResult = Result.failed(unwrapDioException(e, trace: s));
     } on Failure catch (e, s) {
-      return Result.failed(Failure(message: 'Unknown failure', stackTrace: s));
+      return Result.failed(Failure(original: e, stackTrace: s));
     } on Object catch (e, s) {
-      failureResult = Result.failed(Failure(message: 'Unknown failure', stackTrace: s));
+      failureResult = Result.failed(Failure(original: e, stackTrace: s));
     }
 
     if (failureResult case ResultFailed(:final failure)) {
@@ -43,14 +43,15 @@ abstract base class BaseRepository {
     return failureResult;
   }
 
+  /// Маппинг ошибки API.
   @protected
   ApiFailure unwrapDioException(DioException exception, {required StackTrace trace}) {
     switch (exception.type) {
       case DioExceptionType.connectionTimeout:
         return ApiFailure(
-          errorMessage: 'Server Not Responding',
           original: exception,
           stackTrace: trace,
+          errorMessage: 'Server not responding',
         );
       case DioExceptionType.sendTimeout ||
           DioExceptionType.receiveTimeout ||
@@ -58,9 +59,9 @@ abstract base class BaseRepository {
           DioExceptionType.connectionTimeout ||
           DioExceptionType.connectionError:
         return ApiFailure(
-          errorMessage: 'No network connection',
           original: exception,
           stackTrace: trace,
+          errorMessage: 'No network connection',
         );
       case DioExceptionType.badResponse:
         final statusCode = exception.response?.statusCode;
@@ -76,17 +77,17 @@ abstract base class BaseRepository {
 
         if (statusCode == 400) {
           return ApiFailure(
-            errorMessage: errorResponse?.detail ?? 'No message',
             original: exception,
             stackTrace: trace,
+            errorMessage: errorResponse?.detail ?? 'No message',
           );
         }
         if (statusCode == 429) {
           try {
             return ApiFailure(
-              errorMessage: errorResponse?.detail ?? 'Too many requests',
               original: exception,
               stackTrace: trace,
+              errorMessage: errorResponse?.detail ?? 'Too many requests',
             );
           } on Object catch (e, s) {
             _logFailure(Failure(original: e, stackTrace: s));
@@ -94,23 +95,23 @@ abstract base class BaseRepository {
         }
         if (statusCode == 401) {
           return ApiFailure(
-            errorMessage: 'Unauthorized',
             original: exception,
             stackTrace: trace,
+            errorMessage: 'Unauthorized',
           );
         }
         if (statusCode == 500) {
           return ApiFailure(
-            errorMessage: 'Internal server error',
             original: exception,
             stackTrace: trace,
+            errorMessage: errorResponse?.detail ?? 'Internal server error',
           );
         }
         if (statusCode == 404) {
           return ApiFailure(
-            errorMessage: errorResponse?.detail ?? 'Not found',
             original: exception,
             stackTrace: trace,
+            errorMessage: errorResponse?.detail ?? 'Not found',
           );
         }
 
