@@ -11,6 +11,53 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [FilterScreen]
+class FilterRoute extends PageRouteInfo<FilterRouteArgs> {
+  FilterRoute({
+    required FilterSettings initialSettings,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+         FilterRoute.name,
+         args: FilterRouteArgs(initialSettings: initialSettings, key: key),
+         initialChildren: children,
+       );
+
+  static const String name = 'FilterRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<FilterRouteArgs>();
+      return FilterScreen(initialSettings: args.initialSettings, key: args.key);
+    },
+  );
+}
+
+class FilterRouteArgs {
+  const FilterRouteArgs({required this.initialSettings, this.key});
+
+  final FilterSettings initialSettings;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'FilterRouteArgs{initialSettings: $initialSettings, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! FilterRouteArgs) return false;
+    return initialSettings == other.initialSettings && key == other.key;
+  }
+
+  @override
+  int get hashCode => initialSettings.hashCode ^ key.hashCode;
+}
+
+/// generated route for
 /// [TabsScreen]
 class TabsRoute extends PageRouteInfo<TabsRouteArgs> {
   TabsRoute({

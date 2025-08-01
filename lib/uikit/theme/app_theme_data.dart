@@ -21,8 +21,8 @@ abstract class AppThemeData {
       onSurface: _lightColorScheme.onSurface,
     ),
     appBarTheme: AppBarTheme(
-      color: _lightColorScheme.primary,
-      iconTheme: IconThemeData(color: _lightColorScheme.onPrimary),
+      color: _lightColorScheme.background,
+      iconTheme: IconThemeData(color: _lightColorScheme.onBackground),
       centerTitle: true,
       titleTextStyle: _textScheme.subtitle.copyWith(color: _lightColorScheme.onPrimary),
     ),
@@ -40,13 +40,24 @@ abstract class AppThemeData {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        textStyle: _textScheme.button.copyWith(decoration: TextDecoration.underline),
+        textStyle: _textScheme.textMedium,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusGeometry.circular(12),
         ),
       ),
     ),
     dividerTheme: DividerThemeData(color: _lightColorScheme.inactiveBlack),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        textStyle: _textScheme.button,
+        backgroundColor: _lightColorScheme.primary,
+        foregroundColor: _lightColorScheme.onPrimary,
+        padding: EdgeInsets.symmetric(vertical: 20),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.circular(12),
+        ),
+      ),
+    ),
   );
 
   /// Dark theme configuration.
@@ -66,8 +77,8 @@ abstract class AppThemeData {
     ),
     scaffoldBackgroundColor: _darkColorScheme.background,
     appBarTheme: AppBarTheme(
-      color: _darkColorScheme.primary,
-      iconTheme: IconThemeData(color: _darkColorScheme.onPrimary),
+      color: _darkColorScheme.background,
+      iconTheme: IconThemeData(color: _darkColorScheme.onBackground),
       centerTitle: true,
       titleTextStyle: _textScheme.subtitle.copyWith(color: _darkColorScheme.onPrimary),
     ),
@@ -84,13 +95,24 @@ abstract class AppThemeData {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        textStyle: _textScheme.button.copyWith(decoration: TextDecoration.underline),
+        textStyle: _textScheme.textMedium,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusGeometry.circular(12),
         ),
       ),
     ),
     dividerTheme: DividerThemeData(color: _darkColorScheme.inactiveBlack),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        textStyle: _textScheme.button,
+        backgroundColor: _darkColorScheme.primary,
+        foregroundColor: _darkColorScheme.onPrimary,
+        padding: EdgeInsets.symmetric(vertical: 20),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.circular(12),
+        ),
+      ),
+    ),
   );
 
   static final _lightColorScheme = AppColorScheme.light();

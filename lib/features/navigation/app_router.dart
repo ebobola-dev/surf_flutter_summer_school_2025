@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/widgets.dart';
+import 'package:surf_flutter_summer_school_2025/features/filter/domain/entities/filters.dart';
+import 'package:surf_flutter_summer_school_2025/features/filter/presentation/filter_screen.dart';
 import 'package:surf_flutter_summer_school_2025/features/navigation/app_route_paths.dart';
 import 'package:surf_flutter_summer_school_2025/features/tabs/presentation/tabs_screen.dart';
 import 'package:surf_flutter_summer_school_2025/features/tabs/presentation/tabs_wm.dart';
@@ -21,6 +23,10 @@ class AppRouter extends RootStackRouter {
       page: TabsRoute.page,
       path: AppRoutePaths.tabs,
       initial: true,
+    ),
+    AutoRoute(
+      page: FilterRoute.page,
+      path: AppRoutePaths.filters,
     ),
   ];
 }

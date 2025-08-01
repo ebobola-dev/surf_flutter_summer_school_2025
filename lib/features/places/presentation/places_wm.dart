@@ -9,17 +9,21 @@ import 'package:surf_flutter_summer_school_2025/core/domain/entity/sorted_map.da
 import 'package:surf_flutter_summer_school_2025/features/app/di/app_scope.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/di/places_scope.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/favorite_place.dart';
+import 'package:surf_flutter_summer_school_2025/features/filter/domain/entities/filters.dart';
+import 'package:surf_flutter_summer_school_2025/features/navigation/app_router.dart';
 import 'package:surf_flutter_summer_school_2025/features/places/presentation/places_model.dart';
 import 'package:surf_flutter_summer_school_2025/features/places/presentation/places_screen.dart';
 
 PlacesWM defaultPlacesWMFactory(BuildContext context) {
   final appScope = context.read<IAppScope>();
   final placesScope = context.read<IPlacesScope>();
+  final appRouter = context.read<AppRouter>();
   return PlacesWM(
     PlacesModel(
       logWriter: appScope.logger,
       placesRepository: placesScope.placesRepository,
     ),
+    appRouter: appRouter,
   );
 }
 
@@ -36,13 +40,18 @@ abstract interface class IPlacesWM with ThemeIModelMixin implements IWidgetModel
 }
 
 final class PlacesWM extends WidgetModel<PlacesScreen, PlacesModel> with ThemeWMMixin implements IPlacesWM {
-  PlacesWM(super._model);
+  PlacesWM(
+    super._model, {
+    required AppRouter appRouter,
+  }) : _appRouter = appRouter;
 
+  final AppRouter _appRouter;
   @override
   final scrollController = ScrollController();
   @override
   final searchTextController = TextEditingController();
   late final StreamSubscription<String> _errorSubscription;
+  final FilterSettings _filters = FilterSettings.base();
 
   @override
   void initWidgetModel() {
@@ -90,7 +99,7 @@ final class PlacesWM extends WidgetModel<PlacesScreen, PlacesModel> with ThemeWM
 
   @override
   void onFilterTap() {
-    model.logWriter.log('tap on filter');
+    _appRouter.push(FilterRoute(initialSettings: _filters));
   }
 
   void _errorListener(String error) {
