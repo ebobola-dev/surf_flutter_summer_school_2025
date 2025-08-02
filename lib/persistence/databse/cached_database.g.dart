@@ -3,12 +3,12 @@
 part of 'cached_database.dart';
 
 // ignore_for_file: type=lint
-class $PlaceTypesTableTable extends PlaceTypesTable
-    with TableInfo<$PlaceTypesTableTable, PlaceTypeSchema> {
+class $CachedPlaceTypesTableTable extends CachedPlaceTypesTable
+    with TableInfo<$CachedPlaceTypesTableTable, CachedPlaceTypeSchema> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $PlaceTypesTableTable(this.attachedDatabase, [this._alias]);
+  $CachedPlaceTypesTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
@@ -24,10 +24,10 @@ class $PlaceTypesTableTable extends PlaceTypesTable
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'place_types_table';
+  static const String $name = 'cached_place_types_table';
   @override
   VerificationContext validateIntegrity(
-    Insertable<PlaceTypeSchema> instance, {
+    Insertable<CachedPlaceTypeSchema> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -46,9 +46,9 @@ class $PlaceTypesTableTable extends PlaceTypesTable
   @override
   Set<GeneratedColumn> get $primaryKey => {name};
   @override
-  PlaceTypeSchema map(Map<String, dynamic> data, {String? tablePrefix}) {
+  CachedPlaceTypeSchema map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return PlaceTypeSchema(
+    return CachedPlaceTypeSchema(
       name: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}name'],
@@ -57,14 +57,15 @@ class $PlaceTypesTableTable extends PlaceTypesTable
   }
 
   @override
-  $PlaceTypesTableTable createAlias(String alias) {
-    return $PlaceTypesTableTable(attachedDatabase, alias);
+  $CachedPlaceTypesTableTable createAlias(String alias) {
+    return $CachedPlaceTypesTableTable(attachedDatabase, alias);
   }
 }
 
-class PlaceTypeSchema extends DataClass implements Insertable<PlaceTypeSchema> {
+class CachedPlaceTypeSchema extends DataClass
+    implements Insertable<CachedPlaceTypeSchema> {
   final String name;
-  const PlaceTypeSchema({required this.name});
+  const CachedPlaceTypeSchema({required this.name});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -72,16 +73,18 @@ class PlaceTypeSchema extends DataClass implements Insertable<PlaceTypeSchema> {
     return map;
   }
 
-  PlaceTypesTableCompanion toCompanion(bool nullToAbsent) {
-    return PlaceTypesTableCompanion(name: Value(name));
+  CachedPlaceTypesTableCompanion toCompanion(bool nullToAbsent) {
+    return CachedPlaceTypesTableCompanion(name: Value(name));
   }
 
-  factory PlaceTypeSchema.fromJson(
+  factory CachedPlaceTypeSchema.fromJson(
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return PlaceTypeSchema(name: serializer.fromJson<String>(json['name']));
+    return CachedPlaceTypeSchema(
+      name: serializer.fromJson<String>(json['name']),
+    );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
@@ -89,17 +92,17 @@ class PlaceTypeSchema extends DataClass implements Insertable<PlaceTypeSchema> {
     return <String, dynamic>{'name': serializer.toJson<String>(name)};
   }
 
-  PlaceTypeSchema copyWith({String? name}) =>
-      PlaceTypeSchema(name: name ?? this.name);
-  PlaceTypeSchema copyWithCompanion(PlaceTypesTableCompanion data) {
-    return PlaceTypeSchema(
+  CachedPlaceTypeSchema copyWith({String? name}) =>
+      CachedPlaceTypeSchema(name: name ?? this.name);
+  CachedPlaceTypeSchema copyWithCompanion(CachedPlaceTypesTableCompanion data) {
+    return CachedPlaceTypeSchema(
       name: data.name.present ? data.name.value : this.name,
     );
   }
 
   @override
   String toString() {
-    return (StringBuffer('PlaceTypeSchema(')
+    return (StringBuffer('CachedPlaceTypeSchema(')
           ..write('name: $name')
           ..write(')'))
         .toString();
@@ -110,21 +113,22 @@ class PlaceTypeSchema extends DataClass implements Insertable<PlaceTypeSchema> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is PlaceTypeSchema && other.name == this.name);
+      (other is CachedPlaceTypeSchema && other.name == this.name);
 }
 
-class PlaceTypesTableCompanion extends UpdateCompanion<PlaceTypeSchema> {
+class CachedPlaceTypesTableCompanion
+    extends UpdateCompanion<CachedPlaceTypeSchema> {
   final Value<String> name;
   final Value<int> rowid;
-  const PlaceTypesTableCompanion({
+  const CachedPlaceTypesTableCompanion({
     this.name = const Value.absent(),
     this.rowid = const Value.absent(),
   });
-  PlaceTypesTableCompanion.insert({
+  CachedPlaceTypesTableCompanion.insert({
     required String name,
     this.rowid = const Value.absent(),
   }) : name = Value(name);
-  static Insertable<PlaceTypeSchema> custom({
+  static Insertable<CachedPlaceTypeSchema> custom({
     Expression<String>? name,
     Expression<int>? rowid,
   }) {
@@ -134,8 +138,11 @@ class PlaceTypesTableCompanion extends UpdateCompanion<PlaceTypeSchema> {
     });
   }
 
-  PlaceTypesTableCompanion copyWith({Value<String>? name, Value<int>? rowid}) {
-    return PlaceTypesTableCompanion(
+  CachedPlaceTypesTableCompanion copyWith({
+    Value<String>? name,
+    Value<int>? rowid,
+  }) {
+    return CachedPlaceTypesTableCompanion(
       name: name ?? this.name,
       rowid: rowid ?? this.rowid,
     );
@@ -155,7 +162,7 @@ class PlaceTypesTableCompanion extends UpdateCompanion<PlaceTypeSchema> {
 
   @override
   String toString() {
-    return (StringBuffer('PlaceTypesTableCompanion(')
+    return (StringBuffer('CachedPlaceTypesTableCompanion(')
           ..write('name: $name, ')
           ..write('rowid: $rowid')
           ..write(')'))
@@ -163,12 +170,12 @@ class PlaceTypesTableCompanion extends UpdateCompanion<PlaceTypeSchema> {
   }
 }
 
-class $PlacesTableTable extends PlacesTable
-    with TableInfo<$PlacesTableTable, PlaceSchema> {
+class $CachedPlacesTableTable extends CachedPlacesTable
+    with TableInfo<$CachedPlacesTableTable, CachedPlaceSchema> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $PlacesTableTable(this.attachedDatabase, [this._alias]);
+  $CachedPlacesTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -238,7 +245,7 @@ class $PlacesTableTable extends PlacesTable
     type: DriftSqlType.string,
     requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES place_types_table (name)',
+      'REFERENCES cached_place_types_table (name)',
     ),
   );
   @override
@@ -255,10 +262,10 @@ class $PlacesTableTable extends PlacesTable
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'places_table';
+  static const String $name = 'cached_places_table';
   @override
   VerificationContext validateIntegrity(
-    Insertable<PlaceSchema> instance, {
+    Insertable<CachedPlaceSchema> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -326,9 +333,9 @@ class $PlacesTableTable extends PlacesTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  PlaceSchema map(Map<String, dynamic> data, {String? tablePrefix}) {
+  CachedPlaceSchema map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return PlaceSchema(
+    return CachedPlaceSchema(
       id: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}id'],
@@ -361,12 +368,13 @@ class $PlacesTableTable extends PlacesTable
   }
 
   @override
-  $PlacesTableTable createAlias(String alias) {
-    return $PlacesTableTable(attachedDatabase, alias);
+  $CachedPlacesTableTable createAlias(String alias) {
+    return $CachedPlacesTableTable(attachedDatabase, alias);
   }
 }
 
-class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
+class CachedPlaceSchema extends DataClass
+    implements Insertable<CachedPlaceSchema> {
   final int id;
   final String name;
   final String description;
@@ -374,7 +382,7 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
   final double lat;
   final double lon;
   final String placeTypeName;
-  const PlaceSchema({
+  const CachedPlaceSchema({
     required this.id,
     required this.name,
     required this.description,
@@ -396,8 +404,8 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
     return map;
   }
 
-  PlacesTableCompanion toCompanion(bool nullToAbsent) {
-    return PlacesTableCompanion(
+  CachedPlacesTableCompanion toCompanion(bool nullToAbsent) {
+    return CachedPlacesTableCompanion(
       id: Value(id),
       name: Value(name),
       description: Value(description),
@@ -408,12 +416,12 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
     );
   }
 
-  factory PlaceSchema.fromJson(
+  factory CachedPlaceSchema.fromJson(
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return PlaceSchema(
+    return CachedPlaceSchema(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       description: serializer.fromJson<String>(json['description']),
@@ -437,7 +445,7 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
     };
   }
 
-  PlaceSchema copyWith({
+  CachedPlaceSchema copyWith({
     int? id,
     String? name,
     String? description,
@@ -445,7 +453,7 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
     double? lat,
     double? lon,
     String? placeTypeName,
-  }) => PlaceSchema(
+  }) => CachedPlaceSchema(
     id: id ?? this.id,
     name: name ?? this.name,
     description: description ?? this.description,
@@ -454,8 +462,8 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
     lon: lon ?? this.lon,
     placeTypeName: placeTypeName ?? this.placeTypeName,
   );
-  PlaceSchema copyWithCompanion(PlacesTableCompanion data) {
-    return PlaceSchema(
+  CachedPlaceSchema copyWithCompanion(CachedPlacesTableCompanion data) {
+    return CachedPlaceSchema(
       id: data.id.present ? data.id.value : this.id,
       name: data.name.present ? data.name.value : this.name,
       description: data.description.present
@@ -472,7 +480,7 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
 
   @override
   String toString() {
-    return (StringBuffer('PlaceSchema(')
+    return (StringBuffer('CachedPlaceSchema(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('description: $description, ')
@@ -490,7 +498,7 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is PlaceSchema &&
+      (other is CachedPlaceSchema &&
           other.id == this.id &&
           other.name == this.name &&
           other.description == this.description &&
@@ -500,7 +508,7 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
           other.placeTypeName == this.placeTypeName);
 }
 
-class PlacesTableCompanion extends UpdateCompanion<PlaceSchema> {
+class CachedPlacesTableCompanion extends UpdateCompanion<CachedPlaceSchema> {
   final Value<int> id;
   final Value<String> name;
   final Value<String> description;
@@ -508,7 +516,7 @@ class PlacesTableCompanion extends UpdateCompanion<PlaceSchema> {
   final Value<double> lat;
   final Value<double> lon;
   final Value<String> placeTypeName;
-  const PlacesTableCompanion({
+  const CachedPlacesTableCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.description = const Value.absent(),
@@ -517,7 +525,7 @@ class PlacesTableCompanion extends UpdateCompanion<PlaceSchema> {
     this.lon = const Value.absent(),
     this.placeTypeName = const Value.absent(),
   });
-  PlacesTableCompanion.insert({
+  CachedPlacesTableCompanion.insert({
     this.id = const Value.absent(),
     required String name,
     required String description,
@@ -531,7 +539,7 @@ class PlacesTableCompanion extends UpdateCompanion<PlaceSchema> {
        lat = Value(lat),
        lon = Value(lon),
        placeTypeName = Value(placeTypeName);
-  static Insertable<PlaceSchema> custom({
+  static Insertable<CachedPlaceSchema> custom({
     Expression<int>? id,
     Expression<String>? name,
     Expression<String>? description,
@@ -551,7 +559,7 @@ class PlacesTableCompanion extends UpdateCompanion<PlaceSchema> {
     });
   }
 
-  PlacesTableCompanion copyWith({
+  CachedPlacesTableCompanion copyWith({
     Value<int>? id,
     Value<String>? name,
     Value<String>? description,
@@ -560,7 +568,7 @@ class PlacesTableCompanion extends UpdateCompanion<PlaceSchema> {
     Value<double>? lon,
     Value<String>? placeTypeName,
   }) {
-    return PlacesTableCompanion(
+    return CachedPlacesTableCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       description: description ?? this.description,
@@ -600,7 +608,7 @@ class PlacesTableCompanion extends UpdateCompanion<PlaceSchema> {
 
   @override
   String toString() {
-    return (StringBuffer('PlacesTableCompanion(')
+    return (StringBuffer('CachedPlacesTableCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('description: $description, ')
@@ -613,7 +621,7 @@ class PlacesTableCompanion extends UpdateCompanion<PlaceSchema> {
   }
 }
 
-class PlaceViewData extends DataClass {
+class CachedPlaceViewData extends DataClass {
   final int id;
   final String name;
   final String description;
@@ -621,7 +629,7 @@ class PlaceViewData extends DataClass {
   final double lat;
   final double lon;
   final String? placeTypeName;
-  const PlaceViewData({
+  const CachedPlaceViewData({
     required this.id,
     required this.name,
     required this.description,
@@ -630,12 +638,12 @@ class PlaceViewData extends DataClass {
     required this.lon,
     this.placeTypeName,
   });
-  factory PlaceViewData.fromJson(
+  factory CachedPlaceViewData.fromJson(
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return PlaceViewData(
+    return CachedPlaceViewData(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       description: serializer.fromJson<String>(json['description']),
@@ -659,7 +667,7 @@ class PlaceViewData extends DataClass {
     };
   }
 
-  PlaceViewData copyWith({
+  CachedPlaceViewData copyWith({
     int? id,
     String? name,
     String? description,
@@ -667,7 +675,7 @@ class PlaceViewData extends DataClass {
     double? lat,
     double? lon,
     Value<String?> placeTypeName = const Value.absent(),
-  }) => PlaceViewData(
+  }) => CachedPlaceViewData(
     id: id ?? this.id,
     name: name ?? this.name,
     description: description ?? this.description,
@@ -680,7 +688,7 @@ class PlaceViewData extends DataClass {
   );
   @override
   String toString() {
-    return (StringBuffer('PlaceViewData(')
+    return (StringBuffer('CachedPlaceViewData(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('description: $description, ')
@@ -698,7 +706,7 @@ class PlaceViewData extends DataClass {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is PlaceViewData &&
+      (other is CachedPlaceViewData &&
           other.id == this.id &&
           other.name == this.name &&
           other.description == this.description &&
@@ -708,16 +716,17 @@ class PlaceViewData extends DataClass {
           other.placeTypeName == this.placeTypeName);
 }
 
-class $PlaceViewView extends ViewInfo<$PlaceViewView, PlaceViewData>
+class $CachedPlaceViewView
+    extends ViewInfo<$CachedPlaceViewView, CachedPlaceViewData>
     implements HasResultSet {
   final String? _alias;
   @override
   final _$CachedDatabase attachedDatabase;
-  $PlaceViewView(this.attachedDatabase, [this._alias]);
-  $PlacesTableTable get placesTable =>
-      attachedDatabase.placesTable.createAlias('t0');
-  $PlaceTypesTableTable get placeTypesTable =>
-      attachedDatabase.placeTypesTable.createAlias('t1');
+  $CachedPlaceViewView(this.attachedDatabase, [this._alias]);
+  $CachedPlacesTableTable get placesTable =>
+      attachedDatabase.cachedPlacesTable.createAlias('t0');
+  $CachedPlaceTypesTableTable get placeTypesTable =>
+      attachedDatabase.cachedPlaceTypesTable.createAlias('t1');
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -731,15 +740,15 @@ class $PlaceViewView extends ViewInfo<$PlaceViewView, PlaceViewData>
   @override
   String get aliasedName => _alias ?? entityName;
   @override
-  String get entityName => 'place_view';
+  String get entityName => 'cached_place_view';
   @override
   Map<SqlDialect, String>? get createViewStatements => null;
   @override
-  $PlaceViewView get asDslTable => this;
+  $CachedPlaceViewView get asDslTable => this;
   @override
-  PlaceViewData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  CachedPlaceViewData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return PlaceViewData(
+    return CachedPlaceViewData(
       id: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}id'],
@@ -821,8 +830,8 @@ class $PlaceViewView extends ViewInfo<$PlaceViewView, PlaceViewData>
     type: DriftSqlType.string,
   );
   @override
-  $PlaceViewView createAlias(String alias) {
-    return $PlaceViewView(attachedDatabase, alias);
+  $CachedPlaceViewView createAlias(String alias) {
+    return $CachedPlaceViewView(attachedDatabase, alias);
   }
 
   @override
@@ -834,71 +843,86 @@ class $PlaceViewView extends ViewInfo<$PlaceViewView, PlaceViewData>
         ),
       ]);
   @override
-  Set<String> get readTables => const {'places_table', 'place_types_table'};
+  Set<String> get readTables => const {
+    'cached_places_table',
+    'cached_place_types_table',
+  };
 }
 
 abstract class _$CachedDatabase extends GeneratedDatabase {
   _$CachedDatabase(QueryExecutor e) : super(e);
   $CachedDatabaseManager get managers => $CachedDatabaseManager(this);
-  late final $PlaceTypesTableTable placeTypesTable = $PlaceTypesTableTable(
-    this,
-  );
-  late final $PlacesTableTable placesTable = $PlacesTableTable(this);
-  late final $PlaceViewView placeView = $PlaceViewView(this);
+  late final $CachedPlaceTypesTableTable cachedPlaceTypesTable =
+      $CachedPlaceTypesTableTable(this);
+  late final $CachedPlacesTableTable cachedPlacesTable =
+      $CachedPlacesTableTable(this);
+  late final $CachedPlaceViewView cachedPlaceView = $CachedPlaceViewView(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
-    placeTypesTable,
-    placesTable,
-    placeView,
+    cachedPlaceTypesTable,
+    cachedPlacesTable,
+    cachedPlaceView,
   ];
 }
 
-typedef $$PlaceTypesTableTableCreateCompanionBuilder =
-    PlaceTypesTableCompanion Function({required String name, Value<int> rowid});
-typedef $$PlaceTypesTableTableUpdateCompanionBuilder =
-    PlaceTypesTableCompanion Function({Value<String> name, Value<int> rowid});
+typedef $$CachedPlaceTypesTableTableCreateCompanionBuilder =
+    CachedPlaceTypesTableCompanion Function({
+      required String name,
+      Value<int> rowid,
+    });
+typedef $$CachedPlaceTypesTableTableUpdateCompanionBuilder =
+    CachedPlaceTypesTableCompanion Function({
+      Value<String> name,
+      Value<int> rowid,
+    });
 
-final class $$PlaceTypesTableTableReferences
+final class $$CachedPlaceTypesTableTableReferences
     extends
         BaseReferences<
           _$CachedDatabase,
-          $PlaceTypesTableTable,
-          PlaceTypeSchema
+          $CachedPlaceTypesTableTable,
+          CachedPlaceTypeSchema
         > {
-  $$PlaceTypesTableTableReferences(
+  $$CachedPlaceTypesTableTableReferences(
     super.$_db,
     super.$_table,
     super.$_typedResult,
   );
 
-  static MultiTypedResultKey<$PlacesTableTable, List<PlaceSchema>>
-  _placesTableRefsTable(_$CachedDatabase db) => MultiTypedResultKey.fromTable(
-    db.placesTable,
-    aliasName: $_aliasNameGenerator(
-      db.placeTypesTable.name,
-      db.placesTable.placeTypeName,
-    ),
-  );
+  static MultiTypedResultKey<$CachedPlacesTableTable, List<CachedPlaceSchema>>
+  _cachedPlacesTableRefsTable(_$CachedDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.cachedPlacesTable,
+        aliasName: $_aliasNameGenerator(
+          db.cachedPlaceTypesTable.name,
+          db.cachedPlacesTable.placeTypeName,
+        ),
+      );
 
-  $$PlacesTableTableProcessedTableManager get placesTableRefs {
-    final manager = $$PlacesTableTableTableManager($_db, $_db.placesTable)
-        .filter(
+  $$CachedPlacesTableTableProcessedTableManager get cachedPlacesTableRefs {
+    final manager =
+        $$CachedPlacesTableTableTableManager(
+          $_db,
+          $_db.cachedPlacesTable,
+        ).filter(
           (f) => f.placeTypeName.name.sqlEquals($_itemColumn<String>('name')!),
         );
 
-    final cache = $_typedResult.readTableOrNull(_placesTableRefsTable($_db));
+    final cache = $_typedResult.readTableOrNull(
+      _cachedPlacesTableRefsTable($_db),
+    );
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
 }
 
-class $$PlaceTypesTableTableFilterComposer
-    extends Composer<_$CachedDatabase, $PlaceTypesTableTable> {
-  $$PlaceTypesTableTableFilterComposer({
+class $$CachedPlaceTypesTableTableFilterComposer
+    extends Composer<_$CachedDatabase, $CachedPlaceTypesTableTable> {
+  $$CachedPlaceTypesTableTableFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -910,22 +934,22 @@ class $$PlaceTypesTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  Expression<bool> placesTableRefs(
-    Expression<bool> Function($$PlacesTableTableFilterComposer f) f,
+  Expression<bool> cachedPlacesTableRefs(
+    Expression<bool> Function($$CachedPlacesTableTableFilterComposer f) f,
   ) {
-    final $$PlacesTableTableFilterComposer composer = $composerBuilder(
+    final $$CachedPlacesTableTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.name,
-      referencedTable: $db.placesTable,
+      referencedTable: $db.cachedPlacesTable,
       getReferencedColumn: (t) => t.placeTypeName,
       builder:
           (
             joinBuilder, {
             $addJoinBuilderToRootComposer,
             $removeJoinBuilderFromRootComposer,
-          }) => $$PlacesTableTableFilterComposer(
+          }) => $$CachedPlacesTableTableFilterComposer(
             $db: $db,
-            $table: $db.placesTable,
+            $table: $db.cachedPlacesTable,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -936,9 +960,9 @@ class $$PlaceTypesTableTableFilterComposer
   }
 }
 
-class $$PlaceTypesTableTableOrderingComposer
-    extends Composer<_$CachedDatabase, $PlaceTypesTableTable> {
-  $$PlaceTypesTableTableOrderingComposer({
+class $$CachedPlaceTypesTableTableOrderingComposer
+    extends Composer<_$CachedDatabase, $CachedPlaceTypesTableTable> {
+  $$CachedPlaceTypesTableTableOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -951,9 +975,9 @@ class $$PlaceTypesTableTableOrderingComposer
   );
 }
 
-class $$PlaceTypesTableTableAnnotationComposer
-    extends Composer<_$CachedDatabase, $PlaceTypesTableTable> {
-  $$PlaceTypesTableTableAnnotationComposer({
+class $$CachedPlaceTypesTableTableAnnotationComposer
+    extends Composer<_$CachedDatabase, $CachedPlaceTypesTableTable> {
+  $$CachedPlaceTypesTableTableAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -963,100 +987,115 @@ class $$PlaceTypesTableTableAnnotationComposer
   GeneratedColumn<String> get name =>
       $composableBuilder(column: $table.name, builder: (column) => column);
 
-  Expression<T> placesTableRefs<T extends Object>(
-    Expression<T> Function($$PlacesTableTableAnnotationComposer a) f,
+  Expression<T> cachedPlacesTableRefs<T extends Object>(
+    Expression<T> Function($$CachedPlacesTableTableAnnotationComposer a) f,
   ) {
-    final $$PlacesTableTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.name,
-      referencedTable: $db.placesTable,
-      getReferencedColumn: (t) => t.placeTypeName,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$PlacesTableTableAnnotationComposer(
-            $db: $db,
-            $table: $db.placesTable,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
+    final $$CachedPlacesTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.name,
+          referencedTable: $db.cachedPlacesTable,
+          getReferencedColumn: (t) => t.placeTypeName,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer,
-          ),
-    );
+              }) => $$CachedPlacesTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.cachedPlacesTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
     return f(composer);
   }
 }
 
-class $$PlaceTypesTableTableTableManager
+class $$CachedPlaceTypesTableTableTableManager
     extends
         RootTableManager<
           _$CachedDatabase,
-          $PlaceTypesTableTable,
-          PlaceTypeSchema,
-          $$PlaceTypesTableTableFilterComposer,
-          $$PlaceTypesTableTableOrderingComposer,
-          $$PlaceTypesTableTableAnnotationComposer,
-          $$PlaceTypesTableTableCreateCompanionBuilder,
-          $$PlaceTypesTableTableUpdateCompanionBuilder,
-          (PlaceTypeSchema, $$PlaceTypesTableTableReferences),
-          PlaceTypeSchema,
-          PrefetchHooks Function({bool placesTableRefs})
+          $CachedPlaceTypesTableTable,
+          CachedPlaceTypeSchema,
+          $$CachedPlaceTypesTableTableFilterComposer,
+          $$CachedPlaceTypesTableTableOrderingComposer,
+          $$CachedPlaceTypesTableTableAnnotationComposer,
+          $$CachedPlaceTypesTableTableCreateCompanionBuilder,
+          $$CachedPlaceTypesTableTableUpdateCompanionBuilder,
+          (CachedPlaceTypeSchema, $$CachedPlaceTypesTableTableReferences),
+          CachedPlaceTypeSchema,
+          PrefetchHooks Function({bool cachedPlacesTableRefs})
         > {
-  $$PlaceTypesTableTableTableManager(
+  $$CachedPlaceTypesTableTableTableManager(
     _$CachedDatabase db,
-    $PlaceTypesTableTable table,
+    $CachedPlaceTypesTableTable table,
   ) : super(
         TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$PlaceTypesTableTableFilterComposer($db: db, $table: table),
+              $$CachedPlaceTypesTableTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
           createOrderingComposer: () =>
-              $$PlaceTypesTableTableOrderingComposer($db: db, $table: table),
+              $$CachedPlaceTypesTableTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
           createComputedFieldComposer: () =>
-              $$PlaceTypesTableTableAnnotationComposer($db: db, $table: table),
+              $$CachedPlaceTypesTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
           updateCompanionCallback:
               ({
                 Value<String> name = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
-              }) => PlaceTypesTableCompanion(name: name, rowid: rowid),
+              }) => CachedPlaceTypesTableCompanion(name: name, rowid: rowid),
           createCompanionCallback:
               ({
                 required String name,
                 Value<int> rowid = const Value.absent(),
-              }) => PlaceTypesTableCompanion.insert(name: name, rowid: rowid),
+              }) => CachedPlaceTypesTableCompanion.insert(
+                name: name,
+                rowid: rowid,
+              ),
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
                   e.readTable(table),
-                  $$PlaceTypesTableTableReferences(db, table, e),
+                  $$CachedPlaceTypesTableTableReferences(db, table, e),
                 ),
               )
               .toList(),
-          prefetchHooksCallback: ({placesTableRefs = false}) {
+          prefetchHooksCallback: ({cachedPlacesTableRefs = false}) {
             return PrefetchHooks(
               db: db,
-              explicitlyWatchedTables: [if (placesTableRefs) db.placesTable],
+              explicitlyWatchedTables: [
+                if (cachedPlacesTableRefs) db.cachedPlacesTable,
+              ],
               addJoins: null,
               getPrefetchedDataCallback: (items) async {
                 return [
-                  if (placesTableRefs)
+                  if (cachedPlacesTableRefs)
                     await $_getPrefetchedData<
-                      PlaceTypeSchema,
-                      $PlaceTypesTableTable,
-                      PlaceSchema
+                      CachedPlaceTypeSchema,
+                      $CachedPlaceTypesTableTable,
+                      CachedPlaceSchema
                     >(
                       currentTable: table,
-                      referencedTable: $$PlaceTypesTableTableReferences
-                          ._placesTableRefsTable(db),
+                      referencedTable: $$CachedPlaceTypesTableTableReferences
+                          ._cachedPlacesTableRefsTable(db),
                       managerFromTypedResult: (p0) =>
-                          $$PlaceTypesTableTableReferences(
+                          $$CachedPlaceTypesTableTableReferences(
                             db,
                             table,
                             p0,
-                          ).placesTableRefs,
+                          ).cachedPlacesTableRefs,
                       referencedItemsForCurrentItem: (item, referencedItems) =>
                           referencedItems.where(
                             (e) => e.placeTypeName == item.name,
@@ -1071,22 +1110,22 @@ class $$PlaceTypesTableTableTableManager
       );
 }
 
-typedef $$PlaceTypesTableTableProcessedTableManager =
+typedef $$CachedPlaceTypesTableTableProcessedTableManager =
     ProcessedTableManager<
       _$CachedDatabase,
-      $PlaceTypesTableTable,
-      PlaceTypeSchema,
-      $$PlaceTypesTableTableFilterComposer,
-      $$PlaceTypesTableTableOrderingComposer,
-      $$PlaceTypesTableTableAnnotationComposer,
-      $$PlaceTypesTableTableCreateCompanionBuilder,
-      $$PlaceTypesTableTableUpdateCompanionBuilder,
-      (PlaceTypeSchema, $$PlaceTypesTableTableReferences),
-      PlaceTypeSchema,
-      PrefetchHooks Function({bool placesTableRefs})
+      $CachedPlaceTypesTableTable,
+      CachedPlaceTypeSchema,
+      $$CachedPlaceTypesTableTableFilterComposer,
+      $$CachedPlaceTypesTableTableOrderingComposer,
+      $$CachedPlaceTypesTableTableAnnotationComposer,
+      $$CachedPlaceTypesTableTableCreateCompanionBuilder,
+      $$CachedPlaceTypesTableTableUpdateCompanionBuilder,
+      (CachedPlaceTypeSchema, $$CachedPlaceTypesTableTableReferences),
+      CachedPlaceTypeSchema,
+      PrefetchHooks Function({bool cachedPlacesTableRefs})
     >;
-typedef $$PlacesTableTableCreateCompanionBuilder =
-    PlacesTableCompanion Function({
+typedef $$CachedPlacesTableTableCreateCompanionBuilder =
+    CachedPlacesTableCompanion Function({
       Value<int> id,
       required String name,
       required String description,
@@ -1095,8 +1134,8 @@ typedef $$PlacesTableTableCreateCompanionBuilder =
       required double lon,
       required String placeTypeName,
     });
-typedef $$PlacesTableTableUpdateCompanionBuilder =
-    PlacesTableCompanion Function({
+typedef $$CachedPlacesTableTableUpdateCompanionBuilder =
+    CachedPlacesTableCompanion Function({
       Value<int> id,
       Value<String> name,
       Value<String> description,
@@ -1106,24 +1145,33 @@ typedef $$PlacesTableTableUpdateCompanionBuilder =
       Value<String> placeTypeName,
     });
 
-final class $$PlacesTableTableReferences
-    extends BaseReferences<_$CachedDatabase, $PlacesTableTable, PlaceSchema> {
-  $$PlacesTableTableReferences(super.$_db, super.$_table, super.$_typedResult);
+final class $$CachedPlacesTableTableReferences
+    extends
+        BaseReferences<
+          _$CachedDatabase,
+          $CachedPlacesTableTable,
+          CachedPlaceSchema
+        > {
+  $$CachedPlacesTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
 
-  static $PlaceTypesTableTable _placeTypeNameTable(_$CachedDatabase db) =>
-      db.placeTypesTable.createAlias(
+  static $CachedPlaceTypesTableTable _placeTypeNameTable(_$CachedDatabase db) =>
+      db.cachedPlaceTypesTable.createAlias(
         $_aliasNameGenerator(
-          db.placesTable.placeTypeName,
-          db.placeTypesTable.name,
+          db.cachedPlacesTable.placeTypeName,
+          db.cachedPlaceTypesTable.name,
         ),
       );
 
-  $$PlaceTypesTableTableProcessedTableManager get placeTypeName {
+  $$CachedPlaceTypesTableTableProcessedTableManager get placeTypeName {
     final $_column = $_itemColumn<String>('place_type_name')!;
 
-    final manager = $$PlaceTypesTableTableTableManager(
+    final manager = $$CachedPlaceTypesTableTableTableManager(
       $_db,
-      $_db.placeTypesTable,
+      $_db.cachedPlaceTypesTable,
     ).filter((f) => f.name.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_placeTypeNameTable($_db));
     if (item == null) return manager;
@@ -1133,9 +1181,9 @@ final class $$PlacesTableTableReferences
   }
 }
 
-class $$PlacesTableTableFilterComposer
-    extends Composer<_$CachedDatabase, $PlacesTableTable> {
-  $$PlacesTableTableFilterComposer({
+class $$CachedPlacesTableTableFilterComposer
+    extends Composer<_$CachedDatabase, $CachedPlacesTableTable> {
+  $$CachedPlacesTableTableFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -1172,33 +1220,34 @@ class $$PlacesTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  $$PlaceTypesTableTableFilterComposer get placeTypeName {
-    final $$PlaceTypesTableTableFilterComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.placeTypeName,
-      referencedTable: $db.placeTypesTable,
-      getReferencedColumn: (t) => t.name,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$PlaceTypesTableTableFilterComposer(
-            $db: $db,
-            $table: $db.placeTypesTable,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
+  $$CachedPlaceTypesTableTableFilterComposer get placeTypeName {
+    final $$CachedPlaceTypesTableTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.placeTypeName,
+          referencedTable: $db.cachedPlaceTypesTable,
+          getReferencedColumn: (t) => t.name,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer,
-          ),
-    );
+              }) => $$CachedPlaceTypesTableTableFilterComposer(
+                $db: $db,
+                $table: $db.cachedPlaceTypesTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
     return composer;
   }
 }
 
-class $$PlacesTableTableOrderingComposer
-    extends Composer<_$CachedDatabase, $PlacesTableTable> {
-  $$PlacesTableTableOrderingComposer({
+class $$CachedPlacesTableTableOrderingComposer
+    extends Composer<_$CachedDatabase, $CachedPlacesTableTable> {
+  $$CachedPlacesTableTableOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -1235,33 +1284,34 @@ class $$PlacesTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  $$PlaceTypesTableTableOrderingComposer get placeTypeName {
-    final $$PlaceTypesTableTableOrderingComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.placeTypeName,
-      referencedTable: $db.placeTypesTable,
-      getReferencedColumn: (t) => t.name,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$PlaceTypesTableTableOrderingComposer(
-            $db: $db,
-            $table: $db.placeTypesTable,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
+  $$CachedPlaceTypesTableTableOrderingComposer get placeTypeName {
+    final $$CachedPlaceTypesTableTableOrderingComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.placeTypeName,
+          referencedTable: $db.cachedPlaceTypesTable,
+          getReferencedColumn: (t) => t.name,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer,
-          ),
-    );
+              }) => $$CachedPlaceTypesTableTableOrderingComposer(
+                $db: $db,
+                $table: $db.cachedPlaceTypesTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
     return composer;
   }
 }
 
-class $$PlacesTableTableAnnotationComposer
-    extends Composer<_$CachedDatabase, $PlacesTableTable> {
-  $$PlacesTableTableAnnotationComposer({
+class $$CachedPlacesTableTableAnnotationComposer
+    extends Composer<_$CachedDatabase, $CachedPlacesTableTable> {
+  $$CachedPlacesTableTableAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -1288,56 +1338,62 @@ class $$PlacesTableTableAnnotationComposer
   GeneratedColumn<double> get lon =>
       $composableBuilder(column: $table.lon, builder: (column) => column);
 
-  $$PlaceTypesTableTableAnnotationComposer get placeTypeName {
-    final $$PlaceTypesTableTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.placeTypeName,
-      referencedTable: $db.placeTypesTable,
-      getReferencedColumn: (t) => t.name,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$PlaceTypesTableTableAnnotationComposer(
-            $db: $db,
-            $table: $db.placeTypesTable,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
+  $$CachedPlaceTypesTableTableAnnotationComposer get placeTypeName {
+    final $$CachedPlaceTypesTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.placeTypeName,
+          referencedTable: $db.cachedPlaceTypesTable,
+          getReferencedColumn: (t) => t.name,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer,
-          ),
-    );
+              }) => $$CachedPlaceTypesTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.cachedPlaceTypesTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
     return composer;
   }
 }
 
-class $$PlacesTableTableTableManager
+class $$CachedPlacesTableTableTableManager
     extends
         RootTableManager<
           _$CachedDatabase,
-          $PlacesTableTable,
-          PlaceSchema,
-          $$PlacesTableTableFilterComposer,
-          $$PlacesTableTableOrderingComposer,
-          $$PlacesTableTableAnnotationComposer,
-          $$PlacesTableTableCreateCompanionBuilder,
-          $$PlacesTableTableUpdateCompanionBuilder,
-          (PlaceSchema, $$PlacesTableTableReferences),
-          PlaceSchema,
+          $CachedPlacesTableTable,
+          CachedPlaceSchema,
+          $$CachedPlacesTableTableFilterComposer,
+          $$CachedPlacesTableTableOrderingComposer,
+          $$CachedPlacesTableTableAnnotationComposer,
+          $$CachedPlacesTableTableCreateCompanionBuilder,
+          $$CachedPlacesTableTableUpdateCompanionBuilder,
+          (CachedPlaceSchema, $$CachedPlacesTableTableReferences),
+          CachedPlaceSchema,
           PrefetchHooks Function({bool placeTypeName})
         > {
-  $$PlacesTableTableTableManager(_$CachedDatabase db, $PlacesTableTable table)
-    : super(
+  $$CachedPlacesTableTableTableManager(
+    _$CachedDatabase db,
+    $CachedPlacesTableTable table,
+  ) : super(
         TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$PlacesTableTableFilterComposer($db: db, $table: table),
+              $$CachedPlacesTableTableFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$PlacesTableTableOrderingComposer($db: db, $table: table),
+              $$CachedPlacesTableTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$PlacesTableTableAnnotationComposer($db: db, $table: table),
+              $$CachedPlacesTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -1347,7 +1403,7 @@ class $$PlacesTableTableTableManager
                 Value<double> lat = const Value.absent(),
                 Value<double> lon = const Value.absent(),
                 Value<String> placeTypeName = const Value.absent(),
-              }) => PlacesTableCompanion(
+              }) => CachedPlacesTableCompanion(
                 id: id,
                 name: name,
                 description: description,
@@ -1365,7 +1421,7 @@ class $$PlacesTableTableTableManager
                 required double lat,
                 required double lon,
                 required String placeTypeName,
-              }) => PlacesTableCompanion.insert(
+              }) => CachedPlacesTableCompanion.insert(
                 id: id,
                 name: name,
                 description: description,
@@ -1378,7 +1434,7 @@ class $$PlacesTableTableTableManager
               .map(
                 (e) => (
                   e.readTable(table),
-                  $$PlacesTableTableReferences(db, table, e),
+                  $$CachedPlacesTableTableReferences(db, table, e),
                 ),
               )
               .toList(),
@@ -1407,11 +1463,13 @@ class $$PlacesTableTableTableManager
                           state.withJoin(
                                 currentTable: table,
                                 currentColumn: table.placeTypeName,
-                                referencedTable: $$PlacesTableTableReferences
-                                    ._placeTypeNameTable(db),
-                                referencedColumn: $$PlacesTableTableReferences
-                                    ._placeTypeNameTable(db)
-                                    .name,
+                                referencedTable:
+                                    $$CachedPlacesTableTableReferences
+                                        ._placeTypeNameTable(db),
+                                referencedColumn:
+                                    $$CachedPlacesTableTableReferences
+                                        ._placeTypeNameTable(db)
+                                        .name,
                               )
                               as T;
                     }
@@ -1427,26 +1485,26 @@ class $$PlacesTableTableTableManager
       );
 }
 
-typedef $$PlacesTableTableProcessedTableManager =
+typedef $$CachedPlacesTableTableProcessedTableManager =
     ProcessedTableManager<
       _$CachedDatabase,
-      $PlacesTableTable,
-      PlaceSchema,
-      $$PlacesTableTableFilterComposer,
-      $$PlacesTableTableOrderingComposer,
-      $$PlacesTableTableAnnotationComposer,
-      $$PlacesTableTableCreateCompanionBuilder,
-      $$PlacesTableTableUpdateCompanionBuilder,
-      (PlaceSchema, $$PlacesTableTableReferences),
-      PlaceSchema,
+      $CachedPlacesTableTable,
+      CachedPlaceSchema,
+      $$CachedPlacesTableTableFilterComposer,
+      $$CachedPlacesTableTableOrderingComposer,
+      $$CachedPlacesTableTableAnnotationComposer,
+      $$CachedPlacesTableTableCreateCompanionBuilder,
+      $$CachedPlacesTableTableUpdateCompanionBuilder,
+      (CachedPlaceSchema, $$CachedPlacesTableTableReferences),
+      CachedPlaceSchema,
       PrefetchHooks Function({bool placeTypeName})
     >;
 
 class $CachedDatabaseManager {
   final _$CachedDatabase _db;
   $CachedDatabaseManager(this._db);
-  $$PlaceTypesTableTableTableManager get placeTypesTable =>
-      $$PlaceTypesTableTableTableManager(_db, _db.placeTypesTable);
-  $$PlacesTableTableTableManager get placesTable =>
-      $$PlacesTableTableTableManager(_db, _db.placesTable);
+  $$CachedPlaceTypesTableTableTableManager get cachedPlaceTypesTable =>
+      $$CachedPlaceTypesTableTableTableManager(_db, _db.cachedPlaceTypesTable);
+  $$CachedPlacesTableTableTableManager get cachedPlacesTable =>
+      $$CachedPlacesTableTableTableManager(_db, _db.cachedPlacesTable);
 }

@@ -7,22 +7,22 @@ class PlacesDatabase implements IPlacesDatabase {
   const PlacesDatabase(this.database);
 
   @override
-  Future<PlaceViewData> create(PlaceSchema place) async {
-    await database.into(database.placesTable).insert(place);
+  Future<CachedPlaceViewData> create(CachedPlaceSchema place) async {
+    await database.into(database.cachedPlacesTable).insert(place);
 
-    return (database.select(database.placeView)..where((v) => v.id.equals(place.id))).getSingle();
+    return (database.select(database.cachedPlaceView)..where((v) => v.id.equals(place.id))).getSingle();
   }
 
   @override
-  Future<void> update(PlaceSchema place) async {
+  Future<void> update(CachedPlaceSchema place) async {
     await (database.update(
-      database.placesTable,
+      database.cachedPlacesTable,
     )..where((p) => p.id.equals(place.id))).write(place);
   }
 
   @override
   Future<void> delete(int placeId) async {
-    final query = database.delete(database.placesTable)
+    final query = database.delete(database.cachedPlacesTable)
       ..where(
         (place) => place.id.equals(placeId),
       );
@@ -38,23 +38,23 @@ class PlacesDatabase implements IPlacesDatabase {
   @override
   Future<bool> exists(int placeId) async {
     final result = await (database.select(
-      database.placesTable,
+      database.cachedPlacesTable,
     )..where((place) => place.id.equals(placeId))).getSingleOrNull();
     return result != null;
   }
 
   @override
-  Future<List<PlaceViewData>> get(int limit, {int? offset}) async {
-    return (database.select(database.placeView)..limit(limit, offset: offset)).get();
+  Future<List<CachedPlaceViewData>> get(int limit, {int? offset}) async {
+    return (database.select(database.cachedPlaceView)..limit(limit, offset: offset)).get();
   }
 
   @override
-  Future<PlaceViewData?> getOne(int placeId) async {
+  Future<CachedPlaceViewData?> getOne(int placeId) async {
     return (database.select(
-      database.placeView,
+      database.cachedPlaceView,
     )..where((place) => place.id.equals(placeId))).getSingleOrNull();
   }
 
   @override
-  Stream<List<PlaceViewData>> get placesStream => database.select(database.placeView).watch();
+  Stream<List<CachedPlaceViewData>> get placesStream => database.select(database.cachedPlaceView).watch();
 }

@@ -1,18 +1,18 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:surf_flutter_summer_school_2025/persistence/databse/tables/place.dart';
-import 'package:surf_flutter_summer_school_2025/persistence/databse/tables/place_type.dart';
+import 'package:surf_flutter_summer_school_2025/persistence/databse/cached_tables/place.dart';
+import 'package:surf_flutter_summer_school_2025/persistence/databse/cached_tables/place_type.dart';
 
 part 'cached_database.g.dart';
 
 @DriftDatabase(
   tables: [
-    PlaceTypesTable,
-    PlacesTable,
+    CachedPlaceTypesTable,
+    CachedPlacesTable,
   ],
   views: [
-    PlaceView,
+    CachedPlaceView,
   ],
 )
 class CachedDatabase extends _$CachedDatabase {
@@ -61,14 +61,14 @@ class CachedDatabase extends _$CachedDatabase {
       'cafe',
       'shopping',
     };
-    final existingPlaceTypes = (await select(placeTypesTable).get()).map((pt) => pt.name);
+    final existingPlaceTypes = (await select(cachedPlaceTypesTable).get()).map((pt) => pt.name);
 
     final batchInsert = defaultPlaceTypes
         .where((ptName) => !existingPlaceTypes.contains(ptName))
-        .map((ptName) => PlaceTypesTableCompanion.insert(name: ptName));
+        .map((ptName) => CachedPlaceTypesTableCompanion.insert(name: ptName));
 
     await batch((batch) {
-      batch.insertAll(placeTypesTable, batchInsert);
+      batch.insertAll(cachedPlaceTypesTable, batchInsert);
     });
   }
 }
