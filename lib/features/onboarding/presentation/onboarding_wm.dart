@@ -57,6 +57,12 @@ final class OnboardingWM extends WidgetModel<OnboardingScreen, OnboardingModel>
   @override
   Future<void> onContinueTap() async {
     await model.setFirstRunPassed();
-    unawaited(_appRouter.pushAndPopUntil(TabsRoute(), predicate: (route) => false));
+    if (_appRouter.stack.length == 1) {
+      // Если мы одни в стаке, пушим главный экран
+      unawaited(_appRouter.pushAndPopUntil(TabsRoute(), predicate: (route) => false));
+    } else {
+      // Если мы не одни в стаке, значит туториал открыли принудительно, просто выходим с экрана назад
+      _appRouter.pop();
+    }
   }
 }

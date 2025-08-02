@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:surf_flutter_summer_school_2025/common/mixin/theme_wm_mixin.dart';
 import 'package:surf_flutter_summer_school_2025/common/utils/extensions/value_notifier.dart';
+import 'package:surf_flutter_summer_school_2025/features/navigation/app_router.dart';
 import 'package:surf_flutter_summer_school_2025/features/settings/presentation/settings_model.dart';
 import 'package:surf_flutter_summer_school_2025/features/settings/presentation/settings_screen.dart';
 import 'package:surf_flutter_summer_school_2025/features/theme_mode/presentation/theme_mode_controller.dart';
 
 SettingsWM defaultSettingsWMFactory(BuildContext context) {
   final themeModeController = context.read<ThemeModeController>();
+  final appRouter = context.read<AppRouter>();
   return SettingsWM(
     SettingsModel(),
     themeModeController: themeModeController,
+    appRouter: appRouter,
   );
 }
 
@@ -27,9 +30,12 @@ final class SettingsWM extends WidgetModel<SettingsScreen, SettingsModel> with T
   SettingsWM(
     super._model, {
     required ThemeModeController themeModeController,
-  }) : _themeModeController = themeModeController;
+    required AppRouter appRouter,
+  }) : _themeModeController = themeModeController,
+       _appRouter = appRouter;
 
   final ThemeModeController _themeModeController;
+  final AppRouter _appRouter;
   late final ValueNotifier<bool> _isDarkTheme;
 
   @override
@@ -57,5 +63,5 @@ final class SettingsWM extends WidgetModel<SettingsScreen, SettingsModel> with T
   void onSwitchThemeTap() => _themeModeController.switchThemeMode();
 
   @override
-  void onShowTutorialTap() {}
+  void onShowTutorialTap() => _appRouter.push(OnboardingRoute());
 }

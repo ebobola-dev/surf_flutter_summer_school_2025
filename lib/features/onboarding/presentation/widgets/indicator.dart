@@ -34,7 +34,7 @@ class _IndicatorItem extends StatelessWidget {
     final colorScheme = context.appColorScheme;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
-      curve: Curves.easeInExpo,
+      curve: Curves.easeInOut,
       width: isActive ? 24 : 8,
       height: 8,
       decoration: BoxDecoration(
