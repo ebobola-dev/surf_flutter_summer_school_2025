@@ -17,50 +17,46 @@ class FilterScreen extends ElementaryWidget<IFilterWM> {
 
   @override
   Widget build(IFilterWM wm) {
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: wm.onPopInvokedWithResult,
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: wm.onBackTap,
-            icon: SvgPicture.asset(
-              SvgIcons.arrowLeft,
-              colorFilter: ColorFilter.mode(wm.colorScheme.onBackground, BlendMode.srcIn),
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: wm.onBackTap,
+          icon: SvgPicture.asset(
+            SvgIcons.arrowLeft,
+            colorFilter: ColorFilter.mode(wm.colorScheme.onBackground, BlendMode.srcIn),
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: TextButton(onPressed: wm.onClearTap, child: Text('Отчистить')),
-            ),
-          ],
         ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        CategoriesWidget(wm: wm),
-                        const SizedBox(height: 56),
-                        DistanceFilterWidget(wm: wm),
-                      ],
-                    ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: TextButton(onPressed: wm.onClearTap, child: Text('Отчистить')),
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      CategoriesWidget(wm: wm),
+                      const SizedBox(height: 56),
+                      DistanceFilterWidget(wm: wm),
+                    ],
                   ),
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Показать (???)'.toUpperCase()),
-                  ),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: wm.onApplyTap,
+                  child: Text('Применить'.toUpperCase()),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

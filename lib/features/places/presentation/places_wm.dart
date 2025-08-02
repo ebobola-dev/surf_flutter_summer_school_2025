@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:surf_flutter_summer_school_2025/common/mixin/theme_wm_mixin.dart';
+import 'package:surf_flutter_summer_school_2025/common/utils/extensions/value_notifier.dart';
 import 'package:surf_flutter_summer_school_2025/core/domain/entity/sorted_map.dart';
 import 'package:surf_flutter_summer_school_2025/features/app/di/app_scope.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/di/places_scope.dart';
@@ -32,6 +33,7 @@ abstract interface class IPlacesWM with ThemeIModelMixin implements IWidgetModel
   TextEditingController get searchTextController;
   ValueListenable<bool> get isLoading;
   ValueListenable<SortedMap<int, FavoritePlaceEntity>?> get placesMap;
+  ValueListenable<bool> get filtersModified;
 
   Future<void> onRefresh();
   void onPlaceTap(int placeId);
@@ -51,19 +53,28 @@ final class PlacesWM extends WidgetModel<PlacesScreen, PlacesModel> with ThemeWM
   @override
   final searchTextController = TextEditingController();
   late final StreamSubscription<String> _errorSubscription;
-  final FilterSettings _filters = FilterSettings.base();
+  final _filteredPlacesMap = ValueNotifier<SortedMap<int, FavoritePlaceEntity>?>(null);
+  final _filters = ValueNotifier<FilterSettings>(FilterSettings.base());
+  final _filtersModified = ValueNotifier<bool>(false);
 
   @override
   void initWidgetModel() {
     _errorSubscription = model.errorsStream.listen(_errorListener);
+    _filters.addListener(_filtersListener);
+    model.placesMap.addListener(_applyFilters);
     super.initWidgetModel();
   }
 
   @override
   void dispose() {
+    _filters.removeListener(_filtersListener);
+    model.placesMap.removeListener(_applyFilters);
     _errorSubscription.cancel();
+    _filteredPlacesMap.dispose();
     scrollController.dispose();
     searchTextController.dispose();
+    _filters.dispose();
+    _filtersModified.dispose();
     super.dispose();
   }
 
@@ -71,7 +82,10 @@ final class PlacesWM extends WidgetModel<PlacesScreen, PlacesModel> with ThemeWM
   ValueListenable<bool> get isLoading => model.isLoading;
 
   @override
-  ValueListenable<SortedMap<int, FavoritePlaceEntity>?> get placesMap => model.placesMap;
+  ValueListenable<SortedMap<int, FavoritePlaceEntity>?> get placesMap => _filteredPlacesMap;
+
+  @override
+  ValueListenable<bool> get filtersModified => _filtersModified;
 
   @override
   Future<void> onRefresh() async {
@@ -98,13 +112,43 @@ final class PlacesWM extends WidgetModel<PlacesScreen, PlacesModel> with ThemeWM
   void onPlaceLikeTap(int placeId) => model.toggleLike(placeId);
 
   @override
-  void onFilterTap() {
-    _appRouter.push(FilterRoute(initialSettings: _filters));
+  Future<void> onFilterTap() async {
+    final changedFilters = await _appRouter.push<FilterSettings?>(FilterRoute(initialSettings: _filters.value));
+    if (changedFilters != null) {
+      _filters.emit(changedFilters);
+    }
   }
 
   void _errorListener(String error) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(error)),
     );
+  }
+
+  void _filtersListener() {
+    _filtersModified.emit(_filters.value != FilterSettings.base());
+    _applyFilters();
+  }
+
+  void _applyFilters() {
+    final sourcePlacesMap = model.placesMap.value;
+    if (sourcePlacesMap != null) {
+      final filteredPlacesMap = _filter(sourcePlacesMap);
+      _filteredPlacesMap.emit(filteredPlacesMap);
+    } else {
+      _filteredPlacesMap.emit(null);
+    }
+  }
+
+  SortedMap<int, FavoritePlaceEntity> _filter(SortedMap<int, FavoritePlaceEntity> sourceMap) {
+    if (!_filtersModified.value) return sourceMap;
+    final filteredPlaceTypes = _filters.value.categories.map((category) => category.placeType);
+    final wrongIds = sourceMap.data.entries
+        .where(
+          (entry) => !filteredPlaceTypes.contains(entry.value.place.placeType),
+        )
+        .map((entry) => entry.key)
+        .toSet();
+    return sourceMap.copyWithoutMany(wrongIds);
   }
 }

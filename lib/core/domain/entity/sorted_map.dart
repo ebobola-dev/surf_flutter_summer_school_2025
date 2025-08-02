@@ -30,6 +30,15 @@ abstract class SortedMap<TID, TData> with _$SortedMap<TID, TData> {
     );
   }
 
+  SortedMap<TID, TData> copyWithoutMany(Set<TID> ids) {
+    final updatedData = {...data}..removeWhere((id, item) => ids.contains(id));
+    final updatedIds = idOrderedList.where((itemId) => !ids.contains(itemId)).toList();
+    return copyWith(
+      data: updatedData,
+      idOrderedList: updatedIds,
+    );
+  }
+
   SortedMap<TID, TData> withElementReplaced({
     required TID id,
     required TData updatedElement,

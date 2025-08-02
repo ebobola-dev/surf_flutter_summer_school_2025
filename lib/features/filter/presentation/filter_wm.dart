@@ -31,8 +31,7 @@ abstract interface class IFilterWM with ThemeIModelMixin implements IWidgetModel
   void onClearTap();
   void onCategoryTap(Categories category);
   void onDistanceChanged(int newMin, int newMax);
-  // ignore: avoid_positional_boolean_parameters
-  void onPopInvokedWithResult(bool didPop, Object? result);
+  void onApplyTap();
 }
 
 final class FilterWM extends WidgetModel<FilterScreen, FilterModel> with ThemeWMMixin implements IFilterWM {
@@ -57,7 +56,7 @@ final class FilterWM extends WidgetModel<FilterScreen, FilterModel> with ThemeWM
 
   @override
   void onBackTap() {
-    _appRouter.pop(_filters.value);
+    _appRouter.pop();
   }
 
   @override
@@ -88,9 +87,7 @@ final class FilterWM extends WidgetModel<FilterScreen, FilterModel> with ThemeWM
   }
 
   @override
-  void onPopInvokedWithResult(bool didPop, Object? result) {
-    if (!didPop) {
-      _appRouter.pop(_filters.value);
-    }
+  void onApplyTap() {
+    _appRouter.pop(_filters.value);
   }
 }

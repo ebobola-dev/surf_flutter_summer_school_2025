@@ -49,12 +49,17 @@ class PlacesScreen extends ElementaryWidget<IPlacesWM> {
               onTap: wm.onFilterTap,
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: SvgPicture.asset(
-                  SvgIcons.filter,
-                  colorFilter: ColorFilter.mode(
-                    wm.colorScheme.inactiveBlack,
-                    BlendMode.srcIn,
-                  ),
+                child: ValueListenableBuilder(
+                  valueListenable: wm.filtersModified,
+                  builder: (_, filtersModified, __) {
+                    return SvgPicture.asset(
+                      SvgIcons.filter,
+                      colorFilter: ColorFilter.mode(
+                        filtersModified ? wm.colorScheme.primary : wm.colorScheme.inactiveBlack,
+                        BlendMode.srcIn,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
