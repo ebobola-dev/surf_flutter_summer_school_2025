@@ -35,4 +35,6 @@ class SvgIcons {
   static const crossSmall = 'assets/icons/cross_small.svg';
   static const share = 'assets/icons/share.svg';
   static const trash = 'assets/icons/trash.svg';
+
+  static const info = 'assets/icons/info.svg';
 }
