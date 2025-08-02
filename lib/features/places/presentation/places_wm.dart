@@ -48,13 +48,23 @@ final class PlacesWM extends WidgetModel<PlacesScreen, PlacesModel> with ThemeWM
   }) : _appRouter = appRouter;
 
   final AppRouter _appRouter;
+
   @override
   final scrollController = ScrollController();
+
   @override
   final searchTextController = TextEditingController();
+
   late final StreamSubscription<String> _errorSubscription;
+
+  // Отфильтрованные места
   final _filteredPlacesMap = ValueNotifier<SortedMap<int, FavoritePlaceEntity>?>(null);
+
+  // Фильтры не нужны ui, ui нужно только знать дефолтные они или нет
+  // ValueNotifier сделал только для того чтобы удобно повесить на него слушатель
   final _filters = ValueNotifier<FilterSettings>(FilterSettings.base());
+
+  // Дефолтые фильтры или нет - для ui
   final _filtersModified = ValueNotifier<bool>(false);
 
   @override
@@ -140,15 +150,21 @@ final class PlacesWM extends WidgetModel<PlacesScreen, PlacesModel> with ThemeWM
     }
   }
 
+  /// Фильтрует входящую мапу по текущим фильтрам, входящие данные должны быть полностью исходными (из модели)
   SortedMap<int, FavoritePlaceEntity> _filter(SortedMap<int, FavoritePlaceEntity> sourceMap) {
+    // Если фильтры дефолтные - возвращаем исходную мапу
     if (!_filtersModified.value) return sourceMap;
+
     final filteredPlaceTypes = _filters.value.categories.map((category) => category.placeType);
+
+    // Ids неподходящих под фильтры мест
     final wrongIds = sourceMap.data.entries
         .where(
           (entry) => !filteredPlaceTypes.contains(entry.value.place.placeType),
         )
         .map((entry) => entry.key)
         .toSet();
+
     return sourceMap.copyWithoutMany(wrongIds);
   }
 }

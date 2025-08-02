@@ -2,15 +2,26 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'sorted_map.freezed.dart';
 
+/// Удобный класс (по моему мнению) для работы со списком моделей, которые содержат id и важно хранить их порядок
+///
+/// TID - тип id модели
+///
+/// TData - тип модели (класс)
 @freezed
 abstract class SortedMap<TID, TData> with _$SortedMap<TID, TData> {
   const SortedMap._();
 
   const factory SortedMap({
+    /// Данные в виде мапы, где ключ это id, значение это модель
     @Default({}) Map<TID, TData> data,
+
+    /// Список из id в нужном порядке
     @Default([]) List<TID> idOrderedList,
   }) = _SortedMap;
 
+  /// Сама сделает мапу и упорядоченный список id из исходного List
+  ///
+  /// Порядок будет такой же как в исходном List
   factory SortedMap.fromList({
     required List<TData> list,
     required TID Function(TData) getId,
@@ -21,6 +32,7 @@ abstract class SortedMap<TID, TData> with _$SortedMap<TID, TData> {
     );
   }
 
+  /// Скопировать данные, исключая элемент с указанным id
   SortedMap<TID, TData> copyWithout(TID id) {
     final updatedData = {...data}..remove(id);
     final updatedIds = idOrderedList.where((itemId) => itemId != id).toList();
@@ -30,6 +42,7 @@ abstract class SortedMap<TID, TData> with _$SortedMap<TID, TData> {
     );
   }
 
+  /// Скопировать данные, исключая элементы с указанными ids
   SortedMap<TID, TData> copyWithoutMany(Set<TID> ids) {
     final updatedData = {...data}..removeWhere((id, item) => ids.contains(id));
     final updatedIds = idOrderedList.where((itemId) => !ids.contains(itemId)).toList();
@@ -39,6 +52,7 @@ abstract class SortedMap<TID, TData> with _$SortedMap<TID, TData> {
     );
   }
 
+  /// Скопировать данные, изменив элемент по id
   SortedMap<TID, TData> withElementReplaced({
     required TID id,
     required TData updatedElement,
@@ -48,6 +62,9 @@ abstract class SortedMap<TID, TData> with _$SortedMap<TID, TData> {
     return copyWith(data: updatedData);
   }
 
+  /// Скопировать данные, добавим новые элементы из списка
+  ///
+  /// Новые данные будут добавлены в конец
   SortedMap<TID, TData> copyWithAdditionalData({
     required List<TData> additionalData,
     required TID Function(TData) getId,
@@ -69,16 +86,21 @@ abstract class SortedMap<TID, TData> with _$SortedMap<TID, TData> {
     );
   }
 
+  /// Длина списка (мапы, данных)
   int get length => data.length;
 
+  /// Получить элемент по id
   TData? operator [](TID id) => data[id];
 
+  /// Получить элемент по индексу
   TData? getByIndex(int index) {
     final id = idOrderedList[index];
     return data[id];
   }
 
+  /// Данных нет
   bool get isEmpty => data.isEmpty;
 
+  /// Данные есть, список не пустой
   bool get isNotEmpty => data.isNotEmpty;
 }
