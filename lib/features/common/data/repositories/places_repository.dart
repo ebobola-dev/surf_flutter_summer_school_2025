@@ -94,15 +94,13 @@ final class PlacesRepository extends BaseRepository implements IPlacesRepository
     });
   }
 
-  // @override
-  // RequestOperation<FavoritePlaceEntity?> getFavorite(int placeId) async {
-  //   try {
-  //     final result = await _favoriteDatabase.getOne(placeId);
-  //     return Result.ok(_favoritePlaceSchemaToEntityConverter.convertNullable(result));
-  //   } on Object catch (error, stackTrace) {
-  //     return Result.failed(Failure(original: error, stackTrace: stackTrace));
-  //   }
-  // }
+  @override
+  RequestOperation<FavoritePlaceEntity?> getFavorite(int placeId) async {
+    return makeCall(() async {
+      final result = await _favoriteDatabase.getOne(placeId);
+      return _favoritePlaceSchemaToEntityConverter.convertNullable(result);
+    });
+  }
 
   @override
   Stream<List<FavoritePlaceEntity>> get favoritesStream => _favoriteDatabase.favoritesStream.map(

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:elementary/elementary.dart';
 import 'package:flutter/foundation.dart';
@@ -12,10 +11,13 @@ import 'package:surf_flutter_summer_school_2025/features/common/di/places_scope.
 import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/place.dart';
 import 'package:surf_flutter_summer_school_2025/features/favorite_places/favorite_places_model.dart';
 import 'package:surf_flutter_summer_school_2025/features/favorite_places/favorite_places_screen.dart';
+import 'package:surf_flutter_summer_school_2025/features/navigation/app_router.dart';
 
 FavoritePlacesWM defaultFavoritePlacesWMFactory(BuildContext context) {
   final placesScope = context.read<IPlacesScope>();
+  final appRouter = context.read<AppRouter>();
   return FavoritePlacesWM(
+    appRouter: appRouter,
     FavoritePlacesModel(placesRepository: placesScope.placesRepository),
   );
 }
@@ -37,7 +39,12 @@ abstract interface class IFavoritePlacesWM with ThemeIModelMixin implements IWid
 final class FavoritePlacesWM extends WidgetModel<FavoritePlacesScreen, FavoritePlacesModel>
     with ThemeWMMixin
     implements IFavoritePlacesWM {
-  FavoritePlacesWM(super._model);
+  FavoritePlacesWM(
+    super._model, {
+    required AppRouter appRouter,
+  }) : _appRouter = appRouter;
+
+  final AppRouter _appRouter;
 
   @override
   final scrollController = ScrollController();
@@ -74,7 +81,7 @@ final class FavoritePlacesWM extends WidgetModel<FavoritePlacesScreen, FavoriteP
 
   @override
   void onPlaceCardTap(int placeId) {
-    log('tap on place #$placeId');
+    _appRouter.push(PlaceDetailRoute(placeId: placeId));
   }
 
   @override

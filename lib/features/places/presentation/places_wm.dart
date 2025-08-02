@@ -115,7 +115,7 @@ final class PlacesWM extends WidgetModel<PlacesScreen, PlacesModel> with ThemeWM
 
   @override
   void onPlaceTap(int placeId) {
-    model.logWriter.log('tap on place #$placeId');
+    _appRouter.push(PlaceDetailRoute(placeId: placeId));
   }
 
   @override

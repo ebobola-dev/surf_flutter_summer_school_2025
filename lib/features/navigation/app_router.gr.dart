@@ -74,6 +74,53 @@ class OnboardingRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [PlaceDetailScreen]
+class PlaceDetailRoute extends PageRouteInfo<PlaceDetailRouteArgs> {
+  PlaceDetailRoute({
+    required int placeId,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+         PlaceDetailRoute.name,
+         args: PlaceDetailRouteArgs(placeId: placeId, key: key),
+         initialChildren: children,
+       );
+
+  static const String name = 'PlaceDetailRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<PlaceDetailRouteArgs>();
+      return PlaceDetailScreen(placeId: args.placeId, key: args.key);
+    },
+  );
+}
+
+class PlaceDetailRouteArgs {
+  const PlaceDetailRouteArgs({required this.placeId, this.key});
+
+  final int placeId;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'PlaceDetailRouteArgs{placeId: $placeId, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! PlaceDetailRouteArgs) return false;
+    return placeId == other.placeId && key == other.key;
+  }
+
+  @override
+  int get hashCode => placeId.hashCode ^ key.hashCode;
+}
+
+/// generated route for
 /// [SplashFlow]
 class SplashRoute extends PageRouteInfo<void> {
   const SplashRoute({List<PageRouteInfo>? children})

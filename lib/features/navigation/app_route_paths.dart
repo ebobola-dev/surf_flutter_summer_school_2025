@@ -4,4 +4,5 @@ abstract class AppRoutePaths {
   static const onboarding = '/onboarding';
   static const tabs = '/tabs';
   static const filters = '/filters';
+  static const placeDetail = '/place_detail';
 }

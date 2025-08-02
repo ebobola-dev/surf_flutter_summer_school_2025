@@ -5,6 +5,7 @@ import 'package:surf_flutter_summer_school_2025/features/filter/domain/entities/
 import 'package:surf_flutter_summer_school_2025/features/filter/presentation/filter_screen.dart';
 import 'package:surf_flutter_summer_school_2025/features/navigation/app_route_paths.dart';
 import 'package:surf_flutter_summer_school_2025/features/onboarding/presentation/onboarding_flow.dart';
+import 'package:surf_flutter_summer_school_2025/features/place_detail/place_detail_screen.dart';
 import 'package:surf_flutter_summer_school_2025/features/splash/presentation/splash_flow.dart';
 import 'package:surf_flutter_summer_school_2025/features/tabs/presentation/tabs_screen.dart';
 import 'package:surf_flutter_summer_school_2025/features/tabs/presentation/tabs_wm.dart';
@@ -41,6 +42,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: FilterRoute.page,
       path: AppRoutePaths.filters,
+    ),
+    AutoRoute(
+      page: PlaceDetailRoute.page,
+      path: AppRoutePaths.placeDetail,
     ),
   ];
 }
