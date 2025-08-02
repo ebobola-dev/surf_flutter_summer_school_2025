@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:surf_flutter_summer_school_2025/common/utils/logger/i_log_writer.dart';
 import 'package:surf_flutter_summer_school_2025/config/app_config.dart';
+import 'package:surf_flutter_summer_school_2025/persistence/databse/cached_database.dart';
 import 'package:surf_flutter_summer_school_2025/persistence/databse/persistent_database.dart';
 
 /// {@template app_scope.class}
@@ -15,6 +16,8 @@ final class AppScope implements IAppScope {
   @override
   final PersistentDatabase persistentDatabase;
   @override
+  final CachedDatabase cachedDatabase;
+  @override
   final Dio dio;
   @override
   final ILogWriter logger;
@@ -24,6 +27,7 @@ final class AppScope implements IAppScope {
     required this.appConfig,
     required this.sharedPreferences,
     required this.persistentDatabase,
+    required this.cachedDatabase,
     required this.dio,
     required this.logger,
   });
@@ -42,6 +46,9 @@ abstract interface class IAppScope {
 
   /// Drift Database - saved when cache is cleared
   PersistentDatabase get persistentDatabase;
+
+  /// Drift Database - cleared along with the application cache
+  CachedDatabase get cachedDatabase;
 
   /// Logger.
   ILogWriter get logger;
