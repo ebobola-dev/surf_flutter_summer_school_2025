@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:surf_flutter_summer_school_2025/features/app/app_flow.dart';
@@ -10,6 +11,8 @@ Future<void> run() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  await FastCachedImageConfig.init();
 
   await _runApp();
 }

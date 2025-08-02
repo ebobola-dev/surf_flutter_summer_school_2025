@@ -1,3 +1,4 @@
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:surf_flutter_summer_school_2025/assets/resources.dart';
@@ -46,16 +47,23 @@ class PlaceCardWidget extends StatelessWidget {
                                   style: textScheme.small.copyWith(color: colorScheme.inactiveBlack),
                                 ),
                               )
-                            : Image.network(
-                                place.imageUrls[0],
+                            : FastCachedImage(
+                                url: place.imageUrls.first,
                                 fit: BoxFit.cover,
+                                loadingBuilder: (_, __) => Center(child: CircularProgressIndicator.adaptive()),
+                                errorBuilder: (context, error, stackTrace) => Center(
+                                  child: Text(
+                                    'Не удалось загрузить фото',
+                                    style: textScheme.small.copyWith(color: colorScheme.inactiveBlack),
+                                  ),
+                                ),
                               ),
                       ),
                       Positioned.fill(child: ColoredBox(color: Colors.black.withAlpha(40))),
                       Align(
                         alignment: Alignment(-.9, -.6),
                         child: Text(
-                          place.placeType.ruName,
+                          place.placeType.ruName.toLowerCase(),
                           style: textScheme.smallBold.copyWith(color: colorScheme.white),
                         ),
                       ),

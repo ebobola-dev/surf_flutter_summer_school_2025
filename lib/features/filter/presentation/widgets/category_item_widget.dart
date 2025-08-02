@@ -70,7 +70,7 @@ class CategoryItemWidget extends StatelessWidget {
               ),
             ),
             Text(
-              category.ruName,
+              category.placeType.ruName,
               style: textScheme.superSmall,
             ),
           ],

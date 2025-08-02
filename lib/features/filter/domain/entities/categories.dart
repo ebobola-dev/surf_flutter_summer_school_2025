@@ -1,35 +1,36 @@
 import 'package:surf_flutter_summer_school_2025/assets/resources.dart';
+import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/place_type.dart';
 
 enum Categories {
   hotel(
-    ruName: 'Отель',
+    placeType: PlaceTypeEntity.hotel,
     iconPath: SvgIcons.hotel,
   ),
   restourant(
-    ruName: 'Ресторан',
+    placeType: PlaceTypeEntity.restaurant,
     iconPath: SvgIcons.restourant,
   ),
   other(
-    ruName: 'Другое',
+    placeType: PlaceTypeEntity.other,
     iconPath: SvgIcons.particularPlace,
   ),
   park(
-    ruName: 'Парк',
+    placeType: PlaceTypeEntity.park,
     iconPath: SvgIcons.park,
   ),
   museum(
-    ruName: 'Музей',
+    placeType: PlaceTypeEntity.museum,
     iconPath: SvgIcons.museum,
   ),
   cafe(
-    ruName: 'Кафе',
+    placeType: PlaceTypeEntity.cafe,
     iconPath: SvgIcons.cafe,
   );
 
-  final String ruName;
+  final PlaceTypeEntity placeType;
   final String iconPath;
   const Categories({
-    required this.ruName,
+    required this.placeType,
     required this.iconPath,
   });
 }
