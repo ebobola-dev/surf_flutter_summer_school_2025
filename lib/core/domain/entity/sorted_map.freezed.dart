@@ -14,7 +14,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SortedMap<TID,TData> {
 
- Map<TID, TData> get data; List<TID> get idOrderedList;
+/// Данные в виде мапы, где ключ это id, значение это модель
+ Map<TID, TData> get data;/// Список из id в нужном порядке
+ List<TID> get idOrderedList;
 /// Create a copy of SortedMap
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -210,14 +212,18 @@ class _SortedMap<TID,TData> extends SortedMap<TID, TData> {
   const _SortedMap({final  Map<TID, TData> data = const {}, final  List<TID> idOrderedList = const []}): _data = data,_idOrderedList = idOrderedList,super._();
   
 
+/// Данные в виде мапы, где ключ это id, значение это модель
  final  Map<TID, TData> _data;
+/// Данные в виде мапы, где ключ это id, значение это модель
 @override@JsonKey() Map<TID, TData> get data {
   if (_data is EqualUnmodifiableMapView) return _data;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableMapView(_data);
 }
 
+/// Список из id в нужном порядке
  final  List<TID> _idOrderedList;
+/// Список из id в нужном порядке
 @override@JsonKey() List<TID> get idOrderedList {
   if (_idOrderedList is EqualUnmodifiableListView) return _idOrderedList;
   // ignore: implicit_dynamic_type

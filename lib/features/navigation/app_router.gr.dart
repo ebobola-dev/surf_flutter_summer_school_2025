@@ -58,6 +58,38 @@ class FilterRouteArgs {
 }
 
 /// generated route for
+/// [OnboardingFlow]
+class OnboardingRoute extends PageRouteInfo<void> {
+  const OnboardingRoute({List<PageRouteInfo>? children})
+    : super(OnboardingRoute.name, initialChildren: children);
+
+  static const String name = 'OnboardingRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const OnboardingFlow());
+    },
+  );
+}
+
+/// generated route for
+/// [SplashFlow]
+class SplashRoute extends PageRouteInfo<void> {
+  const SplashRoute({List<PageRouteInfo>? children})
+    : super(SplashRoute.name, initialChildren: children);
+
+  static const String name = 'SplashRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const SplashFlow());
+    },
+  );
+}
+
+/// generated route for
 /// [TabsScreen]
 class TabsRoute extends PageRouteInfo<TabsRouteArgs> {
   TabsRoute({

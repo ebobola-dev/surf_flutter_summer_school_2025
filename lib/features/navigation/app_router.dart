@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:surf_flutter_summer_school_2025/features/filter/domain/entities/filters.dart';
 import 'package:surf_flutter_summer_school_2025/features/filter/presentation/filter_screen.dart';
 import 'package:surf_flutter_summer_school_2025/features/navigation/app_route_paths.dart';
+import 'package:surf_flutter_summer_school_2025/features/onboarding/presentation/onboarding_flow.dart';
+import 'package:surf_flutter_summer_school_2025/features/splash/presentation/splash_flow.dart';
 import 'package:surf_flutter_summer_school_2025/features/tabs/presentation/tabs_screen.dart';
 import 'package:surf_flutter_summer_school_2025/features/tabs/presentation/tabs_wm.dart';
 
@@ -20,9 +22,21 @@ class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
     AutoRoute(
+      page: SplashRoute.page,
+      path: AppRoutePaths.splash,
+      initial: true,
+    ),
+    CustomRoute(
+      page: OnboardingRoute.page,
+      path: AppRoutePaths.onboarding,
+      transitionsBuilder: TransitionsBuilders.slideLeft,
+      duration: const Duration(milliseconds: 200),
+    ),
+    CustomRoute(
       page: TabsRoute.page,
       path: AppRoutePaths.tabs,
-      initial: true,
+      transitionsBuilder: TransitionsBuilders.slideLeft,
+      duration: const Duration(milliseconds: 200),
     ),
     AutoRoute(
       page: FilterRoute.page,
