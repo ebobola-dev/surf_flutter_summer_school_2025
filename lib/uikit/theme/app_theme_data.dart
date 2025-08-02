@@ -24,7 +24,7 @@ abstract class AppThemeData {
       color: _lightColorScheme.background,
       iconTheme: IconThemeData(color: _lightColorScheme.onBackground),
       centerTitle: true,
-      titleTextStyle: _textScheme.subtitle.copyWith(color: _lightColorScheme.onPrimary),
+      titleTextStyle: _textScheme.subtitle.copyWith(color: _lightColorScheme.onBackground),
     ),
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: _lightColorScheme.background,
@@ -80,7 +80,7 @@ abstract class AppThemeData {
       color: _darkColorScheme.background,
       iconTheme: IconThemeData(color: _darkColorScheme.onBackground),
       centerTitle: true,
-      titleTextStyle: _textScheme.subtitle.copyWith(color: _darkColorScheme.onPrimary),
+      titleTextStyle: _textScheme.subtitle.copyWith(color: _darkColorScheme.onBackground),
     ),
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: _darkColorScheme.background,

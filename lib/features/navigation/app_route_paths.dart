@@ -5,4 +5,5 @@ abstract class AppRoutePaths {
   static const tabs = '/tabs';
   static const filters = '/filters';
   static const placeDetail = '/place_detail';
+  static const imageCarousel = '/image_carousel';
 }

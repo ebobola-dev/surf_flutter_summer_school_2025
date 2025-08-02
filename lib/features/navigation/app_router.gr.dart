@@ -58,6 +58,54 @@ class FilterRouteArgs {
 }
 
 /// generated route for
+/// [ImageCarouselScreen]
+class ImageCarouselRoute extends PageRouteInfo<ImageCarouselRouteArgs> {
+  ImageCarouselRoute({
+    required List<String> imageUrls,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+         ImageCarouselRoute.name,
+         args: ImageCarouselRouteArgs(imageUrls: imageUrls, key: key),
+         initialChildren: children,
+       );
+
+  static const String name = 'ImageCarouselRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ImageCarouselRouteArgs>();
+      return ImageCarouselScreen(imageUrls: args.imageUrls, key: args.key);
+    },
+  );
+}
+
+class ImageCarouselRouteArgs {
+  const ImageCarouselRouteArgs({required this.imageUrls, this.key});
+
+  final List<String> imageUrls;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'ImageCarouselRouteArgs{imageUrls: $imageUrls, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ImageCarouselRouteArgs) return false;
+    return const ListEquality().equals(imageUrls, other.imageUrls) &&
+        key == other.key;
+  }
+
+  @override
+  int get hashCode => const ListEquality().hash(imageUrls) ^ key.hashCode;
+}
+
+/// generated route for
 /// [OnboardingFlow]
 class OnboardingRoute extends PageRouteInfo<void> {
   const OnboardingRoute({List<PageRouteInfo>? children})

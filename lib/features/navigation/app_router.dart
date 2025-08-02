@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collection/collection.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/widgets.dart';
 import 'package:surf_flutter_summer_school_2025/features/filter/domain/entities/filters.dart';
 import 'package:surf_flutter_summer_school_2025/features/filter/presentation/filter_screen.dart';
+import 'package:surf_flutter_summer_school_2025/features/image_carousel/image_carousel_screen.dart';
 import 'package:surf_flutter_summer_school_2025/features/navigation/app_route_paths.dart';
 import 'package:surf_flutter_summer_school_2025/features/onboarding/presentation/onboarding_flow.dart';
 import 'package:surf_flutter_summer_school_2025/features/place_detail/place_detail_screen.dart';
@@ -46,6 +48,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: PlaceDetailRoute.page,
       path: AppRoutePaths.placeDetail,
+    ),
+    AutoRoute(
+      page: ImageCarouselRoute.page,
+      path: AppRoutePaths.imageCarousel,
     ),
   ];
 }

@@ -97,7 +97,7 @@ final class PlaceDetailWM extends WidgetModel<PlaceDetailScreen, PlaceDetailMode
     if (model.place.value == null) return;
     final imageUrls = model.place.value!.place.imageUrls;
     if (imageUrls.isEmpty) return;
-    // TODO(navigate): navigate to carousel screen
+    _appRouter.push(ImageCarouselRoute(imageUrls: imageUrls));
   }
 
   @override

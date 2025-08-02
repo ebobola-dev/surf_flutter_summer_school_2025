@@ -115,7 +115,7 @@ class PlaceDetailScreen extends ElementaryWidget<IPlaceDetailWM> {
                                     Expanded(
                                       child: _ActionButton(
                                         iconPath: place.isFavorite ? SvgIcons.heartFilled : SvgIcons.heart,
-                                        text: place.isFavorite ? 'В избранное' : 'В избранном',
+                                        text: place.isFavorite ? 'В избранном' : 'В избранное',
                                         onTap: wm.onLikeTap,
                                       ),
                                     ),

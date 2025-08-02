@@ -56,13 +56,16 @@ final class FavoritePlacesWM extends WidgetModel<FavoritePlacesScreen, FavoriteP
   @override
   void initWidgetModel() {
     _errorsSubscription = model.errorsStream.listen(_errorsListener);
+    scrollController.addListener(_scrollListener);
     super.initWidgetModel();
   }
 
   @override
   void dispose() {
     _errorsSubscription.cancel();
-    scrollController.dispose();
+    scrollController
+      ..removeListener(_scrollListener)
+      ..dispose();
     _currentDissmisedPlaceId.dispose();
     super.dispose();
   }
@@ -109,6 +112,12 @@ final class FavoritePlacesWM extends WidgetModel<FavoritePlacesScreen, FavoriteP
   @override
   void onOutsideTap() {
     _currentDissmisedPlaceId.emit(null);
+  }
+
+  void _scrollListener() {
+    if (_currentDissmisedPlaceId.value != null) {
+      _currentDissmisedPlaceId.emit(null);
+    }
   }
 
   void _errorsListener(String errorMessage) {

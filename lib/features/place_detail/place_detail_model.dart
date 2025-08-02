@@ -23,6 +23,7 @@ class PlaceDetailModel extends ElementaryModel {
   final _isLoading = ValueNotifier<bool>(false);
   final _place = ValueNotifier<FavoritePlaceEntity?>(null);
   final _errorsController = StreamController<String>();
+  bool _likeInProgress = false;
 
   ValueListenable<bool> get isLoading => _isLoading;
   ValueListenable<FavoritePlaceEntity?> get place => _place;
@@ -86,6 +87,8 @@ class PlaceDetailModel extends ElementaryModel {
 
   Future<void> toggleLike() async {
     if (_place.value == null) return;
+    if (_likeInProgress) return;
+    _likeInProgress = true;
     if (_place.value!.isFavorite) {
       final unlike = await _repository.unlikePlace(_placeId);
       if (unlike case ResultFailed()) {
@@ -97,5 +100,6 @@ class PlaceDetailModel extends ElementaryModel {
         _errorsController.safeAdd('Ошибка');
       }
     }
+    _likeInProgress = false;
   }
 }
