@@ -10,8 +10,29 @@ class MapScreen extends ElementaryWidget<IMapWM> {
 
   @override
   Widget build(IMapWM wm) {
-    return Center(
-      child: Text('Map Screen'),
+    return Column(
+      children: [
+        // SizedBox(
+        //   height: kToolbarHeight,
+        //   child: Padding(
+        //     padding: const EdgeInsets.symmetric(horizontal: 16),
+        //     child: Center(
+        //       child: Text(
+        //         'Карта',
+        //         style: wm.textScheme.subtitle.copyWith(color: wm.colorScheme.text),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        Expanded(
+          child: Center(
+            child: Text(
+              'Экран карты ещё не реализован',
+              style: wm.textScheme.subtitle,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

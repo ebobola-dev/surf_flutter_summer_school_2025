@@ -18,18 +18,18 @@ class PlacesScreen extends ElementaryWidget<IPlacesWM> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        SizedBox(
-          height: kToolbarHeight,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Center(
-              child: Text(
-                'Список интересных мест',
-                style: wm.textScheme.subtitle.copyWith(color: wm.colorScheme.text),
-              ),
-            ),
-          ),
-        ),
+        // SizedBox(
+        //   height: kToolbarHeight,
+        //   child: Padding(
+        //     padding: const EdgeInsets.symmetric(horizontal: 16),
+        //     child: Center(
+        //       child: Text(
+        //         'Список интересных мест',
+        //         style: wm.textScheme.subtitle.copyWith(color: wm.colorScheme.text),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
           child: AppTextField(

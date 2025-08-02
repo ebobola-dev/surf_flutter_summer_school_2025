@@ -16,18 +16,18 @@ class SettingsScreen extends ElementaryWidget<ISettingsWM> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        SizedBox(
-          height: kToolbarHeight,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Center(
-              child: Text(
-                'Настройки',
-                style: wm.textScheme.subtitle.copyWith(color: wm.colorScheme.text),
-              ),
-            ),
-          ),
-        ),
+        // SizedBox(
+        //   height: kToolbarHeight,
+        //   child: Padding(
+        //     padding: const EdgeInsets.symmetric(horizontal: 16),
+        //     child: Center(
+        //       child: Text(
+        //         'Настройки',
+        //         style: wm.textScheme.subtitle.copyWith(color: wm.colorScheme.text),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         Expanded(
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 24),

@@ -18,6 +18,19 @@ class TabsScreen extends ElementaryWidget<ITabsWM> {
   @override
   Widget build(ITabsWM wm) {
     return Scaffold(
+      appBar: AppBar(
+        title: ValueListenableBuilder(
+          valueListenable: wm.currentPage,
+          builder: (_, currentPage, __) => Text(
+            <String>[
+              'Список интересных мест',
+              'Карта',
+              'Избранное',
+              'Настройки',
+            ][currentPage],
+          ),
+        ),
+      ),
       body: SafeArea(
         child: ValueListenableBuilder(
           valueListenable: wm.currentPage,

@@ -21,7 +21,8 @@ abstract class AppThemeData {
       onSurface: _lightColorScheme.onSurface,
     ),
     appBarTheme: AppBarTheme(
-      color: _lightColorScheme.background,
+      backgroundColor: _lightColorScheme.background,
+      scrolledUnderElevation: 0,
       iconTheme: IconThemeData(color: _lightColorScheme.onBackground),
       centerTitle: true,
       titleTextStyle: _textScheme.subtitle.copyWith(color: _lightColorScheme.onBackground),
@@ -77,7 +78,8 @@ abstract class AppThemeData {
     ),
     scaffoldBackgroundColor: _darkColorScheme.background,
     appBarTheme: AppBarTheme(
-      color: _darkColorScheme.background,
+      backgroundColor: _darkColorScheme.background,
+      scrolledUnderElevation: 0,
       iconTheme: IconThemeData(color: _darkColorScheme.onBackground),
       centerTitle: true,
       titleTextStyle: _textScheme.subtitle.copyWith(color: _darkColorScheme.onBackground),

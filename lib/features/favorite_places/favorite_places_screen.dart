@@ -20,18 +20,18 @@ class FavoritePlacesScreen extends ElementaryWidget<IFavoritePlacesWM> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SizedBox(
-            height: kToolbarHeight,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Center(
-                child: Text(
-                  'Избранное',
-                  style: wm.textScheme.subtitle.copyWith(color: wm.colorScheme.text),
-                ),
-              ),
-            ),
-          ),
+          // SizedBox(
+          //   height: kToolbarHeight,
+          //   child: Padding(
+          //     padding: const EdgeInsets.symmetric(horizontal: 16),
+          //     child: Center(
+          //       child: Text(
+          //         'Избранное',
+          //         style: wm.textScheme.subtitle.copyWith(color: wm.colorScheme.text),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Expanded(
             child: CustomScrollView(
               controller: wm.scrollController,
