@@ -28,4 +28,11 @@ class SvgIcons {
   static const arrowRight = 'assets/icons/arrow_right.svg';
 
   static const check = 'assets/icons/check.svg';
+
+  static const go = 'assets/icons/go.svg';
+
+  static const crossBig = 'assets/icons/cross_big.svg';
+  static const crossSmall = 'assets/icons/cross_small.svg';
+  static const share = 'assets/icons/share.svg';
+  static const trash = 'assets/icons/trash.svg';
 }

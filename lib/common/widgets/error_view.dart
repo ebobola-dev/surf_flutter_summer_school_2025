@@ -5,7 +5,8 @@ import 'package:surf_flutter_summer_school_2025/uikit/colors/app_color_scheme.da
 import 'package:surf_flutter_summer_school_2025/uikit/text/app_text_scheme.dart';
 
 class ErrorView extends StatelessWidget {
-  const ErrorView({super.key});
+  final VoidCallback? onRetryTap;
+  const ErrorView({super.key, this.onRetryTap});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +33,10 @@ class ErrorView extends StatelessWidget {
             textAlign: TextAlign.center,
             style: textScheme.small.copyWith(color: colorScheme.inactiveBlack),
           ),
+          if (onRetryTap != null) ...[
+            const SizedBox(height: 8),
+            TextButton(onPressed: onRetryTap, child: Text('Обновить')),
+          ],
         ],
       ),
     );

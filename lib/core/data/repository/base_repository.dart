@@ -19,9 +19,9 @@ abstract base class BaseRepository {
   /// {@macro base_repository.class}
   const BaseRepository({required this.logWriter});
 
-  /// Обёртка для стандартной обработки ошибок обращения к API.
+  /// Обёртка для стандартной обработки ошибок обращения к соурсам
   @protected
-  RequestOperation<T> makeApiCall<T>(AsyncValueGetter<T> call) async {
+  RequestOperation<T> makeCall<T>(AsyncValueGetter<T> call) async {
     final Result<T, Failure> failureResult;
 
     try {

@@ -1,7 +1,5 @@
 import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:surf_flutter_summer_school_2025/assets/resources.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/place.dart';
 import 'package:surf_flutter_summer_school_2025/uikit/colors/app_color_scheme.dart';
 import 'package:surf_flutter_summer_school_2025/uikit/text/app_text_scheme.dart';
@@ -9,13 +7,11 @@ import 'package:surf_flutter_summer_school_2025/uikit/text/app_text_scheme.dart'
 class PlaceCardWidget extends StatelessWidget {
   final PlaceEntity place;
   final VoidCallback onTap;
-  final VoidCallback onLikeTap;
-  final bool isFavorite;
+  final List<Widget> actions;
   const PlaceCardWidget({
     required this.place,
     required this.onTap,
-    required this.onLikeTap,
-    required this.isFavorite,
+    this.actions = const [],
     super.key,
   });
 
@@ -27,6 +23,7 @@ class PlaceCardWidget extends StatelessWidget {
     final textScheme = context.appTextScheme;
     return SizedBox(
       height: _cardHeight,
+      width: MediaQuery.of(context).size.width - 32,
       child: Material(
         borderRadius: BorderRadius.circular(12),
         color: colorScheme.surface,
@@ -101,23 +98,14 @@ class PlaceCardWidget extends StatelessWidget {
                 child: InkWell(onTap: onTap),
               ),
             ),
-            Align(
-              alignment: Alignment(.97, -.97),
-              child: IconButton(
-                onPressed: onLikeTap,
-                icon: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 150),
-                  switchInCurve: Curves.easeIn,
-                  switchOutCurve: Curves.easeIn,
-                  transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
-                  child: SvgPicture.asset(
-                    isFavorite ? SvgIcons.heartFilled : SvgIcons.heart,
-                    key: ValueKey(isFavorite),
-                    colorFilter: ColorFilter.mode(colorScheme.white, BlendMode.srcIn),
-                  ),
+            if (actions.isNotEmpty)
+              Align(
+                alignment: Alignment(.97, -.97),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: actions,
                 ),
               ),
-            ),
           ],
         ),
       ),

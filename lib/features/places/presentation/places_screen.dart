@@ -69,6 +69,7 @@ class PlacesScreen extends ElementaryWidget<IPlacesWM> {
           child: RefreshIndicator.adaptive(
             onRefresh: wm.onRefresh,
             child: CustomScrollView(
+              controller: wm.scrollController,
               slivers: [
                 ValueListenableBuilder(
                   valueListenable: wm.isLoading,
@@ -96,8 +97,23 @@ class PlacesScreen extends ElementaryWidget<IPlacesWM> {
                               key: ValueKey(place.id),
                               place: place.place,
                               onTap: () => wm.onPlaceTap(place.id),
-                              onLikeTap: () => wm.onPlaceLikeTap(place.id),
-                              isFavorite: place.isFavorite,
+                              actions: [
+                                IconButton(
+                                  onPressed: () => wm.onPlaceLikeTap(place.id),
+                                  icon: AnimatedSwitcher(
+                                    duration: const Duration(milliseconds: 150),
+                                    switchInCurve: Curves.easeIn,
+                                    switchOutCurve: Curves.easeIn,
+                                    transitionBuilder: (child, animation) =>
+                                        ScaleTransition(scale: animation, child: child),
+                                    child: SvgPicture.asset(
+                                      place.isFavorite ? SvgIcons.heartFilled : SvgIcons.heart,
+                                      key: ValueKey(place.isFavorite),
+                                      colorFilter: ColorFilter.mode(wm.colorScheme.white, BlendMode.srcIn),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             );
                           },
                         ),

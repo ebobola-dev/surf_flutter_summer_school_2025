@@ -1,8 +1,6 @@
 import 'package:surf_flutter_summer_school_2025/api/services/places/places_api.dart';
 import 'package:surf_flutter_summer_school_2025/core/data/repository/base_repository.dart';
-import 'package:surf_flutter_summer_school_2025/core/domain/entity/failure/failure.dart';
 import 'package:surf_flutter_summer_school_2025/core/domain/entity/request_operation.dart';
-import 'package:surf_flutter_summer_school_2025/core/domain/entity/result.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/data/converters/favorite_place_converter.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/data/converters/place_converter.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/favorite_place.dart';
@@ -32,7 +30,7 @@ final class PlacesRepository extends BaseRepository implements IPlacesRepository
 
   @override
   RequestOperation<List<PlaceEntity>> fetchAllPlaces() {
-    return makeApiCall(() async {
+    return makeCall(() async {
       final placeDtos = await _api.fetchAll();
       final placeEntities = _placeDtoToEntityConverter.convertMultiple(placeDtos).toList();
       return placeEntities;
@@ -41,7 +39,7 @@ final class PlacesRepository extends BaseRepository implements IPlacesRepository
 
   @override
   RequestOperation<PlaceEntity> fetchOnePlace(int id) {
-    return makeApiCall(() async {
+    return makeCall(() async {
       final placeDto = await _api.fetchOne(id);
       final placeEntity = _placeDtoToEntityConverter.convert(placeDto);
       return placeEntity;
@@ -54,7 +52,7 @@ final class PlacesRepository extends BaseRepository implements IPlacesRepository
     int offset = 0,
     int limit = 10,
   }) {
-    return makeApiCall(() async {
+    return makeCall(() async {
       final foundPlaceDtos = await _api.search(
         query: query,
         offset: offset,
@@ -68,41 +66,32 @@ final class PlacesRepository extends BaseRepository implements IPlacesRepository
 
   @override
   RequestOperation<List<FavoritePlaceEntity>> getFavoritePlaces() async {
-    try {
+    return makeCall(() async {
       final result = await _favoriteDatabase.get(10);
-      return Result.ok(_favoritePlaceSchemaToEntityConverter.convertMultiple(result).toList());
-    } on Object catch (error, stackTrace) {
-      return Result.failed(Failure(original: error, stackTrace: stackTrace));
-    }
+      return _favoritePlaceSchemaToEntityConverter.convertMultiple(result).toList();
+    });
   }
 
   @override
   RequestOperation<FavoritePlaceEntity> likePlace(PlaceEntity place) async {
-    try {
+    return makeCall(() async {
       final result = await _favoriteDatabase.create(_placeEntityToSchemaConverter.convert(place));
-      return Result.ok(_favoritePlaceSchemaToEntityConverter.convert(result));
-    } on Object catch (error, stackTrace) {
-      return Result.failed(Failure(original: error, stackTrace: stackTrace));
-    }
+      return _favoritePlaceSchemaToEntityConverter.convert(result);
+    });
   }
 
   @override
   RequestOperation<void> unlikePlace(int placeId) async {
-    try {
+    return makeCall(() async {
       await _favoriteDatabase.delete(placeId);
-      return Result.ok(null);
-    } on Object catch (error, stackTrace) {
-      return Result.failed(Failure(original: error, stackTrace: stackTrace));
-    }
+    });
   }
 
   @override
   RequestOperation<bool> isFavorite(int placeId) async {
-    try {
-      return Result.ok(await _favoriteDatabase.exists(placeId));
-    } on Object catch (error, stackTrace) {
-      return Result.failed(Failure(original: error, stackTrace: stackTrace));
-    }
+    return makeCall(() async {
+      return _favoriteDatabase.exists(placeId);
+    });
   }
 
   // @override
