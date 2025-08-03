@@ -18,27 +18,3 @@ class CachedPlacesTable extends Table {
   @override
   Set<Column> get primaryKey => {id};
 }
-
-abstract class CachedPlaceView extends View {
-  CachedPlacesTable get placesTable;
-  CachedPlaceTypesTable get placeTypesTable;
-
-  Expression<String> get placeTypeName => placeTypesTable.name;
-
-  @override
-  Query<HasResultSet, dynamic> as() =>
-      select([
-        placesTable.id,
-        placesTable.name,
-        placesTable.description,
-        placesTable.imageUrls,
-        placesTable.lat,
-        placesTable.lon,
-        placeTypeName,
-      ]).from(placesTable).join([
-        innerJoin(
-          placeTypesTable,
-          placeTypesTable.name.equalsExp(placeTypesTable.name),
-        ),
-      ]);
-}

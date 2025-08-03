@@ -20,8 +20,6 @@ abstract class FavoritePlacesView extends View {
   PlacesTable get placesTable;
   FavoritePlacesTable get favoritePlacesTable;
 
-  Expression<String> get placeTypeName => placeTypesTable.name;
-
   @override
   Query<HasResultSet, dynamic> as() =>
       select([
@@ -33,10 +31,8 @@ abstract class FavoritePlacesView extends View {
         placesTable.imageUrls,
         placesTable.lat,
         placesTable.lon,
-        //placesTable.placeTypeName,
-        placeTypeName,
+        placesTable.placeTypeName,
       ]).from(favoritePlacesTable).join([
         innerJoin(placesTable, placesTable.id.equalsExp(favoritePlacesTable.placeId)),
-        innerJoin(placeTypesTable, placeTypesTable.name.equalsExp(placesTable.placeTypeName)),
       ]);
 }

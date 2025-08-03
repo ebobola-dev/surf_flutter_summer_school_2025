@@ -821,230 +821,6 @@ class FavoritePlacesTableCompanion
   }
 }
 
-class PlaceViewData extends DataClass {
-  final int id;
-  final String name;
-  final String description;
-  final String imageUrls;
-  final double lat;
-  final double lon;
-  final String? placeTypeName;
-  const PlaceViewData({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.imageUrls,
-    required this.lat,
-    required this.lon,
-    this.placeTypeName,
-  });
-  factory PlaceViewData.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return PlaceViewData(
-      id: serializer.fromJson<int>(json['id']),
-      name: serializer.fromJson<String>(json['name']),
-      description: serializer.fromJson<String>(json['description']),
-      imageUrls: serializer.fromJson<String>(json['imageUrls']),
-      lat: serializer.fromJson<double>(json['lat']),
-      lon: serializer.fromJson<double>(json['lon']),
-      placeTypeName: serializer.fromJson<String?>(json['placeTypeName']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'name': serializer.toJson<String>(name),
-      'description': serializer.toJson<String>(description),
-      'imageUrls': serializer.toJson<String>(imageUrls),
-      'lat': serializer.toJson<double>(lat),
-      'lon': serializer.toJson<double>(lon),
-      'placeTypeName': serializer.toJson<String?>(placeTypeName),
-    };
-  }
-
-  PlaceViewData copyWith({
-    int? id,
-    String? name,
-    String? description,
-    String? imageUrls,
-    double? lat,
-    double? lon,
-    Value<String?> placeTypeName = const Value.absent(),
-  }) => PlaceViewData(
-    id: id ?? this.id,
-    name: name ?? this.name,
-    description: description ?? this.description,
-    imageUrls: imageUrls ?? this.imageUrls,
-    lat: lat ?? this.lat,
-    lon: lon ?? this.lon,
-    placeTypeName: placeTypeName.present
-        ? placeTypeName.value
-        : this.placeTypeName,
-  );
-  @override
-  String toString() {
-    return (StringBuffer('PlaceViewData(')
-          ..write('id: $id, ')
-          ..write('name: $name, ')
-          ..write('description: $description, ')
-          ..write('imageUrls: $imageUrls, ')
-          ..write('lat: $lat, ')
-          ..write('lon: $lon, ')
-          ..write('placeTypeName: $placeTypeName')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(id, name, description, imageUrls, lat, lon, placeTypeName);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is PlaceViewData &&
-          other.id == this.id &&
-          other.name == this.name &&
-          other.description == this.description &&
-          other.imageUrls == this.imageUrls &&
-          other.lat == this.lat &&
-          other.lon == this.lon &&
-          other.placeTypeName == this.placeTypeName);
-}
-
-class $PlaceViewView extends ViewInfo<$PlaceViewView, PlaceViewData>
-    implements HasResultSet {
-  final String? _alias;
-  @override
-  final _$PersistentDatabase attachedDatabase;
-  $PlaceViewView(this.attachedDatabase, [this._alias]);
-  $PlacesTableTable get placesTable =>
-      attachedDatabase.placesTable.createAlias('t0');
-  $PlaceTypesTableTable get placeTypesTable =>
-      attachedDatabase.placeTypesTable.createAlias('t1');
-  @override
-  List<GeneratedColumn> get $columns => [
-    id,
-    name,
-    description,
-    imageUrls,
-    lat,
-    lon,
-    placeTypeName,
-  ];
-  @override
-  String get aliasedName => _alias ?? entityName;
-  @override
-  String get entityName => 'place_view';
-  @override
-  Map<SqlDialect, String>? get createViewStatements => null;
-  @override
-  $PlaceViewView get asDslTable => this;
-  @override
-  PlaceViewData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return PlaceViewData(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}id'],
-      )!,
-      name: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}name'],
-      )!,
-      description: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}description'],
-      )!,
-      imageUrls: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}image_urls'],
-      )!,
-      lat: attachedDatabase.typeMapping.read(
-        DriftSqlType.double,
-        data['${effectivePrefix}lat'],
-      )!,
-      lon: attachedDatabase.typeMapping.read(
-        DriftSqlType.double,
-        data['${effectivePrefix}lon'],
-      )!,
-      placeTypeName: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}place_type_name'],
-      ),
-    );
-  }
-
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    generatedAs: GeneratedAs(placesTable.id, false),
-    type: DriftSqlType.int,
-  );
-  late final GeneratedColumn<String> name = GeneratedColumn<String>(
-    'name',
-    aliasedName,
-    false,
-    generatedAs: GeneratedAs(placesTable.name, false),
-    type: DriftSqlType.string,
-  );
-  late final GeneratedColumn<String> description = GeneratedColumn<String>(
-    'description',
-    aliasedName,
-    false,
-    generatedAs: GeneratedAs(placesTable.description, false),
-    type: DriftSqlType.string,
-  );
-  late final GeneratedColumn<String> imageUrls = GeneratedColumn<String>(
-    'image_urls',
-    aliasedName,
-    false,
-    generatedAs: GeneratedAs(placesTable.imageUrls, false),
-    type: DriftSqlType.string,
-  );
-  late final GeneratedColumn<double> lat = GeneratedColumn<double>(
-    'lat',
-    aliasedName,
-    false,
-    generatedAs: GeneratedAs(placesTable.lat, false),
-    type: DriftSqlType.double,
-  );
-  late final GeneratedColumn<double> lon = GeneratedColumn<double>(
-    'lon',
-    aliasedName,
-    false,
-    generatedAs: GeneratedAs(placesTable.lon, false),
-    type: DriftSqlType.double,
-  );
-  late final GeneratedColumn<String> placeTypeName = GeneratedColumn<String>(
-    'place_type_name',
-    aliasedName,
-    true,
-    generatedAs: GeneratedAs(placeTypesTable.name, false),
-    type: DriftSqlType.string,
-  );
-  @override
-  $PlaceViewView createAlias(String alias) {
-    return $PlaceViewView(attachedDatabase, alias);
-  }
-
-  @override
-  Query? get query =>
-      (attachedDatabase.selectOnly(placesTable)..addColumns($columns)).join([
-        innerJoin(
-          placeTypesTable,
-          placeTypesTable.name.equalsExp(placeTypesTable.name),
-        ),
-      ]);
-  @override
-  Set<String> get readTables => const {'places_table', 'place_types_table'};
-}
-
 class FavoritePlacesViewData extends DataClass {
   final int placeId;
   final DateTime likedAt;
@@ -1054,7 +830,7 @@ class FavoritePlacesViewData extends DataClass {
   final String imageUrls;
   final double lat;
   final double lon;
-  final String? placeTypeName;
+  final String placeTypeName;
   const FavoritePlacesViewData({
     required this.placeId,
     required this.likedAt,
@@ -1064,7 +840,7 @@ class FavoritePlacesViewData extends DataClass {
     required this.imageUrls,
     required this.lat,
     required this.lon,
-    this.placeTypeName,
+    required this.placeTypeName,
   });
   factory FavoritePlacesViewData.fromJson(
     Map<String, dynamic> json, {
@@ -1080,7 +856,7 @@ class FavoritePlacesViewData extends DataClass {
       imageUrls: serializer.fromJson<String>(json['imageUrls']),
       lat: serializer.fromJson<double>(json['lat']),
       lon: serializer.fromJson<double>(json['lon']),
-      placeTypeName: serializer.fromJson<String?>(json['placeTypeName']),
+      placeTypeName: serializer.fromJson<String>(json['placeTypeName']),
     );
   }
   @override
@@ -1095,7 +871,7 @@ class FavoritePlacesViewData extends DataClass {
       'imageUrls': serializer.toJson<String>(imageUrls),
       'lat': serializer.toJson<double>(lat),
       'lon': serializer.toJson<double>(lon),
-      'placeTypeName': serializer.toJson<String?>(placeTypeName),
+      'placeTypeName': serializer.toJson<String>(placeTypeName),
     };
   }
 
@@ -1108,7 +884,7 @@ class FavoritePlacesViewData extends DataClass {
     String? imageUrls,
     double? lat,
     double? lon,
-    Value<String?> placeTypeName = const Value.absent(),
+    String? placeTypeName,
   }) => FavoritePlacesViewData(
     placeId: placeId ?? this.placeId,
     likedAt: likedAt ?? this.likedAt,
@@ -1118,9 +894,7 @@ class FavoritePlacesViewData extends DataClass {
     imageUrls: imageUrls ?? this.imageUrls,
     lat: lat ?? this.lat,
     lon: lon ?? this.lon,
-    placeTypeName: placeTypeName.present
-        ? placeTypeName.value
-        : this.placeTypeName,
+    placeTypeName: placeTypeName ?? this.placeTypeName,
   );
   @override
   String toString() {
@@ -1237,7 +1011,7 @@ class $FavoritePlacesViewView
       placeTypeName: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}place_type_name'],
-      ),
+      )!,
     );
   }
 
@@ -1300,8 +1074,8 @@ class $FavoritePlacesViewView
   late final GeneratedColumn<String> placeTypeName = GeneratedColumn<String>(
     'place_type_name',
     aliasedName,
-    true,
-    generatedAs: GeneratedAs(placeTypesTable.name, false),
+    false,
+    generatedAs: GeneratedAs(placesTable.placeTypeName, false),
     type: DriftSqlType.string,
   );
   @override
@@ -1317,10 +1091,6 @@ class $FavoritePlacesViewView
         innerJoin(
           placesTable,
           placesTable.id.equalsExp(favoritePlacesTable.placeId),
-        ),
-        innerJoin(
-          placeTypesTable,
-          placeTypesTable.name.equalsExp(placesTable.placeTypeName),
         ),
       ]);
   @override
@@ -1340,7 +1110,6 @@ abstract class _$PersistentDatabase extends GeneratedDatabase {
   late final $PlacesTableTable placesTable = $PlacesTableTable(this);
   late final $FavoritePlacesTableTable favoritePlacesTable =
       $FavoritePlacesTableTable(this);
-  late final $PlaceViewView placeView = $PlaceViewView(this);
   late final $FavoritePlacesViewView favoritePlacesView =
       $FavoritePlacesViewView(this);
   @override
@@ -1351,7 +1120,6 @@ abstract class _$PersistentDatabase extends GeneratedDatabase {
     placeTypesTable,
     placesTable,
     favoritePlacesTable,
-    placeView,
     favoritePlacesView,
   ];
   @override

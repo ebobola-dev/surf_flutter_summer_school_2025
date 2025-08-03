@@ -16,7 +16,7 @@ final class FavoritePlaceSchemaToEntityConverter extends IFavoritePlaceSchemaToE
 
   @override
   FavoritePlaceEntity convert(FavoritePlacesViewData input) {
-    final placeType = placeTypeSchemaToEntityConverter.convert(PlaceTypeSchema(name: input.placeTypeName!));
+    final placeType = placeTypeSchemaToEntityConverter.convert(PlaceTypeSchema(name: input.placeTypeName));
     return FavoritePlaceEntity(
       place: PlaceEntity(
         id: input.id,

@@ -46,8 +46,8 @@ class FavoritePlacesDatabase implements IFavoritePlacesDatabase {
   }
 
   @override
-  Future<List<FavoritePlacesViewData>> get(int limit, {int? offset}) async {
-    return (database.select(database.favoritePlacesView)..limit(limit, offset: offset)).get();
+  Future<List<FavoritePlacesViewData>> getAll() async {
+    return database.select(database.favoritePlacesView).get();
   }
 
   @override

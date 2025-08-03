@@ -18,4 +18,7 @@ abstract interface class IPlacesRepository {
   RequestOperation<bool> isFavorite(int placeId);
 
   Stream<List<FavoritePlaceEntity>> get favoritesStream;
+
+  // Cache
+  RequestOperation<List<PlaceEntity>> getAllCachedPlaces();
 }

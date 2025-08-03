@@ -70,6 +70,7 @@ class PlacesScreen extends ElementaryWidget<IPlacesWM> {
             onRefresh: wm.onRefresh,
             child: CustomScrollView(
               controller: wm.scrollController,
+              physics: const AlwaysScrollableScrollPhysics(),
               slivers: [
                 ValueListenableBuilder(
                   valueListenable: wm.isLoading,

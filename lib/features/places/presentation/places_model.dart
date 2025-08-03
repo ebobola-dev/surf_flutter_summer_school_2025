@@ -84,6 +84,17 @@ final class PlacesModel extends BaseModel {
   Future<void> refresh() async {
     if (_isLoading.value) return;
     _isLoading.emit(true);
+
+    if (_placesMap.value == null) {
+      // first load, call cache
+      final cachedPlacesResult = await _repository.getAllCachedPlaces();
+      if (cachedPlacesResult case ResultOk(:final data)) {
+        if (data.isNotEmpty) {
+          _placesMap.emit(_convert(data));
+        }
+      }
+    }
+
     final placesResult = await _repository.fetchAllPlaces();
     switch (placesResult) {
       case ResultOk(:final data):

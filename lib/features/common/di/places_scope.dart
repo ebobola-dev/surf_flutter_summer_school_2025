@@ -10,6 +10,7 @@ import 'package:surf_flutter_summer_school_2025/features/common/data/converters/
 import 'package:surf_flutter_summer_school_2025/features/common/data/repositories/places_repository.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/domain/repositories/i_places_repository.dart';
 import 'package:surf_flutter_summer_school_2025/persistence/favorite_places/favorite_places_database.dart';
+import 'package:surf_flutter_summer_school_2025/persistence/places/places_database.dart';
 
 final class PlacesScope extends DisposableObject implements IPlacesScope {
   @override
@@ -21,12 +22,20 @@ final class PlacesScope extends DisposableObject implements IPlacesScope {
     final appScope = context.read<IAppScope>();
     final placesApi = PlacesApi(appScope.dio);
     final favoriteDatabase = FavoritePlacesDatabase(appScope.persistentDatabase);
+    final placesDatabase = PlacesDatabase(appScope.cachedDatabase);
     // PlaceType converters
     final placeTypeDtoToEntityConverter = PlaceTypeDtoToEntityConverter();
     final placeTypeSchemaToEntityConverter = PlaceTypeSchemaToEntityConverter();
+    final cachedPlaceTypeSchemaToEntityConverter = CachedPlaceTypeSchemaToEntityConverter();
     // Place converters
     final placeDtoToEntityConverter = PlaceDtoToEntityConverter(placeTypeConverter: placeTypeDtoToEntityConverter);
     final placeEntityToSchemaConverter = PlaceEntityToSchemaConverter();
+    final cachedPlaceSchemaToEntityConverter = CachedPlaceSchemaToEntityConverter(
+      cachedPlaceTypeSchemaToEntityConverter: cachedPlaceTypeSchemaToEntityConverter,
+    );
+    final placeEntityAndCachedSchemaConverter = PlaceEntityAndCachedSchemaConverter(
+      cachedPlaceSchemaToEntityConverter: cachedPlaceSchemaToEntityConverter,
+    );
     // FavoritePlace converters
     final favoritePlaceSchemaToEntityConverter = FavoritePlaceSchemaToEntityConverter(
       placeTypeSchemaToEntityConverter: placeTypeSchemaToEntityConverter,
@@ -36,9 +45,11 @@ final class PlacesScope extends DisposableObject implements IPlacesScope {
       logWriter: appScope.logger,
       placesApi: placesApi,
       favoritePlaceDatabase: favoriteDatabase,
+      placesDatabase: placesDatabase,
       placeDtoToEntityConverter: placeDtoToEntityConverter,
       placeEntityToSchemaConverter: placeEntityToSchemaConverter,
       favoritePlaceSchemaToEntityConverter: favoritePlaceSchemaToEntityConverter,
+      placeEntityAndCachedSchemaConverter: placeEntityAndCachedSchemaConverter,
     );
 
     return PlacesScope(placesRepository: placesRepository);

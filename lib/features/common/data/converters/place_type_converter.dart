@@ -1,6 +1,7 @@
 import 'package:surf_flutter_summer_school_2025/api/places/place_type_dto.dart';
 import 'package:surf_flutter_summer_school_2025/core/data/converter/converter.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/place_type.dart';
+import 'package:surf_flutter_summer_school_2025/persistence/databse/cached_database.dart';
 import 'package:surf_flutter_summer_school_2025/persistence/databse/persistent_database.dart';
 
 /// Конвертер из [PlaceTypeDto] в [PlaceTypeEntity].
@@ -65,4 +66,45 @@ final class PlaceTypeSchemaAndEntityConverter extends IPlaceTypeSchemaAndEntityC
 
   @override
   Converter<PlaceTypeSchema, PlaceTypeEntity> get reverseConverter => throw UnimplementedError();
+}
+
+//% Cached
+/// Конвертер из [CachedPlaceTypeSchema] в [PlaceTypeEntity].
+typedef ICachedPlaceTypeSchemaToEntityConverter = Converter<PlaceTypeEntity, CachedPlaceTypeSchema>;
+
+/// Реализация [ICachedPlaceTypeSchemaToEntityConverter]
+final class CachedPlaceTypeSchemaToEntityConverter extends ICachedPlaceTypeSchemaToEntityConverter {
+  const CachedPlaceTypeSchemaToEntityConverter();
+
+  @override
+  PlaceTypeEntity convert(CachedPlaceTypeSchema input) {
+    return PlaceTypeEntity.values.firstWhere((p) => p.name == input.name);
+  }
+}
+
+/// Конвертер из [PlaceTypeEntity] в [CachedPlaceTypeSchema].
+typedef IPlaceTypeEntityToCachedSchemaConverter = Converter<CachedPlaceTypeSchema, PlaceTypeEntity>;
+
+/// Реализация [IPlaceTypeEntityToCachedSchemaConverter]
+final class PlaceTypeEntityToCachedSchemaConverter extends IPlaceTypeEntityToCachedSchemaConverter {
+  const PlaceTypeEntityToCachedSchemaConverter();
+
+  @override
+  CachedPlaceTypeSchema convert(PlaceTypeEntity input) {
+    return CachedPlaceTypeSchema(name: input.name);
+  }
+}
+
+/// Конвертер [PlaceTypeEntity] <-> [CachedPlaceTypeSchema]
+typedef ICachedPlaceTypeSchemaAndEntityConverter = ConverterToAndFrom<PlaceTypeEntity, CachedPlaceTypeSchema>;
+
+/// Реализация [ICachedPlaceTypeSchemaAndEntityConverter]
+final class CachedPlaceTypeSchemaAndEntityConverter extends ICachedPlaceTypeSchemaAndEntityConverter {
+  const CachedPlaceTypeSchemaAndEntityConverter();
+
+  @override
+  Converter<PlaceTypeEntity, CachedPlaceTypeSchema> get converter => throw UnimplementedError();
+
+  @override
+  Converter<CachedPlaceTypeSchema, PlaceTypeEntity> get reverseConverter => throw UnimplementedError();
 }

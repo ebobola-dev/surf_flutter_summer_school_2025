@@ -14,7 +14,6 @@ part 'persistent_database.g.dart';
     FavoritePlacesTable,
   ],
   views: [
-    PlaceView,
     FavoritePlacesView,
   ],
 )
@@ -48,10 +47,13 @@ class PersistentDatabase extends _$PersistentDatabase {
   }
 
   Future<void> _enableForeignKeys() async {
+    // Включаем ключи
     await customStatement('PRAGMA foreign_keys = ON');
   }
 
   Future<void> _initializePlaceTypes() async {
+    // Дефолтные типы мест
+    // Разумеется никакие entity сюда не импортируем так как изоляция все дела
     const defaultPlaceTypes = <String>{
       'other',
       'park',
@@ -64,12 +66,19 @@ class PersistentDatabase extends _$PersistentDatabase {
       'cafe',
       'shopping',
     };
+
+    // Получаем все места из бд
     final existingPlaceTypes = (await select(placeTypesTable).get()).map((pt) => pt.name);
 
+    // Генерируем запросы на создание мест, которых нет в бд
     final batchInsert = defaultPlaceTypes
         .where((ptName) => !existingPlaceTypes.contains(ptName))
         .map((ptName) => PlaceTypesTableCompanion.insert(name: ptName));
 
+    // Если нет несуществующих, ливаем
+    if (batchInsert.isEmpty) return;
+
+    // Выполняем сгенерированные запросы
     await batch((batch) {
       batch.insertAll(placeTypesTable, batchInsert);
     });

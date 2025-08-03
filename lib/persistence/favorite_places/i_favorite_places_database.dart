@@ -5,7 +5,7 @@ abstract interface class IFavoritePlacesDatabase {
   Future<void> updatePlace(PlaceSchema place);
   Future<void> delete(int placeId);
   Future<bool> exists(int placeId);
-  Future<List<FavoritePlacesViewData>> get(int limit, {int? offset});
+  Future<List<FavoritePlacesViewData>> getAll();
   Future<FavoritePlacesViewData?> getOne(int placeId);
 
   Stream<List<FavoritePlacesViewData>> get favoritesStream;

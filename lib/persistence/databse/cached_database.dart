@@ -11,9 +11,7 @@ part 'cached_database.g.dart';
     CachedPlaceTypesTable,
     CachedPlacesTable,
   ],
-  views: [
-    CachedPlaceView,
-  ],
+  views: [],
 )
 class CachedDatabase extends _$CachedDatabase {
   CachedDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
@@ -49,6 +47,8 @@ class CachedDatabase extends _$CachedDatabase {
   }
 
   Future<void> _initializePlaceTypes() async {
+    // Дефолтные типы мест
+    // Разумеется никакие entity сюда не импортируем так как изоляция все дела
     const defaultPlaceTypes = <String>{
       'other',
       'park',
@@ -61,12 +61,19 @@ class CachedDatabase extends _$CachedDatabase {
       'cafe',
       'shopping',
     };
+
+    // Получаем все места из бд
     final existingPlaceTypes = (await select(cachedPlaceTypesTable).get()).map((pt) => pt.name);
 
+    // Генерируем запросы на создание мест, которых нет в бд
     final batchInsert = defaultPlaceTypes
         .where((ptName) => !existingPlaceTypes.contains(ptName))
         .map((ptName) => CachedPlaceTypesTableCompanion.insert(name: ptName));
 
+    // Если нет несуществующих, ливаем
+    if (batchInsert.isEmpty) return;
+
+    // Выполняем сгенерированные запросы
     await batch((batch) {
       batch.insertAll(cachedPlaceTypesTable, batchInsert);
     });
