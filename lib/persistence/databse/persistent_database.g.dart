@@ -4,7 +4,7 @@ part of 'persistent_database.dart';
 
 // ignore_for_file: type=lint
 class $PlaceTypesTableTable extends PlaceTypesTable
-    with TableInfo<$PlaceTypesTableTable, PlaceTypeSchema> {
+    with TableInfo<$PlaceTypesTableTable, PlaceTypeScheme> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -27,7 +27,7 @@ class $PlaceTypesTableTable extends PlaceTypesTable
   static const String $name = 'place_types_table';
   @override
   VerificationContext validateIntegrity(
-    Insertable<PlaceTypeSchema> instance, {
+    Insertable<PlaceTypeScheme> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -46,9 +46,9 @@ class $PlaceTypesTableTable extends PlaceTypesTable
   @override
   Set<GeneratedColumn> get $primaryKey => {name};
   @override
-  PlaceTypeSchema map(Map<String, dynamic> data, {String? tablePrefix}) {
+  PlaceTypeScheme map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return PlaceTypeSchema(
+    return PlaceTypeScheme(
       name: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}name'],
@@ -62,9 +62,9 @@ class $PlaceTypesTableTable extends PlaceTypesTable
   }
 }
 
-class PlaceTypeSchema extends DataClass implements Insertable<PlaceTypeSchema> {
+class PlaceTypeScheme extends DataClass implements Insertable<PlaceTypeScheme> {
   final String name;
-  const PlaceTypeSchema({required this.name});
+  const PlaceTypeScheme({required this.name});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -76,12 +76,12 @@ class PlaceTypeSchema extends DataClass implements Insertable<PlaceTypeSchema> {
     return PlaceTypesTableCompanion(name: Value(name));
   }
 
-  factory PlaceTypeSchema.fromJson(
+  factory PlaceTypeScheme.fromJson(
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return PlaceTypeSchema(name: serializer.fromJson<String>(json['name']));
+    return PlaceTypeScheme(name: serializer.fromJson<String>(json['name']));
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
@@ -89,17 +89,17 @@ class PlaceTypeSchema extends DataClass implements Insertable<PlaceTypeSchema> {
     return <String, dynamic>{'name': serializer.toJson<String>(name)};
   }
 
-  PlaceTypeSchema copyWith({String? name}) =>
-      PlaceTypeSchema(name: name ?? this.name);
-  PlaceTypeSchema copyWithCompanion(PlaceTypesTableCompanion data) {
-    return PlaceTypeSchema(
+  PlaceTypeScheme copyWith({String? name}) =>
+      PlaceTypeScheme(name: name ?? this.name);
+  PlaceTypeScheme copyWithCompanion(PlaceTypesTableCompanion data) {
+    return PlaceTypeScheme(
       name: data.name.present ? data.name.value : this.name,
     );
   }
 
   @override
   String toString() {
-    return (StringBuffer('PlaceTypeSchema(')
+    return (StringBuffer('PlaceTypeScheme(')
           ..write('name: $name')
           ..write(')'))
         .toString();
@@ -110,10 +110,10 @@ class PlaceTypeSchema extends DataClass implements Insertable<PlaceTypeSchema> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is PlaceTypeSchema && other.name == this.name);
+      (other is PlaceTypeScheme && other.name == this.name);
 }
 
-class PlaceTypesTableCompanion extends UpdateCompanion<PlaceTypeSchema> {
+class PlaceTypesTableCompanion extends UpdateCompanion<PlaceTypeScheme> {
   final Value<String> name;
   final Value<int> rowid;
   const PlaceTypesTableCompanion({
@@ -124,7 +124,7 @@ class PlaceTypesTableCompanion extends UpdateCompanion<PlaceTypeSchema> {
     required String name,
     this.rowid = const Value.absent(),
   }) : name = Value(name);
-  static Insertable<PlaceTypeSchema> custom({
+  static Insertable<PlaceTypeScheme> custom({
     Expression<String>? name,
     Expression<int>? rowid,
   }) {
@@ -164,7 +164,7 @@ class PlaceTypesTableCompanion extends UpdateCompanion<PlaceTypeSchema> {
 }
 
 class $PlacesTableTable extends PlacesTable
-    with TableInfo<$PlacesTableTable, PlaceSchema> {
+    with TableInfo<$PlacesTableTable, PlaceScheme> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -258,7 +258,7 @@ class $PlacesTableTable extends PlacesTable
   static const String $name = 'places_table';
   @override
   VerificationContext validateIntegrity(
-    Insertable<PlaceSchema> instance, {
+    Insertable<PlaceScheme> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -326,9 +326,9 @@ class $PlacesTableTable extends PlacesTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  PlaceSchema map(Map<String, dynamic> data, {String? tablePrefix}) {
+  PlaceScheme map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return PlaceSchema(
+    return PlaceScheme(
       id: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}id'],
@@ -366,7 +366,7 @@ class $PlacesTableTable extends PlacesTable
   }
 }
 
-class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
+class PlaceScheme extends DataClass implements Insertable<PlaceScheme> {
   final int id;
   final String name;
   final String description;
@@ -374,7 +374,7 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
   final double lat;
   final double lon;
   final String placeTypeName;
-  const PlaceSchema({
+  const PlaceScheme({
     required this.id,
     required this.name,
     required this.description,
@@ -408,12 +408,12 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
     );
   }
 
-  factory PlaceSchema.fromJson(
+  factory PlaceScheme.fromJson(
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return PlaceSchema(
+    return PlaceScheme(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       description: serializer.fromJson<String>(json['description']),
@@ -437,7 +437,7 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
     };
   }
 
-  PlaceSchema copyWith({
+  PlaceScheme copyWith({
     int? id,
     String? name,
     String? description,
@@ -445,7 +445,7 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
     double? lat,
     double? lon,
     String? placeTypeName,
-  }) => PlaceSchema(
+  }) => PlaceScheme(
     id: id ?? this.id,
     name: name ?? this.name,
     description: description ?? this.description,
@@ -454,8 +454,8 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
     lon: lon ?? this.lon,
     placeTypeName: placeTypeName ?? this.placeTypeName,
   );
-  PlaceSchema copyWithCompanion(PlacesTableCompanion data) {
-    return PlaceSchema(
+  PlaceScheme copyWithCompanion(PlacesTableCompanion data) {
+    return PlaceScheme(
       id: data.id.present ? data.id.value : this.id,
       name: data.name.present ? data.name.value : this.name,
       description: data.description.present
@@ -472,7 +472,7 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
 
   @override
   String toString() {
-    return (StringBuffer('PlaceSchema(')
+    return (StringBuffer('PlaceScheme(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('description: $description, ')
@@ -490,7 +490,7 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is PlaceSchema &&
+      (other is PlaceScheme &&
           other.id == this.id &&
           other.name == this.name &&
           other.description == this.description &&
@@ -500,7 +500,7 @@ class PlaceSchema extends DataClass implements Insertable<PlaceSchema> {
           other.placeTypeName == this.placeTypeName);
 }
 
-class PlacesTableCompanion extends UpdateCompanion<PlaceSchema> {
+class PlacesTableCompanion extends UpdateCompanion<PlaceScheme> {
   final Value<int> id;
   final Value<String> name;
   final Value<String> description;
@@ -531,7 +531,7 @@ class PlacesTableCompanion extends UpdateCompanion<PlaceSchema> {
        lat = Value(lat),
        lon = Value(lon),
        placeTypeName = Value(placeTypeName);
-  static Insertable<PlaceSchema> custom({
+  static Insertable<PlaceScheme> custom({
     Expression<int>? id,
     Expression<String>? name,
     Expression<String>? description,
@@ -614,7 +614,7 @@ class PlacesTableCompanion extends UpdateCompanion<PlaceSchema> {
 }
 
 class $FavoritePlacesTableTable extends FavoritePlacesTable
-    with TableInfo<$FavoritePlacesTableTable, FavoritePlaceSchema> {
+    with TableInfo<$FavoritePlacesTableTable, FavoritePlaceScheme> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -654,7 +654,7 @@ class $FavoritePlacesTableTable extends FavoritePlacesTable
   static const String $name = 'favorite_places_table';
   @override
   VerificationContext validateIntegrity(
-    Insertable<FavoritePlaceSchema> instance, {
+    Insertable<FavoritePlaceScheme> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -677,9 +677,9 @@ class $FavoritePlacesTableTable extends FavoritePlacesTable
   @override
   Set<GeneratedColumn> get $primaryKey => {placeId};
   @override
-  FavoritePlaceSchema map(Map<String, dynamic> data, {String? tablePrefix}) {
+  FavoritePlaceScheme map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return FavoritePlaceSchema(
+    return FavoritePlaceScheme(
       placeId: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}place_id'],
@@ -697,11 +697,11 @@ class $FavoritePlacesTableTable extends FavoritePlacesTable
   }
 }
 
-class FavoritePlaceSchema extends DataClass
-    implements Insertable<FavoritePlaceSchema> {
+class FavoritePlaceScheme extends DataClass
+    implements Insertable<FavoritePlaceScheme> {
   final int placeId;
   final DateTime likedAt;
-  const FavoritePlaceSchema({required this.placeId, required this.likedAt});
+  const FavoritePlaceScheme({required this.placeId, required this.likedAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -717,12 +717,12 @@ class FavoritePlaceSchema extends DataClass
     );
   }
 
-  factory FavoritePlaceSchema.fromJson(
+  factory FavoritePlaceScheme.fromJson(
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return FavoritePlaceSchema(
+    return FavoritePlaceScheme(
       placeId: serializer.fromJson<int>(json['placeId']),
       likedAt: serializer.fromJson<DateTime>(json['likedAt']),
     );
@@ -736,13 +736,13 @@ class FavoritePlaceSchema extends DataClass
     };
   }
 
-  FavoritePlaceSchema copyWith({int? placeId, DateTime? likedAt}) =>
-      FavoritePlaceSchema(
+  FavoritePlaceScheme copyWith({int? placeId, DateTime? likedAt}) =>
+      FavoritePlaceScheme(
         placeId: placeId ?? this.placeId,
         likedAt: likedAt ?? this.likedAt,
       );
-  FavoritePlaceSchema copyWithCompanion(FavoritePlacesTableCompanion data) {
-    return FavoritePlaceSchema(
+  FavoritePlaceScheme copyWithCompanion(FavoritePlacesTableCompanion data) {
+    return FavoritePlaceScheme(
       placeId: data.placeId.present ? data.placeId.value : this.placeId,
       likedAt: data.likedAt.present ? data.likedAt.value : this.likedAt,
     );
@@ -750,7 +750,7 @@ class FavoritePlaceSchema extends DataClass
 
   @override
   String toString() {
-    return (StringBuffer('FavoritePlaceSchema(')
+    return (StringBuffer('FavoritePlaceScheme(')
           ..write('placeId: $placeId, ')
           ..write('likedAt: $likedAt')
           ..write(')'))
@@ -762,13 +762,13 @@ class FavoritePlaceSchema extends DataClass
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is FavoritePlaceSchema &&
+      (other is FavoritePlaceScheme &&
           other.placeId == this.placeId &&
           other.likedAt == this.likedAt);
 }
 
 class FavoritePlacesTableCompanion
-    extends UpdateCompanion<FavoritePlaceSchema> {
+    extends UpdateCompanion<FavoritePlaceScheme> {
   final Value<int> placeId;
   final Value<DateTime> likedAt;
   const FavoritePlacesTableCompanion({
@@ -779,7 +779,7 @@ class FavoritePlacesTableCompanion
     this.placeId = const Value.absent(),
     this.likedAt = const Value.absent(),
   });
-  static Insertable<FavoritePlaceSchema> custom({
+  static Insertable<FavoritePlaceScheme> custom({
     Expression<int>? placeId,
     Expression<DateTime>? likedAt,
   }) {
@@ -822,7 +822,7 @@ class FavoritePlacesTableCompanion
 }
 
 class $SearchedItemsTableTable extends SearchedItemsTable
-    with TableInfo<$SearchedItemsTableTable, SearchedItemSchema> {
+    with TableInfo<$SearchedItemsTableTable, SearchedItemScheme> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -857,7 +857,7 @@ class $SearchedItemsTableTable extends SearchedItemsTable
   static const String $name = 'searched_items_table';
   @override
   VerificationContext validateIntegrity(
-    Insertable<SearchedItemSchema> instance, {
+    Insertable<SearchedItemScheme> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -885,9 +885,9 @@ class $SearchedItemsTableTable extends SearchedItemsTable
   @override
   Set<GeneratedColumn> get $primaryKey => {query};
   @override
-  SearchedItemSchema map(Map<String, dynamic> data, {String? tablePrefix}) {
+  SearchedItemScheme map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return SearchedItemSchema(
+    return SearchedItemScheme(
       query: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}query'],
@@ -905,11 +905,11 @@ class $SearchedItemsTableTable extends SearchedItemsTable
   }
 }
 
-class SearchedItemSchema extends DataClass
-    implements Insertable<SearchedItemSchema> {
+class SearchedItemScheme extends DataClass
+    implements Insertable<SearchedItemScheme> {
   final String query;
   final DateTime requestedAt;
-  const SearchedItemSchema({required this.query, required this.requestedAt});
+  const SearchedItemScheme({required this.query, required this.requestedAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -925,12 +925,12 @@ class SearchedItemSchema extends DataClass
     );
   }
 
-  factory SearchedItemSchema.fromJson(
+  factory SearchedItemScheme.fromJson(
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return SearchedItemSchema(
+    return SearchedItemScheme(
       query: serializer.fromJson<String>(json['query']),
       requestedAt: serializer.fromJson<DateTime>(json['requestedAt']),
     );
@@ -944,13 +944,13 @@ class SearchedItemSchema extends DataClass
     };
   }
 
-  SearchedItemSchema copyWith({String? query, DateTime? requestedAt}) =>
-      SearchedItemSchema(
+  SearchedItemScheme copyWith({String? query, DateTime? requestedAt}) =>
+      SearchedItemScheme(
         query: query ?? this.query,
         requestedAt: requestedAt ?? this.requestedAt,
       );
-  SearchedItemSchema copyWithCompanion(SearchedItemsTableCompanion data) {
-    return SearchedItemSchema(
+  SearchedItemScheme copyWithCompanion(SearchedItemsTableCompanion data) {
+    return SearchedItemScheme(
       query: data.query.present ? data.query.value : this.query,
       requestedAt: data.requestedAt.present
           ? data.requestedAt.value
@@ -960,7 +960,7 @@ class SearchedItemSchema extends DataClass
 
   @override
   String toString() {
-    return (StringBuffer('SearchedItemSchema(')
+    return (StringBuffer('SearchedItemScheme(')
           ..write('query: $query, ')
           ..write('requestedAt: $requestedAt')
           ..write(')'))
@@ -972,12 +972,12 @@ class SearchedItemSchema extends DataClass
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is SearchedItemSchema &&
+      (other is SearchedItemScheme &&
           other.query == this.query &&
           other.requestedAt == this.requestedAt);
 }
 
-class SearchedItemsTableCompanion extends UpdateCompanion<SearchedItemSchema> {
+class SearchedItemsTableCompanion extends UpdateCompanion<SearchedItemScheme> {
   final Value<String> query;
   final Value<DateTime> requestedAt;
   final Value<int> rowid;
@@ -991,7 +991,7 @@ class SearchedItemsTableCompanion extends UpdateCompanion<SearchedItemSchema> {
     this.requestedAt = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : query = Value(query);
-  static Insertable<SearchedItemSchema> custom({
+  static Insertable<SearchedItemScheme> custom({
     Expression<String>? query,
     Expression<DateTime>? requestedAt,
     Expression<int>? rowid,
@@ -1367,7 +1367,7 @@ final class $$PlaceTypesTableTableReferences
         BaseReferences<
           _$PersistentDatabase,
           $PlaceTypesTableTable,
-          PlaceTypeSchema
+          PlaceTypeScheme
         > {
   $$PlaceTypesTableTableReferences(
     super.$_db,
@@ -1375,7 +1375,7 @@ final class $$PlaceTypesTableTableReferences
     super.$_typedResult,
   );
 
-  static MultiTypedResultKey<$PlacesTableTable, List<PlaceSchema>>
+  static MultiTypedResultKey<$PlacesTableTable, List<PlaceScheme>>
   _placesTableRefsTable(_$PersistentDatabase db) =>
       MultiTypedResultKey.fromTable(
         db.placesTable,
@@ -1496,14 +1496,14 @@ class $$PlaceTypesTableTableTableManager
         RootTableManager<
           _$PersistentDatabase,
           $PlaceTypesTableTable,
-          PlaceTypeSchema,
+          PlaceTypeScheme,
           $$PlaceTypesTableTableFilterComposer,
           $$PlaceTypesTableTableOrderingComposer,
           $$PlaceTypesTableTableAnnotationComposer,
           $$PlaceTypesTableTableCreateCompanionBuilder,
           $$PlaceTypesTableTableUpdateCompanionBuilder,
-          (PlaceTypeSchema, $$PlaceTypesTableTableReferences),
-          PlaceTypeSchema,
+          (PlaceTypeScheme, $$PlaceTypesTableTableReferences),
+          PlaceTypeScheme,
           PrefetchHooks Function({bool placesTableRefs})
         > {
   $$PlaceTypesTableTableTableManager(
@@ -1546,9 +1546,9 @@ class $$PlaceTypesTableTableTableManager
                 return [
                   if (placesTableRefs)
                     await $_getPrefetchedData<
-                      PlaceTypeSchema,
+                      PlaceTypeScheme,
                       $PlaceTypesTableTable,
-                      PlaceSchema
+                      PlaceScheme
                     >(
                       currentTable: table,
                       referencedTable: $$PlaceTypesTableTableReferences
@@ -1577,14 +1577,14 @@ typedef $$PlaceTypesTableTableProcessedTableManager =
     ProcessedTableManager<
       _$PersistentDatabase,
       $PlaceTypesTableTable,
-      PlaceTypeSchema,
+      PlaceTypeScheme,
       $$PlaceTypesTableTableFilterComposer,
       $$PlaceTypesTableTableOrderingComposer,
       $$PlaceTypesTableTableAnnotationComposer,
       $$PlaceTypesTableTableCreateCompanionBuilder,
       $$PlaceTypesTableTableUpdateCompanionBuilder,
-      (PlaceTypeSchema, $$PlaceTypesTableTableReferences),
-      PlaceTypeSchema,
+      (PlaceTypeScheme, $$PlaceTypesTableTableReferences),
+      PlaceTypeScheme,
       PrefetchHooks Function({bool placesTableRefs})
     >;
 typedef $$PlacesTableTableCreateCompanionBuilder =
@@ -1610,7 +1610,7 @@ typedef $$PlacesTableTableUpdateCompanionBuilder =
 
 final class $$PlacesTableTableReferences
     extends
-        BaseReferences<_$PersistentDatabase, $PlacesTableTable, PlaceSchema> {
+        BaseReferences<_$PersistentDatabase, $PlacesTableTable, PlaceScheme> {
   $$PlacesTableTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static $PlaceTypesTableTable _placeTypeNameTable(_$PersistentDatabase db) =>
@@ -1637,7 +1637,7 @@ final class $$PlacesTableTableReferences
 
   static MultiTypedResultKey<
     $FavoritePlacesTableTable,
-    List<FavoritePlaceSchema>
+    List<FavoritePlaceScheme>
   >
   _favoritePlacesTableRefsTable(_$PersistentDatabase db) =>
       MultiTypedResultKey.fromTable(
@@ -1898,14 +1898,14 @@ class $$PlacesTableTableTableManager
         RootTableManager<
           _$PersistentDatabase,
           $PlacesTableTable,
-          PlaceSchema,
+          PlaceScheme,
           $$PlacesTableTableFilterComposer,
           $$PlacesTableTableOrderingComposer,
           $$PlacesTableTableAnnotationComposer,
           $$PlacesTableTableCreateCompanionBuilder,
           $$PlacesTableTableUpdateCompanionBuilder,
-          (PlaceSchema, $$PlacesTableTableReferences),
-          PlaceSchema,
+          (PlaceScheme, $$PlacesTableTableReferences),
+          PlaceScheme,
           PrefetchHooks Function({
             bool placeTypeName,
             bool favoritePlacesTableRefs,
@@ -2013,9 +2013,9 @@ class $$PlacesTableTableTableManager
                     return [
                       if (favoritePlacesTableRefs)
                         await $_getPrefetchedData<
-                          PlaceSchema,
+                          PlaceScheme,
                           $PlacesTableTable,
-                          FavoritePlaceSchema
+                          FavoritePlaceScheme
                         >(
                           currentTable: table,
                           referencedTable: $$PlacesTableTableReferences
@@ -2044,14 +2044,14 @@ typedef $$PlacesTableTableProcessedTableManager =
     ProcessedTableManager<
       _$PersistentDatabase,
       $PlacesTableTable,
-      PlaceSchema,
+      PlaceScheme,
       $$PlacesTableTableFilterComposer,
       $$PlacesTableTableOrderingComposer,
       $$PlacesTableTableAnnotationComposer,
       $$PlacesTableTableCreateCompanionBuilder,
       $$PlacesTableTableUpdateCompanionBuilder,
-      (PlaceSchema, $$PlacesTableTableReferences),
-      PlaceSchema,
+      (PlaceScheme, $$PlacesTableTableReferences),
+      PlaceScheme,
       PrefetchHooks Function({bool placeTypeName, bool favoritePlacesTableRefs})
     >;
 typedef $$FavoritePlacesTableTableCreateCompanionBuilder =
@@ -2070,7 +2070,7 @@ final class $$FavoritePlacesTableTableReferences
         BaseReferences<
           _$PersistentDatabase,
           $FavoritePlacesTableTable,
-          FavoritePlaceSchema
+          FavoritePlaceScheme
         > {
   $$FavoritePlacesTableTableReferences(
     super.$_db,
@@ -2215,14 +2215,14 @@ class $$FavoritePlacesTableTableTableManager
         RootTableManager<
           _$PersistentDatabase,
           $FavoritePlacesTableTable,
-          FavoritePlaceSchema,
+          FavoritePlaceScheme,
           $$FavoritePlacesTableTableFilterComposer,
           $$FavoritePlacesTableTableOrderingComposer,
           $$FavoritePlacesTableTableAnnotationComposer,
           $$FavoritePlacesTableTableCreateCompanionBuilder,
           $$FavoritePlacesTableTableUpdateCompanionBuilder,
-          (FavoritePlaceSchema, $$FavoritePlacesTableTableReferences),
-          FavoritePlaceSchema,
+          (FavoritePlaceScheme, $$FavoritePlacesTableTableReferences),
+          FavoritePlaceScheme,
           PrefetchHooks Function({bool placeId})
         > {
   $$FavoritePlacesTableTableTableManager(
@@ -2319,14 +2319,14 @@ typedef $$FavoritePlacesTableTableProcessedTableManager =
     ProcessedTableManager<
       _$PersistentDatabase,
       $FavoritePlacesTableTable,
-      FavoritePlaceSchema,
+      FavoritePlaceScheme,
       $$FavoritePlacesTableTableFilterComposer,
       $$FavoritePlacesTableTableOrderingComposer,
       $$FavoritePlacesTableTableAnnotationComposer,
       $$FavoritePlacesTableTableCreateCompanionBuilder,
       $$FavoritePlacesTableTableUpdateCompanionBuilder,
-      (FavoritePlaceSchema, $$FavoritePlacesTableTableReferences),
-      FavoritePlaceSchema,
+      (FavoritePlaceScheme, $$FavoritePlacesTableTableReferences),
+      FavoritePlaceScheme,
       PrefetchHooks Function({bool placeId})
     >;
 typedef $$SearchedItemsTableTableCreateCompanionBuilder =
@@ -2405,21 +2405,21 @@ class $$SearchedItemsTableTableTableManager
         RootTableManager<
           _$PersistentDatabase,
           $SearchedItemsTableTable,
-          SearchedItemSchema,
+          SearchedItemScheme,
           $$SearchedItemsTableTableFilterComposer,
           $$SearchedItemsTableTableOrderingComposer,
           $$SearchedItemsTableTableAnnotationComposer,
           $$SearchedItemsTableTableCreateCompanionBuilder,
           $$SearchedItemsTableTableUpdateCompanionBuilder,
           (
-            SearchedItemSchema,
+            SearchedItemScheme,
             BaseReferences<
               _$PersistentDatabase,
               $SearchedItemsTableTable,
-              SearchedItemSchema
+              SearchedItemScheme
             >,
           ),
-          SearchedItemSchema,
+          SearchedItemScheme,
           PrefetchHooks Function()
         > {
   $$SearchedItemsTableTableTableManager(
@@ -2470,21 +2470,21 @@ typedef $$SearchedItemsTableTableProcessedTableManager =
     ProcessedTableManager<
       _$PersistentDatabase,
       $SearchedItemsTableTable,
-      SearchedItemSchema,
+      SearchedItemScheme,
       $$SearchedItemsTableTableFilterComposer,
       $$SearchedItemsTableTableOrderingComposer,
       $$SearchedItemsTableTableAnnotationComposer,
       $$SearchedItemsTableTableCreateCompanionBuilder,
       $$SearchedItemsTableTableUpdateCompanionBuilder,
       (
-        SearchedItemSchema,
+        SearchedItemScheme,
         BaseReferences<
           _$PersistentDatabase,
           $SearchedItemsTableTable,
-          SearchedItemSchema
+          SearchedItemScheme
         >,
       ),
-      SearchedItemSchema,
+      SearchedItemScheme,
       PrefetchHooks Function()
     >;
 

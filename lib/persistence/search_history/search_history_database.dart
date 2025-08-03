@@ -11,10 +11,10 @@ class SearchHistoryDatabase implements ISearchHistoryDatabase {
   });
 
   @override
-  Stream<List<SearchedItemSchema>> get allStream => database.select(database.searchedItemsTable).watch();
+  Stream<List<SearchedItemScheme>> get allStream => database.select(database.searchedItemsTable).watch();
 
   @override
-  Future<SearchedItemSchema> createOrUpdate(String query) async {
+  Future<SearchedItemScheme> createOrUpdate(String query) async {
     await database
         .into(database.searchedItemsTable)
         .insertOnConflictUpdate(
@@ -30,7 +30,7 @@ class SearchHistoryDatabase implements ISearchHistoryDatabase {
   }
 
   @override
-  Future<List<SearchedItemSchema>> getAll() async {
+  Future<List<SearchedItemScheme>> getAll() async {
     return database.select(database.searchedItemsTable).get();
   }
 

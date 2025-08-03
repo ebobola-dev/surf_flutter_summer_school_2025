@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-@DataClassName('PlaceTypeSchema')
+@DataClassName('PlaceTypeScheme')
 class PlaceTypesTable extends Table {
   TextColumn get name => text()();
 

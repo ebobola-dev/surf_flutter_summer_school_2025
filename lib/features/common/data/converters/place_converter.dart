@@ -32,19 +32,19 @@ final class PlaceDtoToEntityConverter extends IPlaceDtoToEntityConverter {
   }
 }
 
-/// Конвертер из [PlaceSchema] в [PlaceEntity].
-typedef IPlaceSchemaToEntityConverter = Converter<PlaceEntity, PlaceSchema>;
+/// Конвертер из [PlaceScheme] в [PlaceEntity].
+typedef IPlaceSchemeToEntityConverter = Converter<PlaceEntity, PlaceScheme>;
 
-/// Реализация [IPlaceSchemaToEntityConverter]
-final class PlaceSchemaToEntityConverter extends IPlaceSchemaToEntityConverter {
-  final IPlaceTypeSchemaToEntityConverter cachedPlaceTypeSchemaToEntityConverter;
-  const PlaceSchemaToEntityConverter({
-    required this.cachedPlaceTypeSchemaToEntityConverter,
+/// Реализация [IPlaceSchemeToEntityConverter]
+final class PlaceSchemeToEntityConverter extends IPlaceSchemeToEntityConverter {
+  final IPlaceTypeSchemeToEntityConverter cachedPlaceTypeSchemeToEntityConverter;
+  const PlaceSchemeToEntityConverter({
+    required this.cachedPlaceTypeSchemeToEntityConverter,
   });
 
   @override
-  PlaceEntity convert(PlaceSchema input) {
-    final placeType = cachedPlaceTypeSchemaToEntityConverter.convert(PlaceTypeSchema(name: input.placeTypeName));
+  PlaceEntity convert(PlaceScheme input) {
+    final placeType = cachedPlaceTypeSchemeToEntityConverter.convert(PlaceTypeScheme(name: input.placeTypeName));
     return PlaceEntity(
       id: input.id,
       name: input.name,
@@ -57,16 +57,16 @@ final class PlaceSchemaToEntityConverter extends IPlaceSchemaToEntityConverter {
   }
 }
 
-/// Конвертер из [PlaceEntity] в [PlaceSchema].
-typedef IPlaceEntityToSchemaConverter = Converter<PlaceSchema, PlaceEntity>;
+/// Конвертер из [PlaceEntity] в [PlaceScheme].
+typedef IPlaceEntityToSchemeConverter = Converter<PlaceScheme, PlaceEntity>;
 
-/// Реализация [IPlaceEntityToSchemaConverter]
-final class PlaceEntityToSchemaConverter extends IPlaceEntityToSchemaConverter {
-  const PlaceEntityToSchemaConverter();
+/// Реализация [IPlaceEntityToSchemeConverter]
+final class PlaceEntityToSchemeConverter extends IPlaceEntityToSchemeConverter {
+  const PlaceEntityToSchemeConverter();
 
   @override
-  PlaceSchema convert(PlaceEntity input) {
-    return PlaceSchema(
+  PlaceScheme convert(PlaceEntity input) {
+    return PlaceScheme(
       id: input.id,
       name: input.name,
       description: input.description,
@@ -78,35 +78,35 @@ final class PlaceEntityToSchemaConverter extends IPlaceEntityToSchemaConverter {
   }
 }
 
-/// Конвертер [PlaceEntity] <-> [PlaceSchema].
-typedef IPlaceEntityAndSchemaConverter = ConverterToAndFrom<PlaceSchema, PlaceEntity>;
+/// Конвертер [PlaceEntity] <-> [PlaceScheme].
+typedef IPlaceEntityAndSchemeConverter = ConverterToAndFrom<PlaceScheme, PlaceEntity>;
 
-/// Реализация [IPlaceEntityAndSchemaConverter]
-final class PlaceEntityAndSchemaConverter extends IPlaceEntityAndSchemaConverter {
-  final IPlaceSchemaToEntityConverter cachedPlaceSchemaToEntityConverter;
-  const PlaceEntityAndSchemaConverter({required this.cachedPlaceSchemaToEntityConverter});
-
-  @override
-  Converter<PlaceSchema, PlaceEntity> get converter => const PlaceEntityToSchemaConverter();
+/// Реализация [IPlaceEntityAndSchemeConverter]
+final class PlaceEntityAndSchemeConverter extends IPlaceEntityAndSchemeConverter {
+  final IPlaceSchemeToEntityConverter cachedPlaceSchemeToEntityConverter;
+  const PlaceEntityAndSchemeConverter({required this.cachedPlaceSchemeToEntityConverter});
 
   @override
-  Converter<PlaceEntity, PlaceSchema> get reverseConverter => cachedPlaceSchemaToEntityConverter;
+  Converter<PlaceScheme, PlaceEntity> get converter => const PlaceEntityToSchemeConverter();
+
+  @override
+  Converter<PlaceEntity, PlaceScheme> get reverseConverter => cachedPlaceSchemeToEntityConverter;
 }
 
 // % Cached
-/// Конвертер из [CachedPlaceSchema] в [PlaceEntity].
-typedef ICachedPlaceSchemaToEntityConverter = Converter<PlaceEntity, CachedPlaceSchema>;
+/// Конвертер из [CachedPlaceScheme] в [PlaceEntity].
+typedef ICachedPlaceSchemeToEntityConverter = Converter<PlaceEntity, CachedPlaceScheme>;
 
-/// Реализация [ICachedPlaceSchemaToEntityConverter]
-final class CachedPlaceSchemaToEntityConverter extends ICachedPlaceSchemaToEntityConverter {
-  final ICachedPlaceTypeSchemaToEntityConverter cachedPlaceTypeSchemaToEntityConverter;
-  const CachedPlaceSchemaToEntityConverter({
-    required this.cachedPlaceTypeSchemaToEntityConverter,
+/// Реализация [ICachedPlaceSchemeToEntityConverter]
+final class CachedPlaceSchemeToEntityConverter extends ICachedPlaceSchemeToEntityConverter {
+  final ICachedPlaceTypeSchemeToEntityConverter cachedPlaceTypeSchemeToEntityConverter;
+  const CachedPlaceSchemeToEntityConverter({
+    required this.cachedPlaceTypeSchemeToEntityConverter,
   });
 
   @override
-  PlaceEntity convert(CachedPlaceSchema input) {
-    final placeType = cachedPlaceTypeSchemaToEntityConverter.convert(CachedPlaceTypeSchema(name: input.placeTypeName));
+  PlaceEntity convert(CachedPlaceScheme input) {
+    final placeType = cachedPlaceTypeSchemeToEntityConverter.convert(CachedPlaceTypeScheme(name: input.placeTypeName));
     return PlaceEntity(
       id: input.id,
       name: input.name,
@@ -119,16 +119,16 @@ final class CachedPlaceSchemaToEntityConverter extends ICachedPlaceSchemaToEntit
   }
 }
 
-/// Конвертер из [PlaceEntity] в [CachedPlaceSchema].
-typedef IPlaceEntityToCachedSchemaConverter = Converter<CachedPlaceSchema, PlaceEntity>;
+/// Конвертер из [PlaceEntity] в [CachedPlaceScheme].
+typedef IPlaceEntityToCachedSchemeConverter = Converter<CachedPlaceScheme, PlaceEntity>;
 
-/// Реализация [IPlaceEntityToCachedSchemaConverter]
-final class PlaceEntityToCachedSchemaConverter extends IPlaceEntityToCachedSchemaConverter {
-  const PlaceEntityToCachedSchemaConverter();
+/// Реализация [IPlaceEntityToCachedSchemeConverter]
+final class PlaceEntityToCachedSchemeConverter extends IPlaceEntityToCachedSchemeConverter {
+  const PlaceEntityToCachedSchemeConverter();
 
   @override
-  CachedPlaceSchema convert(PlaceEntity input) {
-    return CachedPlaceSchema(
+  CachedPlaceScheme convert(PlaceEntity input) {
+    return CachedPlaceScheme(
       id: input.id,
       name: input.name,
       description: input.description,
@@ -140,17 +140,17 @@ final class PlaceEntityToCachedSchemaConverter extends IPlaceEntityToCachedSchem
   }
 }
 
-/// Конвертер [PlaceEntity] <-> [CachedPlaceSchema].
-typedef IPlaceEntityAndCachedSchemaConverter = ConverterToAndFrom<CachedPlaceSchema, PlaceEntity>;
+/// Конвертер [PlaceEntity] <-> [CachedPlaceScheme].
+typedef IPlaceEntityAndCachedSchemeConverter = ConverterToAndFrom<CachedPlaceScheme, PlaceEntity>;
 
-/// Реализация [IPlaceEntityAndCachedSchemaConverter]
-final class PlaceEntityAndCachedSchemaConverter extends IPlaceEntityAndCachedSchemaConverter {
-  final ICachedPlaceSchemaToEntityConverter cachedPlaceSchemaToEntityConverter;
-  const PlaceEntityAndCachedSchemaConverter({required this.cachedPlaceSchemaToEntityConverter});
-
-  @override
-  Converter<CachedPlaceSchema, PlaceEntity> get converter => const PlaceEntityToCachedSchemaConverter();
+/// Реализация [IPlaceEntityAndCachedSchemeConverter]
+final class PlaceEntityAndCachedSchemeConverter extends IPlaceEntityAndCachedSchemeConverter {
+  final ICachedPlaceSchemeToEntityConverter cachedPlaceSchemeToEntityConverter;
+  const PlaceEntityAndCachedSchemeConverter({required this.cachedPlaceSchemeToEntityConverter});
 
   @override
-  Converter<PlaceEntity, CachedPlaceSchema> get reverseConverter => cachedPlaceSchemaToEntityConverter;
+  Converter<CachedPlaceScheme, PlaceEntity> get converter => const PlaceEntityToCachedSchemeConverter();
+
+  @override
+  Converter<PlaceEntity, CachedPlaceScheme> get reverseConverter => cachedPlaceSchemeToEntityConverter;
 }

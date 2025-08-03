@@ -2,7 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:surf_flutter_summer_school_2025/persistence/databse/tables/place.dart';
 import 'package:surf_flutter_summer_school_2025/persistence/databse/tables/place_type.dart';
 
-@DataClassName('FavoritePlaceSchema')
+@DataClassName('FavoritePlaceScheme')
 class FavoritePlacesTable extends Table {
   IntColumn get placeId => integer().references(
     PlacesTable,

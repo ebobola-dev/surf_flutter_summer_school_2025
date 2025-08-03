@@ -37,14 +37,14 @@ final class SearchPlacesScope extends DisposableObject implements ISearchPlacesS
       foundPlaceDtoToEntityConverter: foundPlaceDtoToEntityConverter,
     );
 
-    final searchedItemSchemaToEntityConverter = SearchedItemSchemaToEntityConverter();
+    final searchedItemSchemeToEntityConverter = SearchedItemSchemeToEntityConverter();
 
     final placesRepository = SearchPlacesRepository(
       logWriter: appScope.logger,
       placesApi: placesApi,
       searchHistoryDatabase: searchHistoryDatabase,
       searchResultDtoToEntityConverter: searchResultDtoToEntityConverter,
-      searchedItemSchemaToEntityConverter: searchedItemSchemaToEntityConverter,
+      searchedItemSchemeToEntityConverter: searchedItemSchemeToEntityConverter,
     );
 
     return SearchPlacesScope(searchPlacesRepository: placesRepository);

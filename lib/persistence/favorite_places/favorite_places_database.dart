@@ -7,16 +7,16 @@ class FavoritePlacesDatabase implements IFavoritePlacesDatabase {
   const FavoritePlacesDatabase(this.database);
 
   @override
-  Future<FavoritePlacesViewData> create(PlaceSchema place) async {
+  Future<FavoritePlacesViewData> create(PlaceScheme place) async {
     await database.into(database.placesTable).insert(place);
     await database
         .into(database.favoritePlacesTable)
-        .insert(FavoritePlaceSchema(placeId: place.id, likedAt: DateTime.now().toUtc()));
+        .insert(FavoritePlaceScheme(placeId: place.id, likedAt: DateTime.now().toUtc()));
     return (database.select(database.favoritePlacesView)..where((v) => v.placeId.equals(place.id))).getSingle();
   }
 
   @override
-  Future<void> updatePlace(PlaceSchema place) async {
+  Future<void> updatePlace(PlaceScheme place) async {
     await (database.update(
       database.placesTable,
     )..where((p) => p.id.equals(place.id))).write(place);

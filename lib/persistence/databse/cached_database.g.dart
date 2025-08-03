@@ -4,7 +4,7 @@ part of 'cached_database.dart';
 
 // ignore_for_file: type=lint
 class $CachedPlaceTypesTableTable extends CachedPlaceTypesTable
-    with TableInfo<$CachedPlaceTypesTableTable, CachedPlaceTypeSchema> {
+    with TableInfo<$CachedPlaceTypesTableTable, CachedPlaceTypeScheme> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -27,7 +27,7 @@ class $CachedPlaceTypesTableTable extends CachedPlaceTypesTable
   static const String $name = 'cached_place_types_table';
   @override
   VerificationContext validateIntegrity(
-    Insertable<CachedPlaceTypeSchema> instance, {
+    Insertable<CachedPlaceTypeScheme> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -46,9 +46,9 @@ class $CachedPlaceTypesTableTable extends CachedPlaceTypesTable
   @override
   Set<GeneratedColumn> get $primaryKey => {name};
   @override
-  CachedPlaceTypeSchema map(Map<String, dynamic> data, {String? tablePrefix}) {
+  CachedPlaceTypeScheme map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return CachedPlaceTypeSchema(
+    return CachedPlaceTypeScheme(
       name: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}name'],
@@ -62,10 +62,10 @@ class $CachedPlaceTypesTableTable extends CachedPlaceTypesTable
   }
 }
 
-class CachedPlaceTypeSchema extends DataClass
-    implements Insertable<CachedPlaceTypeSchema> {
+class CachedPlaceTypeScheme extends DataClass
+    implements Insertable<CachedPlaceTypeScheme> {
   final String name;
-  const CachedPlaceTypeSchema({required this.name});
+  const CachedPlaceTypeScheme({required this.name});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -77,12 +77,12 @@ class CachedPlaceTypeSchema extends DataClass
     return CachedPlaceTypesTableCompanion(name: Value(name));
   }
 
-  factory CachedPlaceTypeSchema.fromJson(
+  factory CachedPlaceTypeScheme.fromJson(
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return CachedPlaceTypeSchema(
+    return CachedPlaceTypeScheme(
       name: serializer.fromJson<String>(json['name']),
     );
   }
@@ -92,17 +92,17 @@ class CachedPlaceTypeSchema extends DataClass
     return <String, dynamic>{'name': serializer.toJson<String>(name)};
   }
 
-  CachedPlaceTypeSchema copyWith({String? name}) =>
-      CachedPlaceTypeSchema(name: name ?? this.name);
-  CachedPlaceTypeSchema copyWithCompanion(CachedPlaceTypesTableCompanion data) {
-    return CachedPlaceTypeSchema(
+  CachedPlaceTypeScheme copyWith({String? name}) =>
+      CachedPlaceTypeScheme(name: name ?? this.name);
+  CachedPlaceTypeScheme copyWithCompanion(CachedPlaceTypesTableCompanion data) {
+    return CachedPlaceTypeScheme(
       name: data.name.present ? data.name.value : this.name,
     );
   }
 
   @override
   String toString() {
-    return (StringBuffer('CachedPlaceTypeSchema(')
+    return (StringBuffer('CachedPlaceTypeScheme(')
           ..write('name: $name')
           ..write(')'))
         .toString();
@@ -113,11 +113,11 @@ class CachedPlaceTypeSchema extends DataClass
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is CachedPlaceTypeSchema && other.name == this.name);
+      (other is CachedPlaceTypeScheme && other.name == this.name);
 }
 
 class CachedPlaceTypesTableCompanion
-    extends UpdateCompanion<CachedPlaceTypeSchema> {
+    extends UpdateCompanion<CachedPlaceTypeScheme> {
   final Value<String> name;
   final Value<int> rowid;
   const CachedPlaceTypesTableCompanion({
@@ -128,7 +128,7 @@ class CachedPlaceTypesTableCompanion
     required String name,
     this.rowid = const Value.absent(),
   }) : name = Value(name);
-  static Insertable<CachedPlaceTypeSchema> custom({
+  static Insertable<CachedPlaceTypeScheme> custom({
     Expression<String>? name,
     Expression<int>? rowid,
   }) {
@@ -171,7 +171,7 @@ class CachedPlaceTypesTableCompanion
 }
 
 class $CachedPlacesTableTable extends CachedPlacesTable
-    with TableInfo<$CachedPlacesTableTable, CachedPlaceSchema> {
+    with TableInfo<$CachedPlacesTableTable, CachedPlaceScheme> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -265,7 +265,7 @@ class $CachedPlacesTableTable extends CachedPlacesTable
   static const String $name = 'cached_places_table';
   @override
   VerificationContext validateIntegrity(
-    Insertable<CachedPlaceSchema> instance, {
+    Insertable<CachedPlaceScheme> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -333,9 +333,9 @@ class $CachedPlacesTableTable extends CachedPlacesTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  CachedPlaceSchema map(Map<String, dynamic> data, {String? tablePrefix}) {
+  CachedPlaceScheme map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return CachedPlaceSchema(
+    return CachedPlaceScheme(
       id: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}id'],
@@ -373,8 +373,8 @@ class $CachedPlacesTableTable extends CachedPlacesTable
   }
 }
 
-class CachedPlaceSchema extends DataClass
-    implements Insertable<CachedPlaceSchema> {
+class CachedPlaceScheme extends DataClass
+    implements Insertable<CachedPlaceScheme> {
   final int id;
   final String name;
   final String description;
@@ -382,7 +382,7 @@ class CachedPlaceSchema extends DataClass
   final double lat;
   final double lon;
   final String placeTypeName;
-  const CachedPlaceSchema({
+  const CachedPlaceScheme({
     required this.id,
     required this.name,
     required this.description,
@@ -416,12 +416,12 @@ class CachedPlaceSchema extends DataClass
     );
   }
 
-  factory CachedPlaceSchema.fromJson(
+  factory CachedPlaceScheme.fromJson(
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return CachedPlaceSchema(
+    return CachedPlaceScheme(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       description: serializer.fromJson<String>(json['description']),
@@ -445,7 +445,7 @@ class CachedPlaceSchema extends DataClass
     };
   }
 
-  CachedPlaceSchema copyWith({
+  CachedPlaceScheme copyWith({
     int? id,
     String? name,
     String? description,
@@ -453,7 +453,7 @@ class CachedPlaceSchema extends DataClass
     double? lat,
     double? lon,
     String? placeTypeName,
-  }) => CachedPlaceSchema(
+  }) => CachedPlaceScheme(
     id: id ?? this.id,
     name: name ?? this.name,
     description: description ?? this.description,
@@ -462,8 +462,8 @@ class CachedPlaceSchema extends DataClass
     lon: lon ?? this.lon,
     placeTypeName: placeTypeName ?? this.placeTypeName,
   );
-  CachedPlaceSchema copyWithCompanion(CachedPlacesTableCompanion data) {
-    return CachedPlaceSchema(
+  CachedPlaceScheme copyWithCompanion(CachedPlacesTableCompanion data) {
+    return CachedPlaceScheme(
       id: data.id.present ? data.id.value : this.id,
       name: data.name.present ? data.name.value : this.name,
       description: data.description.present
@@ -480,7 +480,7 @@ class CachedPlaceSchema extends DataClass
 
   @override
   String toString() {
-    return (StringBuffer('CachedPlaceSchema(')
+    return (StringBuffer('CachedPlaceScheme(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('description: $description, ')
@@ -498,7 +498,7 @@ class CachedPlaceSchema extends DataClass
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is CachedPlaceSchema &&
+      (other is CachedPlaceScheme &&
           other.id == this.id &&
           other.name == this.name &&
           other.description == this.description &&
@@ -508,7 +508,7 @@ class CachedPlaceSchema extends DataClass
           other.placeTypeName == this.placeTypeName);
 }
 
-class CachedPlacesTableCompanion extends UpdateCompanion<CachedPlaceSchema> {
+class CachedPlacesTableCompanion extends UpdateCompanion<CachedPlaceScheme> {
   final Value<int> id;
   final Value<String> name;
   final Value<String> description;
@@ -539,7 +539,7 @@ class CachedPlacesTableCompanion extends UpdateCompanion<CachedPlaceSchema> {
        lat = Value(lat),
        lon = Value(lon),
        placeTypeName = Value(placeTypeName);
-  static Insertable<CachedPlaceSchema> custom({
+  static Insertable<CachedPlaceScheme> custom({
     Expression<int>? id,
     Expression<String>? name,
     Expression<String>? description,
@@ -654,7 +654,7 @@ final class $$CachedPlaceTypesTableTableReferences
         BaseReferences<
           _$CachedDatabase,
           $CachedPlaceTypesTableTable,
-          CachedPlaceTypeSchema
+          CachedPlaceTypeScheme
         > {
   $$CachedPlaceTypesTableTableReferences(
     super.$_db,
@@ -662,7 +662,7 @@ final class $$CachedPlaceTypesTableTableReferences
     super.$_typedResult,
   );
 
-  static MultiTypedResultKey<$CachedPlacesTableTable, List<CachedPlaceSchema>>
+  static MultiTypedResultKey<$CachedPlacesTableTable, List<CachedPlaceScheme>>
   _cachedPlacesTableRefsTable(_$CachedDatabase db) =>
       MultiTypedResultKey.fromTable(
         db.cachedPlacesTable,
@@ -789,14 +789,14 @@ class $$CachedPlaceTypesTableTableTableManager
         RootTableManager<
           _$CachedDatabase,
           $CachedPlaceTypesTableTable,
-          CachedPlaceTypeSchema,
+          CachedPlaceTypeScheme,
           $$CachedPlaceTypesTableTableFilterComposer,
           $$CachedPlaceTypesTableTableOrderingComposer,
           $$CachedPlaceTypesTableTableAnnotationComposer,
           $$CachedPlaceTypesTableTableCreateCompanionBuilder,
           $$CachedPlaceTypesTableTableUpdateCompanionBuilder,
-          (CachedPlaceTypeSchema, $$CachedPlaceTypesTableTableReferences),
-          CachedPlaceTypeSchema,
+          (CachedPlaceTypeScheme, $$CachedPlaceTypesTableTableReferences),
+          CachedPlaceTypeScheme,
           PrefetchHooks Function({bool cachedPlacesTableRefs})
         > {
   $$CachedPlaceTypesTableTableTableManager(
@@ -853,9 +853,9 @@ class $$CachedPlaceTypesTableTableTableManager
                 return [
                   if (cachedPlacesTableRefs)
                     await $_getPrefetchedData<
-                      CachedPlaceTypeSchema,
+                      CachedPlaceTypeScheme,
                       $CachedPlaceTypesTableTable,
-                      CachedPlaceSchema
+                      CachedPlaceScheme
                     >(
                       currentTable: table,
                       referencedTable: $$CachedPlaceTypesTableTableReferences
@@ -884,14 +884,14 @@ typedef $$CachedPlaceTypesTableTableProcessedTableManager =
     ProcessedTableManager<
       _$CachedDatabase,
       $CachedPlaceTypesTableTable,
-      CachedPlaceTypeSchema,
+      CachedPlaceTypeScheme,
       $$CachedPlaceTypesTableTableFilterComposer,
       $$CachedPlaceTypesTableTableOrderingComposer,
       $$CachedPlaceTypesTableTableAnnotationComposer,
       $$CachedPlaceTypesTableTableCreateCompanionBuilder,
       $$CachedPlaceTypesTableTableUpdateCompanionBuilder,
-      (CachedPlaceTypeSchema, $$CachedPlaceTypesTableTableReferences),
-      CachedPlaceTypeSchema,
+      (CachedPlaceTypeScheme, $$CachedPlaceTypesTableTableReferences),
+      CachedPlaceTypeScheme,
       PrefetchHooks Function({bool cachedPlacesTableRefs})
     >;
 typedef $$CachedPlacesTableTableCreateCompanionBuilder =
@@ -920,7 +920,7 @@ final class $$CachedPlacesTableTableReferences
         BaseReferences<
           _$CachedDatabase,
           $CachedPlacesTableTable,
-          CachedPlaceSchema
+          CachedPlaceScheme
         > {
   $$CachedPlacesTableTableReferences(
     super.$_db,
@@ -1138,14 +1138,14 @@ class $$CachedPlacesTableTableTableManager
         RootTableManager<
           _$CachedDatabase,
           $CachedPlacesTableTable,
-          CachedPlaceSchema,
+          CachedPlaceScheme,
           $$CachedPlacesTableTableFilterComposer,
           $$CachedPlacesTableTableOrderingComposer,
           $$CachedPlacesTableTableAnnotationComposer,
           $$CachedPlacesTableTableCreateCompanionBuilder,
           $$CachedPlacesTableTableUpdateCompanionBuilder,
-          (CachedPlaceSchema, $$CachedPlacesTableTableReferences),
-          CachedPlaceSchema,
+          (CachedPlaceScheme, $$CachedPlacesTableTableReferences),
+          CachedPlaceScheme,
           PrefetchHooks Function({bool placeTypeName})
         > {
   $$CachedPlacesTableTableTableManager(
@@ -1259,14 +1259,14 @@ typedef $$CachedPlacesTableTableProcessedTableManager =
     ProcessedTableManager<
       _$CachedDatabase,
       $CachedPlacesTableTable,
-      CachedPlaceSchema,
+      CachedPlaceScheme,
       $$CachedPlacesTableTableFilterComposer,
       $$CachedPlacesTableTableOrderingComposer,
       $$CachedPlacesTableTableAnnotationComposer,
       $$CachedPlacesTableTableCreateCompanionBuilder,
       $$CachedPlacesTableTableUpdateCompanionBuilder,
-      (CachedPlaceSchema, $$CachedPlacesTableTableReferences),
-      CachedPlaceSchema,
+      (CachedPlaceScheme, $$CachedPlacesTableTableReferences),
+      CachedPlaceScheme,
       PrefetchHooks Function({bool placeTypeName})
     >;
 

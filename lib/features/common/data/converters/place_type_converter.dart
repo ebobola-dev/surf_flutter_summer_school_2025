@@ -28,83 +28,83 @@ final class PlaceTypeDtoToEntityConverter extends IPlaceTypeDtoToEntityConverter
   }
 }
 
-/// Конвертер из [PlaceTypeSchema] в [PlaceTypeEntity].
-typedef IPlaceTypeSchemaToEntityConverter = Converter<PlaceTypeEntity, PlaceTypeSchema>;
+/// Конвертер из [PlaceTypeScheme] в [PlaceTypeEntity].
+typedef IPlaceTypeSchemeToEntityConverter = Converter<PlaceTypeEntity, PlaceTypeScheme>;
 
-/// Реализация [IPlaceTypeSchemaToEntityConverter]
-final class PlaceTypeSchemaToEntityConverter extends IPlaceTypeSchemaToEntityConverter {
-  const PlaceTypeSchemaToEntityConverter();
+/// Реализация [IPlaceTypeSchemeToEntityConverter]
+final class PlaceTypeSchemeToEntityConverter extends IPlaceTypeSchemeToEntityConverter {
+  const PlaceTypeSchemeToEntityConverter();
 
   @override
-  PlaceTypeEntity convert(PlaceTypeSchema input) {
+  PlaceTypeEntity convert(PlaceTypeScheme input) {
     return PlaceTypeEntity.values.firstWhere((p) => p.name == input.name);
   }
 }
 
-/// Конвертер из [PlaceTypeEntity] в [PlaceTypeSchema].
-typedef IPlaceTypeEntityToSchemaConverter = Converter<PlaceTypeSchema, PlaceTypeEntity>;
+/// Конвертер из [PlaceTypeEntity] в [PlaceTypeScheme].
+typedef IPlaceTypeEntityToSchemeConverter = Converter<PlaceTypeScheme, PlaceTypeEntity>;
 
-/// Реализация [IPlaceTypeEntityToSchemaConverter]
-final class PlaceTypeEntityToSchemaConverter extends IPlaceTypeEntityToSchemaConverter {
-  const PlaceTypeEntityToSchemaConverter();
+/// Реализация [IPlaceTypeEntityToSchemeConverter]
+final class PlaceTypeEntityToSchemeConverter extends IPlaceTypeEntityToSchemeConverter {
+  const PlaceTypeEntityToSchemeConverter();
 
   @override
-  PlaceTypeSchema convert(PlaceTypeEntity input) {
-    return PlaceTypeSchema(name: input.name);
+  PlaceTypeScheme convert(PlaceTypeEntity input) {
+    return PlaceTypeScheme(name: input.name);
   }
 }
 
-/// Конвертер [PlaceTypeEntity] <-> [PlaceTypeSchema]
-typedef IPlaceTypeSchemaAndEntityConverter = ConverterToAndFrom<PlaceTypeEntity, PlaceTypeSchema>;
+/// Конвертер [PlaceTypeEntity] <-> [PlaceTypeScheme]
+typedef IPlaceTypeSchemeAndEntityConverter = ConverterToAndFrom<PlaceTypeEntity, PlaceTypeScheme>;
 
-/// Реализация [IPlaceTypeSchemaAndEntityConverter]
-final class PlaceTypeSchemaAndEntityConverter extends IPlaceTypeSchemaAndEntityConverter {
-  const PlaceTypeSchemaAndEntityConverter();
-
-  @override
-  Converter<PlaceTypeEntity, PlaceTypeSchema> get converter => throw UnimplementedError();
+/// Реализация [IPlaceTypeSchemeAndEntityConverter]
+final class PlaceTypeSchemeAndEntityConverter extends IPlaceTypeSchemeAndEntityConverter {
+  const PlaceTypeSchemeAndEntityConverter();
 
   @override
-  Converter<PlaceTypeSchema, PlaceTypeEntity> get reverseConverter => throw UnimplementedError();
+  Converter<PlaceTypeEntity, PlaceTypeScheme> get converter => throw UnimplementedError();
+
+  @override
+  Converter<PlaceTypeScheme, PlaceTypeEntity> get reverseConverter => throw UnimplementedError();
 }
 
 //% Cached
-/// Конвертер из [CachedPlaceTypeSchema] в [PlaceTypeEntity].
-typedef ICachedPlaceTypeSchemaToEntityConverter = Converter<PlaceTypeEntity, CachedPlaceTypeSchema>;
+/// Конвертер из [CachedPlaceTypeScheme] в [PlaceTypeEntity].
+typedef ICachedPlaceTypeSchemeToEntityConverter = Converter<PlaceTypeEntity, CachedPlaceTypeScheme>;
 
-/// Реализация [ICachedPlaceTypeSchemaToEntityConverter]
-final class CachedPlaceTypeSchemaToEntityConverter extends ICachedPlaceTypeSchemaToEntityConverter {
-  const CachedPlaceTypeSchemaToEntityConverter();
+/// Реализация [ICachedPlaceTypeSchemeToEntityConverter]
+final class CachedPlaceTypeSchemeToEntityConverter extends ICachedPlaceTypeSchemeToEntityConverter {
+  const CachedPlaceTypeSchemeToEntityConverter();
 
   @override
-  PlaceTypeEntity convert(CachedPlaceTypeSchema input) {
+  PlaceTypeEntity convert(CachedPlaceTypeScheme input) {
     return PlaceTypeEntity.values.firstWhere((p) => p.name == input.name);
   }
 }
 
-/// Конвертер из [PlaceTypeEntity] в [CachedPlaceTypeSchema].
-typedef IPlaceTypeEntityToCachedSchemaConverter = Converter<CachedPlaceTypeSchema, PlaceTypeEntity>;
+/// Конвертер из [PlaceTypeEntity] в [CachedPlaceTypeScheme].
+typedef IPlaceTypeEntityToCachedSchemeConverter = Converter<CachedPlaceTypeScheme, PlaceTypeEntity>;
 
-/// Реализация [IPlaceTypeEntityToCachedSchemaConverter]
-final class PlaceTypeEntityToCachedSchemaConverter extends IPlaceTypeEntityToCachedSchemaConverter {
-  const PlaceTypeEntityToCachedSchemaConverter();
+/// Реализация [IPlaceTypeEntityToCachedSchemeConverter]
+final class PlaceTypeEntityToCachedSchemeConverter extends IPlaceTypeEntityToCachedSchemeConverter {
+  const PlaceTypeEntityToCachedSchemeConverter();
 
   @override
-  CachedPlaceTypeSchema convert(PlaceTypeEntity input) {
-    return CachedPlaceTypeSchema(name: input.name);
+  CachedPlaceTypeScheme convert(PlaceTypeEntity input) {
+    return CachedPlaceTypeScheme(name: input.name);
   }
 }
 
-/// Конвертер [PlaceTypeEntity] <-> [CachedPlaceTypeSchema]
-typedef ICachedPlaceTypeSchemaAndEntityConverter = ConverterToAndFrom<PlaceTypeEntity, CachedPlaceTypeSchema>;
+/// Конвертер [PlaceTypeEntity] <-> [CachedPlaceTypeScheme]
+typedef ICachedPlaceTypeSchemeAndEntityConverter = ConverterToAndFrom<PlaceTypeEntity, CachedPlaceTypeScheme>;
 
-/// Реализация [ICachedPlaceTypeSchemaAndEntityConverter]
-final class CachedPlaceTypeSchemaAndEntityConverter extends ICachedPlaceTypeSchemaAndEntityConverter {
-  const CachedPlaceTypeSchemaAndEntityConverter();
-
-  @override
-  Converter<PlaceTypeEntity, CachedPlaceTypeSchema> get converter => throw UnimplementedError();
+/// Реализация [ICachedPlaceTypeSchemeAndEntityConverter]
+final class CachedPlaceTypeSchemeAndEntityConverter extends ICachedPlaceTypeSchemeAndEntityConverter {
+  const CachedPlaceTypeSchemeAndEntityConverter();
 
   @override
-  Converter<CachedPlaceTypeSchema, PlaceTypeEntity> get reverseConverter => throw UnimplementedError();
+  Converter<PlaceTypeEntity, CachedPlaceTypeScheme> get converter => throw UnimplementedError();
+
+  @override
+  Converter<CachedPlaceTypeScheme, PlaceTypeEntity> get reverseConverter => throw UnimplementedError();
 }

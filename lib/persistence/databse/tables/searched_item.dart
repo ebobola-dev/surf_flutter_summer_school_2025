@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-@DataClassName('SearchedItemSchema')
+@DataClassName('SearchedItemScheme')
 class SearchedItemsTable extends Table {
   TextColumn get query => text()();
 

@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-@DataClassName('CachedPlaceTypeSchema')
+@DataClassName('CachedPlaceTypeScheme')
 class CachedPlaceTypesTable extends Table {
   TextColumn get name => text()();
 

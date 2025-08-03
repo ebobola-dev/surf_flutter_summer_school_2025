@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:surf_flutter_summer_school_2025/persistence/databse/cached_tables/place_type.dart';
 
-@DataClassName('CachedPlaceSchema')
+@DataClassName('CachedPlaceScheme')
 class CachedPlacesTable extends Table {
   IntColumn get id => integer()();
 

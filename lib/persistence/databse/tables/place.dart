@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:surf_flutter_summer_school_2025/persistence/databse/tables/place_type.dart';
 
-@DataClassName('PlaceSchema')
+@DataClassName('PlaceScheme')
 class PlacesTable extends Table {
   IntColumn get id => integer()();
 

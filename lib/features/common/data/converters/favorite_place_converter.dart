@@ -7,16 +7,16 @@ import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/
 import 'package:surf_flutter_summer_school_2025/persistence/databse/persistent_database.dart';
 
 /// Конвертер из [FavoritePlacesViewData] в [FavoritePlaceEntity].
-typedef IFavoritePlaceSchemaToEntityConverter = Converter<FavoritePlaceEntity, FavoritePlacesViewData>;
+typedef IFavoritePlaceSchemeToEntityConverter = Converter<FavoritePlaceEntity, FavoritePlacesViewData>;
 
-/// Реализация [IFavoritePlaceSchemaToEntityConverter].
-final class FavoritePlaceSchemaToEntityConverter extends IFavoritePlaceSchemaToEntityConverter {
-  final IPlaceTypeSchemaToEntityConverter placeTypeSchemaToEntityConverter;
-  const FavoritePlaceSchemaToEntityConverter({required this.placeTypeSchemaToEntityConverter});
+/// Реализация [IFavoritePlaceSchemeToEntityConverter].
+final class FavoritePlaceSchemeToEntityConverter extends IFavoritePlaceSchemeToEntityConverter {
+  final IPlaceTypeSchemeToEntityConverter placeTypeSchemeToEntityConverter;
+  const FavoritePlaceSchemeToEntityConverter({required this.placeTypeSchemeToEntityConverter});
 
   @override
   FavoritePlaceEntity convert(FavoritePlacesViewData input) {
-    final placeType = placeTypeSchemaToEntityConverter.convert(PlaceTypeSchema(name: input.placeTypeName));
+    final placeType = placeTypeSchemeToEntityConverter.convert(PlaceTypeScheme(name: input.placeTypeName));
     return FavoritePlaceEntity(
       place: PlaceEntity(
         id: input.id,

@@ -7,12 +7,12 @@ class PlacesDatabase implements IPlacesDatabase {
   const PlacesDatabase(this.database);
 
   @override
-  Future<void> create(CachedPlaceSchema place) async {
+  Future<void> create(CachedPlaceScheme place) async {
     await database.into(database.cachedPlacesTable).insert(place);
   }
 
   @override
-  Future<void> createOrUpdate(CachedPlaceSchema place) async {
+  Future<void> createOrUpdate(CachedPlaceScheme place) async {
     final result = await (database.select(
       database.cachedPlacesTable,
     )..where((p) => p.id.equals(place.id))).getSingleOrNull();
@@ -26,7 +26,7 @@ class PlacesDatabase implements IPlacesDatabase {
   }
 
   @override
-  Future<void> update(CachedPlaceSchema place) async {
+  Future<void> update(CachedPlaceScheme place) async {
     await (database.update(
       database.cachedPlacesTable,
     )..where((p) => p.id.equals(place.id))).write(place);
@@ -56,18 +56,18 @@ class PlacesDatabase implements IPlacesDatabase {
   }
 
   @override
-  Future<List<CachedPlaceSchema>> get() async {
+  Future<List<CachedPlaceScheme>> get() async {
     final result = await database.select(database.cachedPlacesTable).get();
     return result;
   }
 
   @override
-  Future<CachedPlaceSchema?> getOne(int placeId) async {
+  Future<CachedPlaceScheme?> getOne(int placeId) async {
     return (database.select(
       database.cachedPlacesTable,
     )..where((place) => place.id.equals(placeId))).getSingleOrNull();
   }
 
   @override
-  Stream<List<CachedPlaceSchema>> get placesStream => database.select(database.cachedPlacesTable).watch();
+  Stream<List<CachedPlaceScheme>> get placesStream => database.select(database.cachedPlacesTable).watch();
 }

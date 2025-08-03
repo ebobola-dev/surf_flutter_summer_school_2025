@@ -16,18 +16,18 @@ final class SearchPlacesRepository extends BaseRepository implements ISearchPlac
 
   final ISearchResultDtoToEntityConverter _searchResultDtoToEntityConverter;
 
-  final ISearchedItemSchemaToEntityConverter _searchedItemSchemaToEntityConverter;
+  final ISearchedItemSchemeToEntityConverter _searchedItemSchemeToEntityConverter;
 
   const SearchPlacesRepository({
     required super.logWriter,
     required PlacesApi placesApi,
     required ISearchHistoryDatabase searchHistoryDatabase,
     required ISearchResultDtoToEntityConverter searchResultDtoToEntityConverter,
-    required ISearchedItemSchemaToEntityConverter searchedItemSchemaToEntityConverter,
+    required ISearchedItemSchemeToEntityConverter searchedItemSchemeToEntityConverter,
   }) : _api = placesApi,
        _searchHistoryDatabase = searchHistoryDatabase,
        _searchResultDtoToEntityConverter = searchResultDtoToEntityConverter,
-       _searchedItemSchemaToEntityConverter = searchedItemSchemaToEntityConverter;
+       _searchedItemSchemeToEntityConverter = searchedItemSchemeToEntityConverter;
 
   @override
   RequestOperation<SearchResultEntity> search({
@@ -50,7 +50,7 @@ final class SearchPlacesRepository extends BaseRepository implements ISearchPlac
   RequestOperation<List<SearchedItemEntity>> getSearchHistory() async {
     return makeCall(() async {
       final searchedSchemes = await _searchHistoryDatabase.getAll();
-      final searchedEntities = _searchedItemSchemaToEntityConverter.convertMultiple(searchedSchemes).toList();
+      final searchedEntities = _searchedItemSchemeToEntityConverter.convertMultiple(searchedSchemes).toList();
       return searchedEntities;
     });
   }
@@ -62,8 +62,8 @@ final class SearchPlacesRepository extends BaseRepository implements ISearchPlac
   @override
   RequestOperation<SearchedItemEntity> saveQueryToSearchHistory(String query) async {
     return makeCall(() async {
-      final itemSchema = await _searchHistoryDatabase.createOrUpdate(query);
-      final itemEntity = _searchedItemSchemaToEntityConverter.convert(itemSchema);
+      final itemScheme = await _searchHistoryDatabase.createOrUpdate(query);
+      final itemEntity = _searchedItemSchemeToEntityConverter.convert(itemScheme);
       return itemEntity;
     });
   }
@@ -84,6 +84,6 @@ final class SearchPlacesRepository extends BaseRepository implements ISearchPlac
 
   @override
   Stream<List<SearchedItemEntity>> get historyStream => _searchHistoryDatabase.allStream.map(
-    (e) => _searchedItemSchemaToEntityConverter.convertMultiple(e).toList(),
+    (e) => _searchedItemSchemeToEntityConverter.convertMultiple(e).toList(),
   );
 }

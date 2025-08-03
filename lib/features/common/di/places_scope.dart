@@ -25,20 +25,20 @@ final class PlacesScope extends DisposableObject implements IPlacesScope {
     final placesDatabase = PlacesDatabase(appScope.cachedDatabase);
     // PlaceType converters
     final placeTypeDtoToEntityConverter = PlaceTypeDtoToEntityConverter();
-    final placeTypeSchemaToEntityConverter = PlaceTypeSchemaToEntityConverter();
-    final cachedPlaceTypeSchemaToEntityConverter = CachedPlaceTypeSchemaToEntityConverter();
+    final placeTypeSchemeToEntityConverter = PlaceTypeSchemeToEntityConverter();
+    final cachedPlaceTypeSchemeToEntityConverter = CachedPlaceTypeSchemeToEntityConverter();
     // Place converters
     final placeDtoToEntityConverter = PlaceDtoToEntityConverter(placeTypeConverter: placeTypeDtoToEntityConverter);
-    final placeEntityToSchemaConverter = PlaceEntityToSchemaConverter();
-    final cachedPlaceSchemaToEntityConverter = CachedPlaceSchemaToEntityConverter(
-      cachedPlaceTypeSchemaToEntityConverter: cachedPlaceTypeSchemaToEntityConverter,
+    final placeEntityToSchemeConverter = PlaceEntityToSchemeConverter();
+    final cachedPlaceSchemeToEntityConverter = CachedPlaceSchemeToEntityConverter(
+      cachedPlaceTypeSchemeToEntityConverter: cachedPlaceTypeSchemeToEntityConverter,
     );
-    final placeEntityAndCachedSchemaConverter = PlaceEntityAndCachedSchemaConverter(
-      cachedPlaceSchemaToEntityConverter: cachedPlaceSchemaToEntityConverter,
+    final placeEntityAndCachedSchemeConverter = PlaceEntityAndCachedSchemeConverter(
+      cachedPlaceSchemeToEntityConverter: cachedPlaceSchemeToEntityConverter,
     );
     // FavoritePlace converters
-    final favoritePlaceSchemaToEntityConverter = FavoritePlaceSchemaToEntityConverter(
-      placeTypeSchemaToEntityConverter: placeTypeSchemaToEntityConverter,
+    final favoritePlaceSchemeToEntityConverter = FavoritePlaceSchemeToEntityConverter(
+      placeTypeSchemeToEntityConverter: placeTypeSchemeToEntityConverter,
     );
     final placesRepository = PlacesRepository(
       logWriter: appScope.logger,
@@ -46,9 +46,9 @@ final class PlacesScope extends DisposableObject implements IPlacesScope {
       favoritePlaceDatabase: favoriteDatabase,
       placesDatabase: placesDatabase,
       placeDtoToEntityConverter: placeDtoToEntityConverter,
-      placeEntityToSchemaConverter: placeEntityToSchemaConverter,
-      favoritePlaceSchemaToEntityConverter: favoritePlaceSchemaToEntityConverter,
-      placeEntityAndCachedSchemaConverter: placeEntityAndCachedSchemaConverter,
+      placeEntityToSchemeConverter: placeEntityToSchemeConverter,
+      favoritePlaceSchemeToEntityConverter: favoritePlaceSchemeToEntityConverter,
+      placeEntityAndCachedSchemeConverter: placeEntityAndCachedSchemeConverter,
     );
 
     return PlacesScope(placesRepository: placesRepository);

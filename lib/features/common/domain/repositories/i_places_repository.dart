@@ -16,4 +16,5 @@ abstract interface class IPlacesRepository {
 
   // Cache
   RequestOperation<List<PlaceEntity>> getAllCachedPlaces();
+  RequestOperation<PlaceEntity?> getCachedPlace(int placeId);
 }
