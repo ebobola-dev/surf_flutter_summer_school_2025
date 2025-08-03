@@ -40,7 +40,6 @@ final class PlacesScope extends DisposableObject implements IPlacesScope {
     final favoritePlaceSchemaToEntityConverter = FavoritePlaceSchemaToEntityConverter(
       placeTypeSchemaToEntityConverter: placeTypeSchemaToEntityConverter,
     );
-    //
     final placesRepository = PlacesRepository(
       logWriter: appScope.logger,
       placesApi: placesApi,

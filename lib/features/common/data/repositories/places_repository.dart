@@ -58,24 +58,6 @@ final class PlacesRepository extends BaseRepository implements IPlacesRepository
   }
 
   @override
-  RequestOperation<List<PlaceEntity>> search({
-    required String query,
-    int offset = 0,
-    int limit = 10,
-  }) {
-    return makeCall(() async {
-      final foundPlaceDtos = await _api.search(
-        query: query,
-        offset: offset,
-        limit: limit,
-      );
-      final placeDtos = foundPlaceDtos.results.map((fp) => fp.place);
-      final placeEntities = _placeDtoToEntityConverter.convertMultiple(placeDtos).toList();
-      return placeEntities;
-    });
-  }
-
-  @override
   RequestOperation<List<FavoritePlaceEntity>> getFavoritePlaces() async {
     return makeCall(() async {
       final result = await _favoriteDatabase.getAll();

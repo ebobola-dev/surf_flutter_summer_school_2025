@@ -3,7 +3,7 @@ import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:surf_flutter_summer_school_2025/features/favorite_places/favorite_places_screen.dart';
 import 'package:surf_flutter_summer_school_2025/features/map/presentation/map_screen.dart';
-import 'package:surf_flutter_summer_school_2025/features/places/presentation/places_screen.dart';
+import 'package:surf_flutter_summer_school_2025/features/places/presentation/places_flow.dart';
 import 'package:surf_flutter_summer_school_2025/features/settings/presentation/settings_screen.dart';
 import 'package:surf_flutter_summer_school_2025/features/tabs/presentation/tabs_wm.dart';
 import 'package:surf_flutter_summer_school_2025/features/tabs/presentation/widgets/nav_bar_widget.dart';
@@ -38,7 +38,7 @@ class TabsScreen extends ElementaryWidget<ITabsWM> {
             return IndexedStack(
               index: currentPage,
               children: [
-                const PlacesScreen(),
+                const PlacesFlow(),
                 const MapScreen(),
                 const FavoritePlacesScreen(),
                 const SettingsScreen(),

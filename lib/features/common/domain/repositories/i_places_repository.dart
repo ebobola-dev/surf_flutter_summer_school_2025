@@ -5,11 +5,6 @@ import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/
 abstract interface class IPlacesRepository {
   RequestOperation<List<PlaceEntity>> fetchAllPlaces();
   RequestOperation<PlaceEntity> fetchOnePlace(int id);
-  RequestOperation<List<PlaceEntity>> search({
-    required String query,
-    int offset = 0,
-    int limit = 10,
-  });
 
   RequestOperation<List<FavoritePlaceEntity>> getFavoritePlaces();
   RequestOperation<FavoritePlaceEntity?> getFavorite(int placeId);

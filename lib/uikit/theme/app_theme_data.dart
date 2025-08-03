@@ -45,9 +45,13 @@ abstract class AppThemeData {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusGeometry.circular(12),
         ),
+        padding: EdgeInsets.symmetric(horizontal: 8),
       ),
     ),
-    dividerTheme: DividerThemeData(color: _lightColorScheme.inactiveBlack),
+    dividerTheme: DividerThemeData(
+      color: _lightColorScheme.inactiveBlack,
+    ),
+    dividerColor: _lightColorScheme.inactiveBlack,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         textStyle: _textScheme.button,
@@ -101,9 +105,11 @@ abstract class AppThemeData {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusGeometry.circular(12),
         ),
+        padding: EdgeInsets.symmetric(horizontal: 8),
       ),
     ),
     dividerTheme: DividerThemeData(color: _darkColorScheme.inactiveBlack),
+    dividerColor: _darkColorScheme.inactiveBlack,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         textStyle: _textScheme.button,

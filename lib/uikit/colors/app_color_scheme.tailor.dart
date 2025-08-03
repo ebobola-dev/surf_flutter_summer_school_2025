@@ -14,6 +14,7 @@ mixin _$AppColorSchemeTailorMixin on ThemeExtension<AppColorScheme> {
   Color get onPrimary;
   Color get secondary;
   Color get onSecondary;
+  Color get secondary2;
   Color get surface;
   Color get onSurface;
   Color get background;
@@ -33,6 +34,7 @@ mixin _$AppColorSchemeTailorMixin on ThemeExtension<AppColorScheme> {
     Color? onPrimary,
     Color? secondary,
     Color? onSecondary,
+    Color? secondary2,
     Color? surface,
     Color? onSurface,
     Color? background,
@@ -51,6 +53,7 @@ mixin _$AppColorSchemeTailorMixin on ThemeExtension<AppColorScheme> {
       onPrimary: onPrimary ?? this.onPrimary,
       secondary: secondary ?? this.secondary,
       onSecondary: onSecondary ?? this.onSecondary,
+      secondary2: secondary2 ?? this.secondary2,
       surface: surface ?? this.surface,
       onSurface: onSurface ?? this.onSurface,
       background: background ?? this.background,
@@ -77,6 +80,7 @@ mixin _$AppColorSchemeTailorMixin on ThemeExtension<AppColorScheme> {
       onPrimary: Color.lerp(onPrimary, other.onPrimary, t)!,
       secondary: Color.lerp(secondary, other.secondary, t)!,
       onSecondary: Color.lerp(onSecondary, other.onSecondary, t)!,
+      secondary2: Color.lerp(secondary2, other.secondary2, t)!,
       surface: Color.lerp(surface, other.surface, t)!,
       onSurface: Color.lerp(onSurface, other.onSurface, t)!,
       background: Color.lerp(background, other.background, t)!,
@@ -103,6 +107,10 @@ mixin _$AppColorSchemeTailorMixin on ThemeExtension<AppColorScheme> {
             const DeepCollectionEquality().equals(
               onSecondary,
               other.onSecondary,
+            ) &&
+            const DeepCollectionEquality().equals(
+              secondary2,
+              other.secondary2,
             ) &&
             const DeepCollectionEquality().equals(surface, other.surface) &&
             const DeepCollectionEquality().equals(onSurface, other.onSurface) &&
@@ -141,6 +149,7 @@ mixin _$AppColorSchemeTailorMixin on ThemeExtension<AppColorScheme> {
       const DeepCollectionEquality().hash(onPrimary),
       const DeepCollectionEquality().hash(secondary),
       const DeepCollectionEquality().hash(onSecondary),
+      const DeepCollectionEquality().hash(secondary2),
       const DeepCollectionEquality().hash(surface),
       const DeepCollectionEquality().hash(onSurface),
       const DeepCollectionEquality().hash(background),

@@ -8,6 +8,6 @@ part of 'found_place_dto.dart';
 
 FoundPlaceDto _$FoundPlaceDtoFromJson(Map<String, dynamic> json) =>
     FoundPlaceDto(
-      relevanceScore: (json['relevanceScore'] as num).toDouble(),
+      relevanceScore: (json['relevance_score'] as num).toDouble(),
       place: PlaceDto.fromJson(json['place'] as Map<String, dynamic>),
     );

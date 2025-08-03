@@ -77,13 +77,18 @@ abstract class SortedMap<TID, TData> with _$SortedMap<TID, TData> {
     };
     final newIds = additionalData.map(getId).toList();
 
-    final updatedIdList = [...newIds.where((id) => !currentIds.contains(id))];
+    final updatedIdList = [...currentIds, ...newIds.where((id) => !currentIds.contains(id))];
     final updatedData = {...currentData, ...newData};
 
     return copyWith(
       data: updatedData,
       idOrderedList: updatedIdList,
     );
+  }
+
+  /// Получить исходный список
+  List<TData> get list {
+    return List<TData>.generate(length, (index) => getByIndex(index)!);
   }
 
   /// Длина списка (мапы, данных)

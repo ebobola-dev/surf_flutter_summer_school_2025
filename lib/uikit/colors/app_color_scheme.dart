@@ -15,6 +15,8 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> with _$AppColorSchem
   @override
   final Color onSecondary;
   @override
+  final Color secondary2;
+  @override
   final Color surface;
   @override
   final Color onSurface;
@@ -44,6 +46,7 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> with _$AppColorSchem
     required this.onPrimary,
     required this.secondary,
     required this.onSecondary,
+    required this.secondary2,
     required this.surface,
     required this.onSurface,
     required this.background,
@@ -64,6 +67,7 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> with _$AppColorSchem
       onPrimary = const Color(0xFFFFFFFF),
       secondary = const Color(0xFFFCDD3D),
       onSecondary = const Color(0xFFFFFFFF),
+      secondary2 = const Color(0xFF7C7E92),
       surface = const Color(0xFFF5F5F5),
       onSurface = const Color(0xFF081B30),
       background = const Color(0xFFFFFFFF),
@@ -83,6 +87,7 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> with _$AppColorSchem
       onPrimary = const Color(0xFFFFFFFF),
       secondary = const Color(0xFFFFE769),
       onSecondary = const Color(0xFFFFFFFF),
+      secondary2 = const Color(0xFF7C7E92),
       surface = const Color(0xFF1A1A20),
       onSurface = const Color(0xFFFFFFFF),
       background = const Color(0xFF21222C),

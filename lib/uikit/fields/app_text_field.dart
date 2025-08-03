@@ -7,12 +7,14 @@ class AppTextField extends StatelessWidget {
   final String? hintText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final FocusNode? focusNode;
   const AppTextField({
     this.hintText,
     super.key,
     this.controller,
     this.prefixIcon,
     this.suffixIcon,
+    this.focusNode,
   });
 
   @override
@@ -22,6 +24,7 @@ class AppTextField extends StatelessWidget {
     return TextField(
       onTapOutside: (_) => FocusScope.of(context).focusedChild?.unfocus(),
       controller: controller,
+      focusNode: focusNode,
       style: textScheme.text.copyWith(color: colorScheme.text),
       decoration: InputDecoration(
         fillColor: colorScheme.surface,
