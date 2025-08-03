@@ -13,48 +13,29 @@ class SettingsScreen extends ElementaryWidget<ISettingsWM> {
 
   @override
   Widget build(ISettingsWM wm) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+    return ListView(
+      padding: const EdgeInsets.symmetric(vertical: 24),
       children: [
-        // SizedBox(
-        //   height: kToolbarHeight,
-        //   child: Padding(
-        //     padding: const EdgeInsets.symmetric(horizontal: 16),
-        //     child: Center(
-        //       child: Text(
-        //         'Настройки',
-        //         style: wm.textScheme.subtitle.copyWith(color: wm.colorScheme.text),
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        Expanded(
-          child: ListView(
-            padding: const EdgeInsets.symmetric(vertical: 24),
-            children: [
-              ValueListenableBuilder(
-                valueListenable: wm.isDarkTheme,
-                builder: (_, isDarkTheme, _) {
-                  return SwitchListTile(
-                    value: isDarkTheme,
-                    onChanged: (_) => wm.onSwitchThemeTap(),
-                    title: Text('Тёмная тема'),
-                  );
-                },
-              ),
-              const _MyDivider(),
-              ListTile(
-                onTap: wm.onShowTutorialTap,
-                title: Text('Смотреть туториал'),
-                trailing: SvgPicture.asset(
-                  SvgIcons.info,
-                  colorFilter: ColorFilter.mode(wm.colorScheme.primary, BlendMode.srcIn),
-                ),
-              ),
-              const _MyDivider(),
-            ],
+        ValueListenableBuilder(
+          valueListenable: wm.isDarkTheme,
+          builder: (_, isDarkTheme, _) {
+            return SwitchListTile(
+              value: isDarkTheme,
+              onChanged: (_) => wm.onSwitchThemeTap(),
+              title: Text('Тёмная тема'),
+            );
+          },
+        ),
+        const _MyDivider(),
+        ListTile(
+          onTap: wm.onShowTutorialTap,
+          title: Text('Смотреть туториал'),
+          trailing: SvgPicture.asset(
+            SvgIcons.info,
+            colorFilter: ColorFilter.mode(wm.colorScheme.primary, BlendMode.srcIn),
           ),
         ),
+        const _MyDivider(),
       ],
     );
   }

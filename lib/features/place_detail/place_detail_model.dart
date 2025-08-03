@@ -101,6 +101,7 @@ class PlaceDetailModel extends ElementaryModel {
     }
 
     final result = await _repository.fetchOnePlace(_placeId);
+    if (_disposed) return;
     switch (result) {
       case ResultOk(:final data):
         {
