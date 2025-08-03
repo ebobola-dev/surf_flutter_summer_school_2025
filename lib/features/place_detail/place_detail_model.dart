@@ -7,6 +7,7 @@ import 'package:surf_flutter_summer_school_2025/common/utils/extensions/stream_c
 import 'package:surf_flutter_summer_school_2025/common/utils/extensions/value_notifier.dart';
 import 'package:surf_flutter_summer_school_2025/core/domain/entity/result.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/favorite_place.dart';
+import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/place.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/domain/repositories/i_places_repository.dart';
 
 class PlaceDetailModel extends ElementaryModel {
@@ -60,32 +61,57 @@ class PlaceDetailModel extends ElementaryModel {
     }
   }
 
+  Future<void> _convertAndEmit(PlaceEntity place) async {
+    final favResult = await _repository.getFavorite(_placeId);
+    if (_disposed) return;
+    switch (favResult) {
+      case ResultOk(:final data):
+        {
+          _place.emit(FavoritePlaceEntity(place: place, likedAt: data?.likedAt));
+        }
+      case ResultFailed():
+        {
+          _errorsController.safeAdd('Не удалось получить избранные');
+          _place.emit(FavoritePlaceEntity(place: place, likedAt: null));
+        }
+    }
+  }
+
+  /// Получить место из кеша
+  ///
+  /// Если нашли и _place = null, пикаем в notifier
+  Future<void> _tryGetCached() async {
+    final cacheResult = await _repository.getCachedPlace(_placeId);
+    if (cacheResult case ResultOk(:final data)) {
+      // Пикаем в стейт, если нашли и если ремоут ещё не пришёл
+      if (data != null && _place.value == null) {
+        await _convertAndEmit(data);
+      }
+    }
+  }
+
   Future<void> refresh() async {
     _isLoading.emit(true);
+
+    // Если place = null, то пытаемся получить из кеша, типа первая загрузка
+    // Ошибки игнорируем
+    // Не ожидая завершения сразу идём к ремоуту
+    if (_place.value == null) {
+      unawaited(_tryGetCached());
+    }
+
     final result = await _repository.fetchOnePlace(_placeId);
     switch (result) {
       case ResultOk(:final data):
         {
-          final placeData = data;
-          final favResult = await _repository.getFavorite(_placeId);
-          if (_disposed) return;
-          switch (favResult) {
-            case ResultOk(:final data):
-              {
-                _place.emit(FavoritePlaceEntity(place: placeData, likedAt: data?.likedAt));
-              }
-            case ResultFailed():
-              {
-                _errorsController.safeAdd('Не удалось получить избранные');
-                _place.emit(FavoritePlaceEntity(place: placeData, likedAt: null));
-              }
-          }
+          await _convertAndEmit(data);
         }
       case ResultFailed():
         {
           _errorsController.safeAdd('Не удалось получить данные места');
         }
     }
+
     _isLoading.emit(false);
   }
 
