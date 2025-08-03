@@ -9,6 +9,7 @@ class FavoritePlacesTable extends Table {
     #id,
     onDelete: KeyAction.cascade,
   )();
+
   DateTimeColumn get likedAt => dateTime().withDefault(currentDateAndTime)();
 
   @override

@@ -29,7 +29,7 @@ class PlacesSearchView extends StatelessWidget {
                 builder: (context) {
                   switch (searchState) {
                     case BaseSearchState():
-                      return const SliverFillRemaining(child: SearchHistoryWidget());
+                      return SliverFillRemaining(child: SearchHistoryWidget(wm: wm));
                     case ProcessingSearchState():
                       return const SliverFillRemaining(child: Center(child: CircularProgressIndicator.adaptive()));
                     case FoundSearchState():

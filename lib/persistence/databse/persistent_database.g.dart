@@ -821,6 +821,226 @@ class FavoritePlacesTableCompanion
   }
 }
 
+class $SearchedItemsTableTable extends SearchedItemsTable
+    with TableInfo<$SearchedItemsTableTable, SearchedItemSchema> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SearchedItemsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _queryMeta = const VerificationMeta('query');
+  @override
+  late final GeneratedColumn<String> query = GeneratedColumn<String>(
+    'query',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _requestedAtMeta = const VerificationMeta(
+    'requestedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> requestedAt = GeneratedColumn<DateTime>(
+    'requested_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [query, requestedAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'searched_items_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SearchedItemSchema> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('query')) {
+      context.handle(
+        _queryMeta,
+        query.isAcceptableOrUnknown(data['query']!, _queryMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_queryMeta);
+    }
+    if (data.containsKey('requested_at')) {
+      context.handle(
+        _requestedAtMeta,
+        requestedAt.isAcceptableOrUnknown(
+          data['requested_at']!,
+          _requestedAtMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {query};
+  @override
+  SearchedItemSchema map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SearchedItemSchema(
+      query: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}query'],
+      )!,
+      requestedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}requested_at'],
+      )!,
+    );
+  }
+
+  @override
+  $SearchedItemsTableTable createAlias(String alias) {
+    return $SearchedItemsTableTable(attachedDatabase, alias);
+  }
+}
+
+class SearchedItemSchema extends DataClass
+    implements Insertable<SearchedItemSchema> {
+  final String query;
+  final DateTime requestedAt;
+  const SearchedItemSchema({required this.query, required this.requestedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['query'] = Variable<String>(query);
+    map['requested_at'] = Variable<DateTime>(requestedAt);
+    return map;
+  }
+
+  SearchedItemsTableCompanion toCompanion(bool nullToAbsent) {
+    return SearchedItemsTableCompanion(
+      query: Value(query),
+      requestedAt: Value(requestedAt),
+    );
+  }
+
+  factory SearchedItemSchema.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SearchedItemSchema(
+      query: serializer.fromJson<String>(json['query']),
+      requestedAt: serializer.fromJson<DateTime>(json['requestedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'query': serializer.toJson<String>(query),
+      'requestedAt': serializer.toJson<DateTime>(requestedAt),
+    };
+  }
+
+  SearchedItemSchema copyWith({String? query, DateTime? requestedAt}) =>
+      SearchedItemSchema(
+        query: query ?? this.query,
+        requestedAt: requestedAt ?? this.requestedAt,
+      );
+  SearchedItemSchema copyWithCompanion(SearchedItemsTableCompanion data) {
+    return SearchedItemSchema(
+      query: data.query.present ? data.query.value : this.query,
+      requestedAt: data.requestedAt.present
+          ? data.requestedAt.value
+          : this.requestedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SearchedItemSchema(')
+          ..write('query: $query, ')
+          ..write('requestedAt: $requestedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(query, requestedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SearchedItemSchema &&
+          other.query == this.query &&
+          other.requestedAt == this.requestedAt);
+}
+
+class SearchedItemsTableCompanion extends UpdateCompanion<SearchedItemSchema> {
+  final Value<String> query;
+  final Value<DateTime> requestedAt;
+  final Value<int> rowid;
+  const SearchedItemsTableCompanion({
+    this.query = const Value.absent(),
+    this.requestedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SearchedItemsTableCompanion.insert({
+    required String query,
+    this.requestedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : query = Value(query);
+  static Insertable<SearchedItemSchema> custom({
+    Expression<String>? query,
+    Expression<DateTime>? requestedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (query != null) 'query': query,
+      if (requestedAt != null) 'requested_at': requestedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SearchedItemsTableCompanion copyWith({
+    Value<String>? query,
+    Value<DateTime>? requestedAt,
+    Value<int>? rowid,
+  }) {
+    return SearchedItemsTableCompanion(
+      query: query ?? this.query,
+      requestedAt: requestedAt ?? this.requestedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (query.present) {
+      map['query'] = Variable<String>(query.value);
+    }
+    if (requestedAt.present) {
+      map['requested_at'] = Variable<DateTime>(requestedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SearchedItemsTableCompanion(')
+          ..write('query: $query, ')
+          ..write('requestedAt: $requestedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class FavoritePlacesViewData extends DataClass {
   final int placeId;
   final DateTime likedAt;
@@ -1110,6 +1330,8 @@ abstract class _$PersistentDatabase extends GeneratedDatabase {
   late final $PlacesTableTable placesTable = $PlacesTableTable(this);
   late final $FavoritePlacesTableTable favoritePlacesTable =
       $FavoritePlacesTableTable(this);
+  late final $SearchedItemsTableTable searchedItemsTable =
+      $SearchedItemsTableTable(this);
   late final $FavoritePlacesViewView favoritePlacesView =
       $FavoritePlacesViewView(this);
   @override
@@ -1120,6 +1342,7 @@ abstract class _$PersistentDatabase extends GeneratedDatabase {
     placeTypesTable,
     placesTable,
     favoritePlacesTable,
+    searchedItemsTable,
     favoritePlacesView,
   ];
   @override
@@ -2106,6 +2329,164 @@ typedef $$FavoritePlacesTableTableProcessedTableManager =
       FavoritePlaceSchema,
       PrefetchHooks Function({bool placeId})
     >;
+typedef $$SearchedItemsTableTableCreateCompanionBuilder =
+    SearchedItemsTableCompanion Function({
+      required String query,
+      Value<DateTime> requestedAt,
+      Value<int> rowid,
+    });
+typedef $$SearchedItemsTableTableUpdateCompanionBuilder =
+    SearchedItemsTableCompanion Function({
+      Value<String> query,
+      Value<DateTime> requestedAt,
+      Value<int> rowid,
+    });
+
+class $$SearchedItemsTableTableFilterComposer
+    extends Composer<_$PersistentDatabase, $SearchedItemsTableTable> {
+  $$SearchedItemsTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get query => $composableBuilder(
+    column: $table.query,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get requestedAt => $composableBuilder(
+    column: $table.requestedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$SearchedItemsTableTableOrderingComposer
+    extends Composer<_$PersistentDatabase, $SearchedItemsTableTable> {
+  $$SearchedItemsTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get query => $composableBuilder(
+    column: $table.query,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get requestedAt => $composableBuilder(
+    column: $table.requestedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$SearchedItemsTableTableAnnotationComposer
+    extends Composer<_$PersistentDatabase, $SearchedItemsTableTable> {
+  $$SearchedItemsTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get query =>
+      $composableBuilder(column: $table.query, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get requestedAt => $composableBuilder(
+    column: $table.requestedAt,
+    builder: (column) => column,
+  );
+}
+
+class $$SearchedItemsTableTableTableManager
+    extends
+        RootTableManager<
+          _$PersistentDatabase,
+          $SearchedItemsTableTable,
+          SearchedItemSchema,
+          $$SearchedItemsTableTableFilterComposer,
+          $$SearchedItemsTableTableOrderingComposer,
+          $$SearchedItemsTableTableAnnotationComposer,
+          $$SearchedItemsTableTableCreateCompanionBuilder,
+          $$SearchedItemsTableTableUpdateCompanionBuilder,
+          (
+            SearchedItemSchema,
+            BaseReferences<
+              _$PersistentDatabase,
+              $SearchedItemsTableTable,
+              SearchedItemSchema
+            >,
+          ),
+          SearchedItemSchema,
+          PrefetchHooks Function()
+        > {
+  $$SearchedItemsTableTableTableManager(
+    _$PersistentDatabase db,
+    $SearchedItemsTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SearchedItemsTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SearchedItemsTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SearchedItemsTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> query = const Value.absent(),
+                Value<DateTime> requestedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SearchedItemsTableCompanion(
+                query: query,
+                requestedAt: requestedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String query,
+                Value<DateTime> requestedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SearchedItemsTableCompanion.insert(
+                query: query,
+                requestedAt: requestedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$SearchedItemsTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$PersistentDatabase,
+      $SearchedItemsTableTable,
+      SearchedItemSchema,
+      $$SearchedItemsTableTableFilterComposer,
+      $$SearchedItemsTableTableOrderingComposer,
+      $$SearchedItemsTableTableAnnotationComposer,
+      $$SearchedItemsTableTableCreateCompanionBuilder,
+      $$SearchedItemsTableTableUpdateCompanionBuilder,
+      (
+        SearchedItemSchema,
+        BaseReferences<
+          _$PersistentDatabase,
+          $SearchedItemsTableTable,
+          SearchedItemSchema
+        >,
+      ),
+      SearchedItemSchema,
+      PrefetchHooks Function()
+    >;
 
 class $PersistentDatabaseManager {
   final _$PersistentDatabase _db;
@@ -2116,4 +2497,6 @@ class $PersistentDatabaseManager {
       $$PlacesTableTableTableManager(_db, _db.placesTable);
   $$FavoritePlacesTableTableTableManager get favoritePlacesTable =>
       $$FavoritePlacesTableTableTableManager(_db, _db.favoritePlacesTable);
+  $$SearchedItemsTableTableTableManager get searchedItemsTable =>
+      $$SearchedItemsTableTableTableManager(_db, _db.searchedItemsTable);
 }

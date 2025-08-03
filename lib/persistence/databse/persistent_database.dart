@@ -4,6 +4,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:surf_flutter_summer_school_2025/persistence/databse/tables/favorite.dart';
 import 'package:surf_flutter_summer_school_2025/persistence/databse/tables/place.dart';
 import 'package:surf_flutter_summer_school_2025/persistence/databse/tables/place_type.dart';
+import 'package:surf_flutter_summer_school_2025/persistence/databse/tables/searched_item.dart';
 
 part 'persistent_database.g.dart';
 
@@ -12,6 +13,7 @@ part 'persistent_database.g.dart';
     PlaceTypesTable,
     PlacesTable,
     FavoritePlacesTable,
+    SearchedItemsTable,
   ],
   views: [
     FavoritePlacesView,

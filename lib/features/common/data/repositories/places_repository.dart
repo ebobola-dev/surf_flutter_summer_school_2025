@@ -117,6 +117,6 @@ final class PlacesRepository extends BaseRepository implements IPlacesRepository
           (p) => _placesDatabase.createOrUpdate(_placeEntityAndCachedSchemaConverter.convert(p)),
         ),
       );
-    } on Exception catch (_) {}
+    } on Object catch (_) {}
   }
 }

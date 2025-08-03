@@ -11,6 +11,7 @@ import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/
 import 'package:surf_flutter_summer_school_2025/features/common/domain/entities/place.dart';
 import 'package:surf_flutter_summer_school_2025/features/common/domain/repositories/i_places_repository.dart';
 import 'package:surf_flutter_summer_school_2025/features/places/domain/entities/search_state.dart';
+import 'package:surf_flutter_summer_school_2025/features/places/domain/entities/searched_item.dart';
 import 'package:surf_flutter_summer_school_2025/features/places/domain/repositories/i_search_places_repository.dart';
 
 const _defaultSearchLimit = 10;
@@ -26,23 +27,28 @@ final class PlacesModel extends BaseModel {
   final IPlacesRepository _placesRepository;
   final ISearchPlacesRepository _searchPlacesRepository;
   late final StreamSubscription<List<FavoritePlaceEntity>> _favoritesSubscription;
+  late final StreamSubscription<List<SearchedItemEntity>> _historySubscription;
   final _isLoading = ValueNotifier<bool>(false);
   final _placesMap = ValueNotifier<SortedMap<int, FavoritePlaceEntity>?>(null);
   final _errorsController = StreamController<String>();
   Map<int, FavoritePlaceEntity> _favoritesMap = <int, FavoritePlaceEntity>{};
 
   final _searchState = ValueNotifier<SearchState>(SearchState.base());
+  final _searchHistory = ValueNotifier<List<SearchedItemEntity>>([]);
 
   ValueListenable<bool> get isLoading => _isLoading;
   ValueListenable<SortedMap<int, FavoritePlaceEntity>?> get placesMap => _placesMap;
   ValueListenable<SearchState> get searchState => _searchState;
+  ValueListenable<List<SearchedItemEntity>> get searchHistory => _searchHistory;
   Stream<String> get errorsStream => _errorsController.stream;
 
   @override
   void init() {
     _favoritesSubscription = _placesRepository.favoritesStream.listen(_favoritesListener);
+    _historySubscription = _searchPlacesRepository.historyStream.listen(_searchHistoryListener);
     unawaited(_initFavorites());
     unawaited(refresh());
+    unawaited(_initSearchHistory());
     super.init();
   }
 
@@ -52,13 +58,19 @@ final class PlacesModel extends BaseModel {
     _placesMap.dispose();
     _errorsController.close();
     _favoritesSubscription.cancel();
+    _historySubscription.cancel();
     _searchState.dispose();
+    _searchHistory.dispose();
     super.dispose();
   }
 
   void _favoritesListener(List<FavoritePlaceEntity> favorites) {
     _favoritesMap = {for (final fp in favorites) fp.id: fp};
     _combineFavorites();
+  }
+
+  void _searchHistoryListener(List<SearchedItemEntity> history) {
+    _searchHistory.emit(history);
   }
 
   Future<void> _initFavorites() async {
@@ -148,6 +160,8 @@ final class PlacesModel extends BaseModel {
     }
   }
 
+  void resetSearchState() => _searchState.emit(SearchState.base());
+
   Future<void> research() async {
     final state = _searchState.value;
     // Если поиск в процессе или дефолтный(поле пустое) - ливаем
@@ -164,7 +178,7 @@ final class PlacesModel extends BaseModel {
   }) async {
     // Если query пустой - ставим дефолтный стейт
     if (query.isEmpty) {
-      _searchState.emit(SearchState.base());
+      resetSearchState();
       return;
     }
 
@@ -182,10 +196,9 @@ final class PlacesModel extends BaseModel {
       limit: limit,
     );
 
-    // Если в поле уже новый текст, ливаем
-    if (query != _searchState.value.query) return;
-    // Если cтейт базовый, ливаем (значит закрыли поиск)
-    if (_searchState.value is BaseSearchState) return;
+    // Если стейт как то изменился, то ливаем
+    // Значит во время поиска юзер что-то сделал с полем поиска(ввёл новый текст) или закрыл поиск
+    if (_searchState.value != SearchState.processing(query: query)) return;
 
     switch (searchResult) {
       case ResultFailed():
@@ -210,6 +223,10 @@ final class PlacesModel extends BaseModel {
                 hasMore: data.results.length < data.total,
               ),
             );
+
+            // Если мы дошли до сюда, значит прошёл полноценный поиск и мы что то нашли
+            // Тогда сохраняем query в бд
+            await _saveQueryToSearchHistory(query);
           }
         }
     }
@@ -265,6 +282,40 @@ final class PlacesModel extends BaseModel {
             ),
           );
         }
+    }
+  }
+
+  // Search history
+
+  /// Инициализируем историю поиска
+  ///
+  /// Очень базово получаем из бд, не обращая внимания на ошибки
+  Future<void> _initSearchHistory() async {
+    final result = await _searchPlacesRepository.getSearchHistory();
+    if (result case ResultOk(:final data)) {
+      _searchHistory.emit(data);
+    }
+  }
+
+  /// Сохраняем query в бд
+  // Мы пикаем это отсюда (из presentation)
+  // Так как именно тут мы решаем что показать ui, а что отсечь
+  // Лучше сохранять только то, что дошло до юзера, а не весь мусор
+  Future<void> _saveQueryToSearchHistory(String query) async {
+    await _searchPlacesRepository.saveQueryToSearchHistory(query);
+  }
+
+  Future<void> deleteQueryFromSearchHistory(String query) async {
+    final result = await _searchPlacesRepository.deleteQueryFromHistory(query);
+    if (result case ResultFailed()) {
+      _errorsController.safeAdd('Не удалось удалить');
+    }
+  }
+
+  Future<void> clearSearchHistory() async {
+    final result = await _searchPlacesRepository.clearHistory();
+    if (result case ResultFailed()) {
+      _errorsController.safeAdd('Не удалось отчистить историю');
     }
   }
 }

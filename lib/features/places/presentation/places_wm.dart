@@ -14,6 +14,7 @@ import 'package:surf_flutter_summer_school_2025/features/filter/domain/entities/
 import 'package:surf_flutter_summer_school_2025/features/navigation/app_router.dart';
 import 'package:surf_flutter_summer_school_2025/features/places/di/search_places_scope.dart';
 import 'package:surf_flutter_summer_school_2025/features/places/domain/entities/search_state.dart';
+import 'package:surf_flutter_summer_school_2025/features/places/domain/entities/searched_item.dart';
 import 'package:surf_flutter_summer_school_2025/features/places/presentation/places_model.dart';
 import 'package:surf_flutter_summer_school_2025/features/places/presentation/places_screen.dart';
 
@@ -42,6 +43,7 @@ abstract interface class IPlacesWM with ThemeIModelMixin implements IWidgetModel
   ValueListenable<bool> get filtersModified;
   ValueListenable<bool> get showSearch;
   ValueListenable<SearchState> get searchState;
+  ValueListenable<List<SearchedItemEntity>> get searchHistory;
 
   Future<void> onRefreshPlaces();
   Future<void> onRefreshSearch();
@@ -49,6 +51,9 @@ abstract interface class IPlacesWM with ThemeIModelMixin implements IWidgetModel
   void onPlaceLikeTap(int placeId);
   void onFilterTap();
   void onCloseSearchTap();
+  void onSearchedItemTap(String query);
+  void onSearchedItemDeleteTap(String query);
+  void onClearSearchHistoryTap();
 }
 
 final class PlacesWM extends WidgetModel<PlacesScreen, PlacesModel> with ThemeWMMixin implements IPlacesWM {
@@ -147,6 +152,9 @@ final class PlacesWM extends WidgetModel<PlacesScreen, PlacesModel> with ThemeWM
   ValueListenable<SearchState> get searchState => model.searchState;
 
   @override
+  ValueListenable<List<SearchedItemEntity>> get searchHistory => model.searchHistory;
+
+  @override
   Future<void> onRefreshPlaces() async {
     if (model.isLoading.value) return;
     unawaited(model.refresh());
@@ -201,7 +209,21 @@ final class PlacesWM extends WidgetModel<PlacesScreen, PlacesModel> with ThemeWM
     _showSearch.emit(false);
     searchFocusNode.unfocus();
     searchTextController.clear();
+    model.resetSearchState();
   }
+
+  @override
+  void onSearchedItemTap(String query) {
+    if (_showSearch.value && model.searchState.value is BaseSearchState) {
+      searchTextController.text = query;
+    }
+  }
+
+  @override
+  void onSearchedItemDeleteTap(String query) => model.deleteQueryFromSearchHistory(query);
+
+  @override
+  void onClearSearchHistoryTap() => model.clearSearchHistory();
 
   void _errorListener(String error) {
     ScaffoldMessenger.of(context).showSnackBar(
