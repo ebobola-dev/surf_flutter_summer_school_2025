@@ -24,6 +24,7 @@ class PlaceDetailModel extends ElementaryModel {
   final _place = ValueNotifier<FavoritePlaceEntity?>(null);
   final _errorsController = StreamController<String>();
   bool _likeInProgress = false;
+  bool _disposed = false;
 
   ValueListenable<bool> get isLoading => _isLoading;
   ValueListenable<FavoritePlaceEntity?> get place => _place;
@@ -38,6 +39,7 @@ class PlaceDetailModel extends ElementaryModel {
 
   @override
   void dispose() {
+    _disposed = true;
     _favoritesSubscription.cancel();
     _isLoading.dispose();
     _place.dispose();
@@ -47,6 +49,7 @@ class PlaceDetailModel extends ElementaryModel {
 
   void _favoritesListener(List<FavoritePlaceEntity> favoritesList) {
     if (place.value == null) return;
+    if (_disposed) return;
     final favoritePlace = favoritesList.firstWhereOrNull((fp) => fp.id == _placeId);
     final isFavorite = favoritePlace != null;
     if (!isFavorite && _place.value!.isFavorite) {
@@ -65,6 +68,7 @@ class PlaceDetailModel extends ElementaryModel {
         {
           final placeData = data;
           final favResult = await _repository.getFavorite(_placeId);
+          if (_disposed) return;
           switch (favResult) {
             case ResultOk(:final data):
               {
@@ -91,11 +95,13 @@ class PlaceDetailModel extends ElementaryModel {
     _likeInProgress = true;
     if (_place.value!.isFavorite) {
       final unlike = await _repository.unlikePlace(_placeId);
+      if (_disposed) return;
       if (unlike case ResultFailed()) {
         _errorsController.safeAdd('Ошибка');
       }
     } else {
       final likeResult = await _repository.likePlace(_place.value!.place);
+      if (_disposed) return;
       if (likeResult case ResultFailed()) {
         _errorsController.safeAdd('Ошибка');
       }
